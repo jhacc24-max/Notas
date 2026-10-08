@@ -54,15 +54,15 @@ export default {
           <button class="btn big" data-act="rec">${icon('mic')} Nueva nota</button>
         </div>
         <div class="stats">
-          <a class="stat" href="#/notes?s=pending" style="text-decoration:none;color:inherit"><b>${pending.length}</b><span>Pendientes</span></a>
-          <a class="stat" href="#/notes?p=high" style="text-decoration:none;color:inherit"><b>${act.filter((n) => !n.done && n.priority === 'high').length}</b><span>Prioridad alta</span></a>
-          <a class="stat" href="#/favorites" style="text-decoration:none;color:inherit"><b>${Notes.favorites().length}</b><span>Favoritas</span></a>
+          <a class="stat" href="#/list?s=pending" style="text-decoration:none;color:inherit"><b>${pending.length}</b><span>Pendientes</span></a>
+          <a class="stat" href="#/list?p=high" style="text-decoration:none;color:inherit"><b>${act.filter((n) => !n.done && n.priority === 'high').length}</b><span>Prioridad alta</span></a>
+          <a class="stat" href="#/list?f=fav" style="text-decoration:none;color:inherit"><b>${Notes.favorites().length}</b><span>Favoritas</span></a>
         </div>
         ${filterBar(F, ['kind'])}
         ${section('h-upcoming', 'Próximos recordatorios', upcoming.slice(0, 5), upcoming.length, '<a class="btn text" href="#/calendar">Calendario</a>')}
-        ${section('h-high', 'Prioridad alta', high, highAll.length, '<a class="btn text" href="#/notes?p=high">Ver todas</a>')}
-        ${section('h-pending', 'Pendientes', pend, pendRest.length, '<a class="btn text" href="#/notes?s=pending">Ver todas</a>')}
-        ${section('h-recent', 'Recientes', recent, recentAll.length, '<a class="btn text" href="#/notes">Ver todas</a>')}
+        ${section('h-high', 'Prioridad alta', high, highAll.length, '<a class="btn text" href="#/list?p=high">Ver todas</a>')}
+        ${section('h-pending', 'Pendientes', pend, pendRest.length, '<a class="btn text" href="#/list?s=pending">Ver todas</a>')}
+        ${section('h-recent', 'Recientes', recent, recentAll.length, '<a class="btn text" href="#/list">Ver todas</a>')}
         ${act.length ? '' : emptyState('mic', 'Aún no hay notas', 'Pulsa «Nueva nota» y empieza a hablar.')}`;
     };
     hasSavedDraft().then((v) => { if (v && !savedDraft) { savedDraft = v; render(); } });

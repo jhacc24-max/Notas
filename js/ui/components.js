@@ -69,6 +69,7 @@ export const kindChips = (current, attr = 'data-kind') =>
 // ---- Filtros desplegables: una fila de botones compactos; cada uno abre una lista (hoja inferior) ----
 export const FILTERS = {
   mode: { label: 'Vista', keep: true, opts: [['month', 'Mes'], ['week', 'Semana']] },
+  fav: { label: 'Favoritas', opts: [['all', 'Todas las notas'], ['fav', '⭐ Solo favoritas']] },
   status: { label: 'Estado', opts: [['all', 'Todas'], ['pending', 'Pendientes'], ['done', 'Realizadas']] },
   priority: { label: 'Prioridad', opts: [['all', 'Todas'], ['high', '🔴 Alta'], ['medium', '🟠 Media'], ['low', '🟢 Baja']] },
   kind: { label: 'Tipo', opts: [['all', 'Todos'], ['personal', 'Personal'], ['hospital', 'Hospital'], ['none', 'Sin tipo']] },

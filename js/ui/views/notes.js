@@ -4,13 +4,13 @@ import { appBar, cardList, emptyState, filterBar, bindFilters } from '../compone
 import { bindCards, sel } from '../selection.js';
 import { hashQuery, navigate } from '../router.js';
 
-const KEYS = ['status', 'priority', 'kind', 'sort'];
+const KEYS = ['fav', 'status', 'priority', 'kind', 'sort'];
 
 export const makeListView = ({ title, source, emptyIcon, emptyText, back = false }) => ({
   nav: !back,
   mount(root) {
     const q = hashQuery();
-    const f = { status: q.get('s') || 'all', priority: q.get('p') || 'all', kind: q.get('k') || 'all', sort: q.get('o') || 'recent' };
+    const f = { fav: q.get('f') || 'all', status: q.get('s') || 'all', priority: q.get('p') || 'all', kind: q.get('k') || 'all', sort: q.get('o') || 'recent' };
     const render = () => {
       const base = source();
       const list = Notes.filterNotes(base, f);
@@ -30,5 +30,16 @@ export const makeListView = ({ title, source, emptyIcon, emptyText, back = false
   },
 });
 
-export const notesView = makeListView({ title: 'Todas las notas', source: Notes.active, emptyIcon: 'select', emptyText: 'No hay notas', back: true });
-export const favoritesView = makeListView({ title: '⭐ Favoritos', source: Notes.favorites, emptyIcon: 'starO', emptyText: 'Aún no tienes favoritos' });
+/** Pestaña «Lista»: TODAS las notas; «Favoritas» es un filtro más del menú inferior. */
+export const listView = makeListView({ title: 'Lista', source: Notes.active, emptyIcon: 'list', emptyText: 'No hay notas' });
+
+/** Rutas antiguas (#/notes, #/favorites) llevan a la lista conservando los filtros. */
+export const redirectTo = (extra = '') => ({
+  nav: true,
+  mount() {
+    const q = new URLSearchParams(hashQuery());
+    if (extra) q.set('f', extra);
+    navigate(`/list${q.toString() ? '?' + q : ''}`, { replace: true });
+    return {};
+  },
+});

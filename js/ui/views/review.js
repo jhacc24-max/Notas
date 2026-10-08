@@ -19,6 +19,8 @@ import { setReminder, reminderToast } from '../../reminders/service.js';
 import { requestNotificationPermission } from '../../reminders/reminders.js';
 import { fmtDateTime } from '../../core/util.js';
 
+/** Título mostrado: el que escribió el usuario o, si no, el generado a partir del texto. */
+const titleOf = (d) => (d.titleEdited ? d.title : d.text?.trim() ? autoTitle(d.text, d.at) : '');
 const metaOf = (d) => (d.meta ??= { priority: 'medium', kind: '', done: false, favorite: false, reminderAt: null });
 
 function progressText(d) {
@@ -54,6 +56,9 @@ export default {
       root.innerHTML = `
         ${appBar({ title: 'Revisar nota', back: true })}
         <div class="page">
+          <div class="field titlefield"><label for="f-title">Título</label>
+            <input id="f-title" value="${esc(titleOf(d))}" maxlength="120" autocomplete="off" enterkeyhint="done" placeholder="${busy ? 'Se generará al terminar de transcribir…' : 'Escribe un título'}">
+            <small>${d.titleEdited ? 'Título personalizado' : 'Generado automáticamente según el contenido · toca para cambiarlo'}</small></div>
           <div class="label-row"><span>Transcripción</span>
             ${busy ? '' : `<button class="btn tonal" data-act="edit" style="min-height:40px">${icon(editing ? 'check' : 'edit')}${editing ? 'Listo' : 'Editar'}</button>`}</div>
           ${busy ? `<div class="processing" role="status"><span class="spinner"></span><span id="prog">${esc(progressText(d))}</span></div>` : ''}
@@ -122,7 +127,7 @@ export default {
         const m = metaOf(x);
         const running = x.status === 'transcribing' && x.job && !x.text.trim();
         const n = await Notes.create({
-          text: x.text, audio: x.blob ? { blob: x.blob, mime: x.mime, duration: x.duration } : null,
+          title: x.titleEdited ? x.title.trim() : '', text: x.text, audio: x.blob ? { blob: x.blob, mime: x.mime, duration: x.duration } : null,
           priority: m.priority, kind: m.kind,
           transcriptStatus: running ? 'processing' : (wantsQueue && !x.text.trim() ? 'pending' : (x.text.trim() ? 'done' : 'none')),
         });
@@ -147,9 +152,21 @@ export default {
       }
     });
     root.addEventListener('input', (e) => {
-      if (e.target.id === 'txt') getDraft() && (getDraft().text = e.target.value);
+      const d = getDraft();
+      if (!d) return;
+      if (e.target.id === 'txt') {
+        d.text = e.target.value;
+        // El título automático acompaña al texto mientras no lo hayas editado.
+        if (!d.titleEdited) { const t = root.querySelector('#f-title'); if (t) t.value = titleOf(d); }
+      }
+      if (e.target.id === 'f-title') {
+        d.title = e.target.value;
+        d.titleEdited = e.target.value.trim() !== '';
+        const hint = root.querySelector('.titlefield small');
+        if (hint) hint.textContent = d.titleEdited ? 'Título personalizado' : 'Generado automáticamente según el contenido · toca para cambiarlo';
+      }
     });
-    const off = on('draft:changed', () => { if (!editing && !saved) render(); });
+    const off = on('draft:changed', () => { if (!editing && !saved && document.activeElement?.id !== 'f-title') render(); });
     const offProg = on('draft:progress', () => { const el = root.querySelector('#prog'); if (el && getDraft()) el.textContent = progressText(getDraft()); });
     const dict = mountDictPicker(root, {
       getText: () => (editing ? root.querySelector('#txt')?.value : getDraft()?.text) ?? '',

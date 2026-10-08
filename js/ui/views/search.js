@@ -5,12 +5,12 @@ import { icon } from '../../core/icons.js';
 import { debounce, esc } from '../../core/util.js';
 
 let lastQuery = '';
-const F = { status: 'all', priority: 'all', kind: 'all' };
-const KEYS = ['status', 'priority', 'kind'];
+const F = { fav: 'all', status: 'all', priority: 'all', kind: 'all' };
+const KEYS = ['fav', 'status', 'priority', 'kind'];
 
 // Los filtros se aplican sobre los resultados SIN cambiar el orden por relevancia.
 const applyFilters = (list) => list.filter((n) =>
-  (F.status === 'all' || (F.status === 'done') === n.done) && (F.priority === 'all' || n.priority === F.priority)
+  (F.fav === 'all' || n.favorite) && (F.status === 'all' || (F.status === 'done') === n.done) && (F.priority === 'all' || n.priority === F.priority)
   && (F.kind === 'all' || (F.kind === 'none' ? !n.kind : n.kind === F.kind)));
 
 export default {

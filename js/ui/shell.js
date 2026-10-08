@@ -9,7 +9,7 @@ import { toast } from './dialogs.js';
 import { syncNoteChange } from '../reminders/service.js';
 
 // Quinto elemento del menú, en el centro: grabar una nota de voz (id 'rec').
-const NAV = [['/', 'home', 'Inicio'], ['/calendar', 'calendar', 'Calendario'], ['rec', 'mic', 'Grabar'], ['/favorites', 'star', 'Favoritos'], ['/search', 'search', 'Buscar']];
+const NAV = [['/', 'home', 'Inicio'], ['/calendar', 'calendar', 'Calendario'], ['rec', 'mic', 'Grabar'], ['/list', 'list', 'Lista'], ['/search', 'search', 'Buscar']];
 
 export function buildShell() {
   const nav = document.getElementById('nav');

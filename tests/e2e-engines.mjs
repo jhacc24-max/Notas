@@ -58,6 +58,10 @@ const txt = await page.textContent('.transcript');
 check('Transcribe sin servidor ni cuentas (motor local)', txt.includes('whisper-base') && txt.includes('spanish') && txt.includes('true'), txt.slice(-60));
 check('Corrección médica sobre la transcripción local', txt.includes('presión') && txt.includes('levodopa') && txt.includes('Parkinson') && txt.includes('atorvastatina'), txt.slice(0, 80));
 await shot('20-local');
+const autoT = await page.inputValue('#f-title');
+check('El título aparece solo, según el contenido, en la pantalla de revisión', autoT.length > 5 && /control|presi/i.test(autoT), autoT);
+await page.fill('#f-title', 'Mi título personalizado');
+check('El título se puede editar ahí mismo', (await page.textContent('.titlefield small')).includes('personalizado'));
 
 // 3) Añadir al diccionario seleccionando una palabra
 await page.evaluate(() => {
@@ -222,7 +226,7 @@ await page.click('[data-filter-clear]');
 await page.goto('http://localhost:8282/#/favorites');
 await page.waitForSelector('.fbar');
 const nFav = (await page.$$('.card')).length;
-check('Favoritos: filtros en una sola fila desplegable', (await page.$$('.fbar [data-filter]')).length === 4 && nFav >= 1);
+check('Lista: filtros en una sola fila desplegable (incluye Favoritas)', (await page.$$('.fbar [data-filter]')).length === 5 && nFav >= 1);
 await page.click('[data-filter=kind]');
 await page.click('.sheet .menu-item:has-text("Personal")');
 await page.waitForTimeout(250);

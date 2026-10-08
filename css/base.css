@@ -364,3 +364,11 @@ body:has(#view .fbar) .snackbar { bottom: calc(var(--nav-h) + var(--safe-b) + 72
 /* Sin desplazamientos en la entrada de pantalla: un transform rompería los elementos fijos */
 .view-enter { animation: fadeOnly var(--d-med) var(--ease); }
 @keyframes fadeOnly { from { opacity: 0; } }
+
+/* Barra de acciones de la selección: abajo, sustituye al menú mientras hay notas seleccionadas */
+#selbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; max-width: 720px; margin: 0 auto;
+  min-height: calc(var(--nav-h) + var(--safe-b)); padding: 0 4px var(--safe-b); animation: snack var(--d-med) var(--ease);
+  box-shadow: 0 -2px 8px rgb(0 0 0 / .15); }
+#selbar h1 { flex: 1; text-align: center; }
+body:has(#selbar:not([hidden])) .snackbar { bottom: calc(var(--nav-h) + var(--safe-b) + 16px); z-index: 61; }
+body:has(#selbar:not([hidden])) .fbar { z-index: 5; }

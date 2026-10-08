@@ -127,8 +127,9 @@ export const TRASH_RETENTION_DAYS = TRASH_DAYS;
 export const getAudio = (id) => dbGet('audio', id);
 
 // ----- consultas -----
-export function filterNotes(list, { status = 'all', priority = 'all', kind = 'all', sort = 'recent' } = {}) {
+export function filterNotes(list, { status = 'all', priority = 'all', kind = 'all', fav = 'all', sort = 'recent' } = {}) {
   let out = list;
+  if (fav === 'fav') out = out.filter((n) => n.favorite);
   if (status === 'pending') out = out.filter((n) => !n.done);
   if (status === 'done') out = out.filter((n) => n.done);
   if (priority !== 'all') out = out.filter((n) => n.priority === priority);
