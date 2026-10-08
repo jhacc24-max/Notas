@@ -10,6 +10,10 @@ import { modelReady, prepareModel, downloadState, MODELS } from '../../transcrip
 import { on } from '../../core/events.js';
 import { queueApi } from '../../app-services.js';
 import { toast, menuSheet } from '../dialogs.js';
+import { foldHead, foldBodyStart, bindFolds } from '../fold.js';
+
+const foldOpen = (id, title, def) => `<section class="settings-group fold">${foldHead(id, title, { def })}${foldBodyStart(id, def)}`;
+const foldClose = () => '</div></section>';
 import { loadDemo, clearDemo, demoIds } from '../../notes/demo.js';
 import { navigate } from '../router.js';
 import { esc } from '../../core/util.js';
@@ -31,6 +35,7 @@ function pickField(id, label, value, hint = '', hintId = '') {
     <button class="select-btn" data-pick="${id}" aria-haspopup="listbox" aria-labelledby="pl-${id}"><span>${esc(value)}</span>${icon('down')}</button>
     ${hint ? `<small ${hintId ? `id="${hintId}"` : ''}>${esc(hint)}</small>` : ''}</div>`;
 }
+const THEMES = { system: 'Igual que el teléfono', light: 'Claro', dark: 'Oscuro' };
 const adv = { tx: false, g: false }; // secciones avanzadas abiertas
 const mb = (n) => (n / 1048576).toFixed(1) + ' MB';
 
@@ -43,12 +48,11 @@ export default {
       const notif = typeof Notification === 'undefined' ? 'no disponible' : Notification.permission;
       root.innerHTML = `
         ${appBar({ title: 'Ajustes', back: true })}
-        <section class="settings-group"><h2>Apariencia</h2>
-          <div class="seg" role="group" aria-label="Tema">
-            ${[['system', 'Sistema'], ['light', 'Claro'], ['dark', 'Oscuro']].map(([v, l]) => `<button data-theme="${v}" aria-pressed="${s.theme === v}">${l}</button>`).join('')}
-          </div></section>
+        ${foldOpen('set-ap', 'Apariencia', false)}
+          ${pickField('theme', 'Tema', THEMES[s.theme] ?? 'Sistema')}
+        ${foldClose()}
 
-        <section class="settings-group"><h2>Transcripción</h2>
+        ${foldOpen('set-tx', 'Transcripción', true)}
           <div class="note-info" id="asr-status">${asrStatus()}</div>
           <div class="note-info"><b>Opción rápida y más precisa (gratis)</b><br>
             Con una clave gratuita de Groq, la transcripción usa Whisper grande: tarda segundos y entiende mejor los términos médicos.
@@ -69,16 +73,16 @@ export default {
               <input id="s-token" type="password" autocomplete="off" value="${esc(s.transcriptionToken)}"></div>
             <div style="padding:8px 16px"><button class="btn tonal" data-act="save-tx">Guardar</button></div>
           </div>
-        </section>
+        ${foldClose()}
 
-        <section class="settings-group"><h2>Diccionario médico (${termCount()} términos base + los tuyos)</h2>
+        ${foldOpen('set-dic', `Diccionario médico (${termCount()} términos base + los tuyos)`, false)}
           <div class="field"><label for="s-terms">Tus términos (uno por línea)</label>
             <textarea id="s-terms" rows="6" spellcheck="false" placeholder="Ejemplo:&#10;Madopar&#10;sinemet=Sinemet&#10;rotigotina">${esc(s.customTerms)}</textarea>
             <small>Se envían como contexto al motor de transcripción. Con <b>alias=Término</b> también corriges errores habituales.</small></div>
           <div style="padding:8px 16px"><button class="btn tonal" data-act="save-terms">Guardar diccionario</button></div>
-        </section>
+        ${foldClose()}
 
-        <section class="settings-group"><h2>Google (Calendar y Tasks)</h2>
+        ${foldOpen('set-g', 'Google (Calendar y Tasks)', false)}
           ${googleConfigured() ? (wasConnected() ? `
             <p class="note-info">✅ Cuenta de Google conectada.</p>
             <label class="switch-row"><span class="grow">Añadir recordatorios a Google Calendar<small>Te avisa a la hora exacta, con la app cerrada</small></span>
@@ -95,22 +99,22 @@ export default {
               <input id="s-gid" placeholder="xxxx.apps.googleusercontent.com" value="${esc(s.googleClientId)}" autocomplete="off"><small>Es público; nunca pegues un «client secret».</small></div>
             <div style="padding:8px 16px"><button class="btn tonal" data-act="save-g">Guardar</button></div>
           </div>
-        </section>
+        ${foldClose()}
 
-        <section class="settings-group"><h2>Avisos</h2>
+        ${foldOpen('set-av', 'Avisos', false)}
           <div style="padding:0 16px"><button class="btn tonal" data-act="notif">${icon('bell')} Permiso de notificaciones: ${notif}</button></div>
-          <p class="note-info">Una PWA no puede despertarse sola con la app cerrada. Con la app abierta avisa a la hora exacta; para avisos con la app cerrada usa Google Tasks / Google Calendar.</p></section>
+          <p class="note-info">Una PWA no puede despertarse sola con la app cerrada. Con la app abierta avisa a la hora exacta; para avisos con la app cerrada usa Google Tasks / Google Calendar.</p>${foldClose()}
 
-        <section class="settings-group"><h2>Privacidad: qué sale del dispositivo</h2>
+        ${foldOpen('set-pr', 'Privacidad: qué sale del dispositivo', false)}
           <div class="note-info selectable">
             <b>Siempre local:</b> notas, audios, ajustes y recordatorios (IndexedDB de este navegador).<br><br>
             <b>Motor «Navegador»:</b> el audio mientras grabas lo procesa el servicio de voz de tu navegador (Google en Chrome/Android).<br><br>
             <b>Motor «Servidor»:</b> el audio de cada grabación se envía a <i>tu</i> proxy y de ahí a OpenAI para transcribirlo, junto con una lista de términos médicos (nunca el texto de tus notas).<br><br>
             <b>Google Tasks:</b> solo título, fecha/hora y un enlace a la nota; no el texto completo ni el audio.<br><br>
             No hay analítica ni anuncios. Las notas no se registran en logs.
-          </div></section>
+          </div>${foldClose()}
 
-        <section class="settings-group"><h2>Almacenamiento</h2>
+        ${foldOpen('set-al', 'Almacenamiento', false)}
           <p class="note-info">Usado: ${mb(est.usage)} de ${mb(est.quota)} · ${est.persisted ? 'Persistente ✅' : 'No persistente (el navegador podría liberar espacio)'}</p>
           ${est.persisted ? '' : '<div style="padding:0 16px"><button class="btn tonal" data-act="persist">Proteger mis notas</button></div>'}
           <div style="padding:8px 16px;display:flex;gap:8px;flex-wrap:wrap">
@@ -120,10 +124,11 @@ export default {
             ${installAvailable() ? `<button class="btn filled" data-act="install">${icon('download')} Instalar app</button>` : ''}
           </div>
           ${isStandalone() ? '<p class="note-info">Estás usando la app instalada ✅</p>' : ''}
-        </section>`;
+        ${foldClose()}`;
     };
     // Selectores propios (hoja inferior): más fiables en móvil que el <select> nativo.
     const CHOICES = {
+      theme: { title: 'Tema', key: 'theme', cur: () => allSettings().theme, opts: () => Object.entries(THEMES) },
       model: { title: 'Calidad del motor gratuito', key: 'localModel', cur: () => modelKey(), opts: () => Object.entries(MODELS).map(([k, m]) => [k, `${m.label} (~${m.mb} MB)${modelReady(k) ? ' · descargado' : ''}`]) },
       lang: { title: 'Idioma / variante', key: 'language', cur: () => allSettings().language, opts: () => LANGS.map(([c, n]) => [c, `Español (${n})`]) },
       engine: { title: 'Motor de transcripción', key: 'engine', cur: () => allSettings().engine, opts: () => Object.entries(ENGINE_CHOICES) },
@@ -136,15 +141,15 @@ export default {
       await render();
     }
     render();
+    bindFolds(root);
     root.addEventListener('click', async (e) => {
       const pick = e.target.closest('[data-pick]');
       if (pick) { await choose(pick.dataset.pick); return; }
       const advBtn = e.target.closest('[data-adv]');
       if (advBtn) { adv[advBtn.dataset.adv] = !adv[advBtn.dataset.adv]; await render(); return; }
-      const b = e.target.closest('[data-act],[data-theme]');
+      const b = e.target.closest('[data-act]');
       if (!b) return;
       const $ = (id) => root.querySelector('#' + id);
-      if (b.dataset.theme) { await setSetting('theme', b.dataset.theme); return render(); }
       switch (b.dataset.act) {
         case 'back': history.length > 1 ? history.back() : navigate('/'); break;
         case 'save-tx':

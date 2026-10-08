@@ -22,7 +22,8 @@ export async function loadDemo() {
   ];
   for (const [title, text, off, h, priority, reminder] of items) {
     const when = at(off, h);
-    const n = await Notes.create({ title, text, priority, createdAt: reminder ? Date.now() : when, category: DEMO_CATEGORY });
+    const kind = /médic|Análisis|cardiolog|neurólogo|resonancia|Fisioterapia|Vacuna|receta|síntomas/i.test(`${title} ${text}`) ? 'hospital' : 'personal';
+    const n = await Notes.create({ title, text, priority, kind, createdAt: reminder ? Date.now() : when, category: DEMO_CATEGORY });
     if (reminder) await saveReminder({ noteId: n.id, at: when, notified: false }); // local: no toca Google Tasks
     if (off < 0) await Notes.update(n.id, { done: off === -2 });
   }

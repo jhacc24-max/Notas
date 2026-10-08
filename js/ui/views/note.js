@@ -1,6 +1,6 @@
 // Vista de nota: lectura amplia, pantalla completa, edición, audio, recordatorio y gestos laterales.
 import * as Notes from '../../notes/notes.js';
-import { appBar, iconBtn, prioChips, statusBadge } from '../components.js';
+import { appBar, iconBtn, prioChips, statusBadge, kindChips, kindBadge } from '../components.js';
 import { mountPlayer } from '../player.js';
 import { getNavContext, navigate } from '../router.js';
 import { deleteNotes, shareUI, reminderUI, syncNoteChange } from '../actions.js';
@@ -43,11 +43,12 @@ export default {
           <div class="page" style="${fullscreen ? 'padding:0' : ''}">
             ${editing ? `<input class="title-input" id="f-title" value="${esc(n.title)}" aria-label="Título" placeholder="Título">`
               : `<h2 class="note-title">${esc(n.title)}</h2>`}
-            <div class="meta-line"><span>${fmtDateLong(n.createdAt)} · ${fmtTime(n.createdAt)}</span>${n.category && !editing ? `<span class="badge">${esc(n.category)}</span>` : ''}${statusBadge(n)}</div>
+            <div class="meta-line"><span>${fmtDateLong(n.createdAt)} · ${fmtTime(n.createdAt)}</span>${n.kind ? kindBadge(n.kind) : ''}${n.category && !editing ? `<span class="badge">${esc(n.category)}</span>` : ''}${statusBadge(n)}</div>
             ${fullscreen ? '' : `
             <button class="status-toggle ${n.done ? 'done' : ''}" data-act="done" aria-pressed="${n.done}">
               ${icon(n.done ? 'checkCircle' : 'circle')}<span>${n.done ? 'Realizada' : 'Pendiente'}</span></button>
             <div class="chips" style="padding:0" role="group" aria-label="Prioridad">${prioChips(n.priority)}</div>
+            <div class="chips" style="padding:0" role="group" aria-label="Tipo">${kindChips(n.kind)}</div>
             ${rem ? `<div class="reminder-row">${icon('bell')}<div class="grow"><b>${fmtDateTime(rem.at)}</b>${rem.taskId ? 'Sincronizado con Google Tasks' : 'Recordatorio activo'}</div>
               <button class="btn text" data-act="reminder">Cambiar</button><button class="iconbtn" data-act="rm-reminder" aria-label="Eliminar recordatorio">${icon('close')}</button></div>`
               : `<button class="btn tonal" data-act="reminder" style="align-self:flex-start">${icon('bell')} Añadir recordatorio</button>`}`}
@@ -87,10 +88,11 @@ export default {
     };
 
     root.addEventListener('click', async (e) => {
-      const b = e.target.closest('[data-act],[data-prio]');
+      const b = e.target.closest('[data-act],[data-prio],[data-kind]');
       if (!b) return;
       const n = Notes.get(id);
       if (b.dataset.prio) { await Notes.setPriority(id, b.dataset.prio); return; }
+      if (b.dataset.kind) { await Notes.update(id, { kind: n.kind === b.dataset.kind ? '' : b.dataset.kind }); return; }
       switch (b.dataset.act) {
         case 'back': history.length > 1 ? history.back() : navigate('/'); break;
         case 'fav': await Notes.toggleFavorite(id); break;

@@ -35,6 +35,7 @@ const page = await ctx.newPage();
 const errors = [];
 page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 page.on('pageerror', (e) => errors.push('PAGEERROR ' + e.message));
+const pickOpt = async (filter, text) => { await page.click(`[data-filter=${filter}]`); await page.click(`.sheet .menu-item:has-text("${text}")`); await page.waitForTimeout(250); };
 const shot = (n) => page.screenshot({ path: `${process.env.SHOTS || '/tmp'}/${n}.png` });
 
 await page.goto('http://localhost:8181/');
@@ -128,7 +129,7 @@ check('Volver a pendiente', await page.$eval('.card', (c) => !c.classList.contai
 
 // Lista con orden por prioridad
 await page.goto('http://localhost:8181/#/notes');
-await page.click('[data-act=sort]');
+await pickOpt('sort', 'Prioridad');
 const first = await page.textContent('.card .card-title');
 check('Orden por prioridad: Alta primero', first.includes('cardiólogo'), first);
 await shot('06-lista-prioridad');
@@ -199,11 +200,11 @@ await page.goto('http://localhost:8181/#/calendar');
 await page.waitForSelector('.cal-cell');
 await page.click('[data-act=today]');
 check('Calendario mensual muestra títulos en las celdas', (await page.$$('.cal-cell .ev')).length >= 2);
-await page.click('[data-mode=week]');
+await pickOpt('mode', 'Semana');
 await page.waitForSelector('.day');
 check('Vista semanal: 7 días con títulos', (await page.$$('.day')).length === 7 && (await page.$$('.day .agenda-item')).length >= 2);
 await shot('10b-semana');
-await page.click('[data-mode=month]');
+await pickOpt('mode', 'Mes');
 await page.click(`.cal-cell[data-day="${tk}"]`);
 await page.click(`.day [data-add=reminder]`);
 await page.fill('#qa-title', 'Llamar al médico');
@@ -217,15 +218,15 @@ await page.click('.dialog [data-ok]');
 await page.waitForTimeout(300);
 check('Crear nota desde un día', (await page.textContent('.day')).includes('Nota creada en el calendario'));
 const before2 = (await page.$$('.day .agenda-item')).length;
-await page.click('.chips [data-f=prio][data-v=high]');
+await pickOpt('priority', 'Alta');
 await page.waitForTimeout(150);
 const afterHigh = (await page.$$('.day .agenda-item')).length;
 check('Filtro por prioridad en el calendario', afterHigh >= 1 && afterHigh < before2, `${before2} → ${afterHigh}`);
-await page.click('.chips [data-f=prio][aria-pressed=true]');
-await page.click('.chips [data-f=status][data-v=done]');
+await page.click('[data-filter-clear]');
+await pickOpt('status', 'Realizadas');
 await page.waitForTimeout(150);
 check('Filtro por estado en el calendario', (await page.$$('.day .agenda-item')).length < before2);
-await page.click('.chips [data-f=status][data-v=all]');
+await pickOpt('status', 'Todas');
 const m0 = await page.textContent('.cal-head h2');
 const cb = await page.locator('.cal-body').boundingBox();
 const cswipe = async (dx) => { await page.mouse.move(cb.x + 200, cb.y + 40); await page.mouse.down(); await page.mouse.move(cb.x + 200 + dx / 2, cb.y + 44, { steps: 4 }); await page.mouse.move(cb.x + 200 + dx, cb.y + 46, { steps: 4 }); await page.mouse.up(); await page.waitForTimeout(350); };
@@ -324,6 +325,7 @@ check('Al volver la conexión se transcriben las notas pendientes', queued === 0
 
 // Datos de ejemplo
 await page.goto('http://localhost:8181/#/settings');
+await page.click('[data-fold=set-al]');
 await page.click('[data-act=demo]');
 await page.waitForTimeout(600);
 check('Cargar notas de ejemplo', (await page.evaluate(() => window.__notas.count())) >= before + 10);

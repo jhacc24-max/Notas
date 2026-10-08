@@ -12,14 +12,14 @@ import { processQueue } from '../../transcription/index.js';
 import { retryRemoteTranscription } from '../recording.js';
 import { queueApi } from '../../app-services.js';
 import { mountDictPicker } from '../dict-picker.js';
-import { prioChips } from '../components.js';
+import { prioChips, kindChips } from '../components.js';
 import { reminderPicker } from '../actions.js';
 import { autoTitle } from '../../notes/titles.js';
 import { setReminder } from '../../reminders/service.js';
 import { requestNotificationPermission } from '../../reminders/reminders.js';
 import { fmtDateTime } from '../../core/util.js';
 
-const metaOf = (d) => (d.meta ??= { priority: 'medium', done: false, favorite: false, reminderAt: null });
+const metaOf = (d) => (d.meta ??= { priority: 'medium', kind: '', done: false, favorite: false, reminderAt: null });
 
 function progressText(d) {
   const p = d.progress || {};
@@ -65,6 +65,7 @@ export default {
           <div class="opts">
             <button class="status-toggle ${m.done ? 'done' : ''}" data-act="opt-done" aria-pressed="${m.done}">
               ${icon(m.done ? 'checkCircle' : 'circle')}<span>${m.done ? 'Realizada' : 'Pendiente'}</span></button>
+            <div class="chips" style="padding:0" role="group" aria-label="Tipo">${kindChips(m.kind)}</div>
             <div class="chips" style="padding:0" role="group" aria-label="Prioridad">${prioChips(m.priority)}
               <button class="chip ${m.favorite ? 'sel' : ''}" data-act="opt-fav" aria-pressed="${m.favorite}">${icon(m.favorite ? 'star' : 'starO')}Favorita</button></div>
             ${m.reminderAt
@@ -88,6 +89,8 @@ export default {
     root.addEventListener('click', async (e) => {
       const prio = e.target.closest('[data-prio]');
       if (prio && getDraft()) { metaOf(getDraft()).priority = prio.dataset.prio; render(); return; }
+      const kd = e.target.closest('[data-kind]');
+      if (kd && getDraft()) { const m = metaOf(getDraft()); m.kind = m.kind === kd.dataset.kind ? '' : kd.dataset.kind; render(); return; }
       const act = e.target.closest('[data-act]')?.dataset.act;
       if (!act) return;
       const d = getDraft();
@@ -120,7 +123,7 @@ export default {
         const running = x.status === 'transcribing' && x.job && !x.text.trim();
         const n = await Notes.create({
           text: x.text, audio: x.blob ? { blob: x.blob, mime: x.mime, duration: x.duration } : null,
-          priority: m.priority,
+          priority: m.priority, kind: m.kind,
           transcriptStatus: running ? 'processing' : (wantsQueue && !x.text.trim() ? 'pending' : (x.text.trim() ? 'done' : 'none')),
         });
         // La transcripción en curso no se pierde: al terminar se completa la nota ya guardada.

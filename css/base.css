@@ -319,3 +319,39 @@ textarea.transcript { width: 100%; resize: vertical; color: inherit; outline: 2p
 .opts { display: flex; flex-direction: column; gap: 12px; }
 .savebar { position: sticky; bottom: 0; z-index: 4; padding: 12px 0 calc(8px + var(--safe-b)); background: linear-gradient(to top, var(--md-surface) 70%, transparent); }
 .opts .chips { flex-wrap: wrap; overflow: visible; }
+
+/* Tipos (Personal / Hospital) con color */
+.k-personal { --kc: var(--k-personal); } .k-hospital { --kc: var(--k-hospital); }
+.card.k-personal, .card.k-hospital { border-left: 5px solid var(--kc); }
+.kbadge { display: inline-flex; align-items: center; gap: 5px; padding: 2px 9px; border-radius: var(--r-full); font: var(--t-label-m); color: var(--kc);
+  background: color-mix(in srgb, var(--kc) 16%, transparent); font-weight: 600; }
+.kbadge .dot, .fchip .dot.k-personal, .fchip .dot.k-hospital { background: var(--kc); }
+.chip.kchip .dot { color: var(--kc); }
+.chip.kchip[aria-pressed='true'] { background: color-mix(in srgb, var(--kc) 20%, transparent); border-color: var(--kc); color: var(--md-on-surface); }
+.agenda-item.k-personal, .agenda-item.k-hospital { border-left: 5px solid var(--kc); }
+
+/* Filtros desplegables en una sola fila */
+.fbar { display: flex; gap: 8px; padding: 4px 16px 12px; overflow-x: auto; scrollbar-width: none; align-items: center; }
+.fbar::-webkit-scrollbar { display: none; }
+.fchip { height: 40px; padding: 0 8px 0 14px; border-radius: var(--r-s); border: 1px solid var(--md-outline); display: inline-flex; align-items: center; gap: 4px; flex: none;
+  font: var(--t-label-l); color: var(--md-on-surface-variant); white-space: nowrap; transition: background var(--d-short); }
+.fchip .ic { width: 20px; height: 20px; }
+.fchip:active { background: var(--md-surface-c-high); }
+.fchip.on { background: var(--md-secondary-container); color: var(--md-on-secondary-container); border-color: transparent; }
+.fchip.clear { border-style: dashed; padding: 0 12px 0 8px; }
+.fchip .dot { width: 9px; height: 9px; margin-right: 2px; }
+
+/* Secciones plegables */
+.fold-row { padding-right: 12px; }
+.fold-head { display: flex; align-items: center; gap: 4px; min-height: 48px; flex: 1; text-align: left; }
+.fold-head h2 { font: var(--t-title-m); }
+.fold-head .count { display: inline-block; min-width: 22px; padding: 1px 7px; margin-left: 6px; border-radius: var(--r-full); background: var(--md-surface-c-highest); color: var(--md-on-surface-variant); font: var(--t-label-m); text-align: center; }
+.fold-head .chev { transition: transform var(--d-med) var(--ease); color: var(--md-on-surface-variant); }
+.fold-head[aria-expanded='false'] .chev { transform: rotate(-90deg); }
+.fold-body:not([hidden]) { animation: viewIn var(--d-med) var(--ease); }
+.settings-group.fold .section-head { padding: 0 8px 0 20px; }
+.settings-group.fold .fold-head h2 { font: var(--t-label-l); color: var(--md-primary); padding: 0; }
+.cal-cell .ev.k-personal, .cal-cell .ev.k-hospital { background: color-mix(in srgb, var(--kc) 24%, var(--md-surface-c-highest)); }
+.selbar .iconbtn { width: 44px; }
+.selbar h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: .95rem; padding: 0 6px; }
+.card .selbox { top: auto; bottom: 12px; right: 12px; }

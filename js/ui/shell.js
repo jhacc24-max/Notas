@@ -4,7 +4,7 @@ import { sel, clearSelection } from './selection.js';
 import { on } from '../core/events.js';
 import { startRecordingFlow } from './recording.js';
 import * as Notes from '../notes/notes.js';
-import { shareUI, deleteNotes, pickPriority } from './actions.js';
+import { shareUI, deleteNotes, pickPriority, pickKind } from './actions.js';
 import { toast } from './dialogs.js';
 import { syncNoteChange } from '../reminders/service.js';
 
@@ -27,6 +27,7 @@ export function buildShell() {
       <button class="iconbtn" data-s="share" aria-label="Compartir">${icon('share')}</button>
       <button class="iconbtn" data-s="done" aria-label="Marcar como realizadas">${icon('checkCircle')}</button>
       <button class="iconbtn" data-s="prio" aria-label="Cambiar prioridad">${icon('flag')}</button>
+      <button class="iconbtn" data-s="kind" aria-label="Cambiar tipo">${icon('label')}</button>
       <button class="iconbtn" data-s="del" aria-label="Eliminar">${icon('delete')}</button>`;
   };
   on('selection:changed', paint);
@@ -42,6 +43,7 @@ export function buildShell() {
       toast(allDone ? 'Marcadas como pendientes' : 'Marcadas como realizadas'); clearSelection();
     }
     if (k === 'prio' && await pickPriority(ids)) clearSelection();
+    if (k === 'kind' && await pickKind(ids)) clearSelection();
     if (k === 'del' && await deleteNotes(ids)) clearSelection();
   });
 

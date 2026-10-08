@@ -1,6 +1,6 @@
 // Calendario: vistas Mes y Semana, títulos por día, filtros, gestos y alta rápida de nota/recordatorio.
 import * as Notes from '../../notes/notes.js';
-import { appBar, PRIORITIES } from '../components.js';
+import { appBar, filterBar, bindFilters } from '../components.js';
 import { groupByDay, monthGrid, effectiveDate } from '../../calendar/calendar.js';
 import { dayKey, esc, fmtDay, fmtMonth, fmtTime, startOfDay } from '../../core/util.js';
 import { icon } from '../../core/icons.js';
@@ -15,7 +15,8 @@ const WD = new Intl.DateTimeFormat('es', { weekday: 'long' });
 const SHORT = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'short' });
 
 // Estado que se conserva al salir y volver al calendario.
-const st = { mode: 'month', cursor: startOfDay(Date.now()), selected: dayKey(Date.now()), status: 'all', prio: 'all' };
+const st = { mode: 'month', cursor: startOfDay(Date.now()), selected: dayKey(Date.now()), status: 'all', priority: 'all', kind: 'all' };
+const KEYS = ['mode', 'status', 'priority', 'kind'];
 
 const parseKey = (k) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
 const addDays = (ms, n) => { const d = new Date(ms); d.setDate(d.getDate() + n); return d.getTime(); };
@@ -23,10 +24,11 @@ const addMonths = (ms, n) => { const d = new Date(ms); d.setDate(1); d.setMonth(
 const weekStart = (ms) => { const d = new Date(ms); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); d.setHours(0, 0, 0, 0); return d.getTime(); };
 
 const visible = () => Notes.active().filter((n) =>
-  (st.status === 'all' || (st.status === 'done') === n.done) && (st.prio === 'all' || n.priority === st.prio));
+  (st.status === 'all' || (st.status === 'done') === n.done) && (st.priority === 'all' || n.priority === st.priority)
+  && (st.kind === 'all' || (st.kind === 'none' ? !n.kind : n.kind === st.kind)));
 
 const agendaItem = (n) => `
-  <button class="agenda-item ${n.done ? 'done' : ''}" data-id="${n.id}">
+  <button class="agenda-item ${n.done ? 'done' : ''} ${n.kind ? 'k-' + n.kind : ''}" data-id="${n.id}">
     <time>${fmtTime(effectiveDate(n))}</time><span class="t">${esc(n.title)}</span>
     <span class="p-${n.priority}" title="Prioridad"><i class="dot"></i></span>${n.reminder ? icon('bell') : ''}${n.favorite ? `<span style="color:var(--star)">${icon('star')}</span>` : ''}
   </button>`;
@@ -41,7 +43,6 @@ export default {
       const ws = weekStart(st.cursor);
       const title = st.mode === 'month' ? cap(fmtMonth(cur.getTime()))
         : `${SHORT.format(ws)} – ${SHORT.format(addDays(ws, 6))} ${new Date(addDays(ws, 6)).getFullYear()}`;
-      const chip = (k, v, label) => `<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${st[k] === v}">${label}</button>`;
 
       let body;
       if (st.mode === 'month') {
@@ -55,7 +56,7 @@ export default {
               return `<button class="cal-cell ${k === today ? 'today' : ''} ${k === st.selected ? 'sel' : ''}" data-day="${k}"
                 aria-label="${fmtDay(d.getTime())}${list.length ? `, ${list.length} notas` : ''}" aria-pressed="${k === st.selected}">
                 <span class="num">${d.getDate()}</span>
-                ${list.slice(0, 2).map((n) => `<span class="ev p-bg-${n.priority} ${n.done ? 'done' : ''}">${esc(n.title)}</span>`).join('')}
+                ${list.slice(0, 2).map((n) => `<span class="ev p-bg-${n.priority} ${n.kind ? 'k-' + n.kind : ''} ${n.done ? 'done' : ''}">${esc(n.title)}</span>`).join('')}
                 ${list.length > 2 ? `<span class="more">+${list.length - 2}</span>` : ''}</button>`;
             }).join('')}
           </div>
@@ -69,11 +70,7 @@ export default {
 
       root.innerHTML = `
         ${appBar({ title: 'Calendario', large: true, actions: '<button class="btn text" data-act="today">Hoy</button>' })}
-        <div class="seg" role="group" aria-label="Vista"><button data-mode="month" aria-pressed="${st.mode === 'month'}">Mes</button><button data-mode="week" aria-pressed="${st.mode === 'week'}">Semana</button></div>
-        <div class="chips" role="group" aria-label="Filtros">
-          ${chip('status', 'all', 'Todas')}${chip('status', 'pending', 'Pendientes')}${chip('status', 'done', '☑ Realizadas')}
-          ${PRIORITIES.map((p) => `<button class="chip p-${p.id}" data-f="prio" data-v="${st.prio === p.id ? 'all' : p.id}" aria-pressed="${st.prio === p.id}"><i class="dot"></i>${p.label}</button>`).join('')}
-        </div>
+        ${filterBar(st, KEYS)}
         <div class="cal">
           <div class="cal-head"><button class="iconbtn" data-act="prev" aria-label="Anterior">${icon('left')}</button><h2>${title}</h2><button class="iconbtn" data-act="next" aria-label="Siguiente">${icon('right')}</button></div>
           <div class="cal-body ${dir ? 'slide-' + dir : ''}" id="cal-body">${body}</div>
@@ -99,7 +96,7 @@ export default {
       const res = await quickAddDialog({ mode: kind, dayMs: parseKey(k).getTime() });
       if (!res) return;
       const n = await Notes.create({
-        title: res.title, text: res.text, priority: res.priority, transcriptStatus: 'none',
+        title: res.title, text: res.text, priority: res.priority, kind: res.kind, transcriptStatus: 'none',
         createdAt: kind === 'note' ? res.at : Date.now(),
       });
       if (kind === 'reminder') {
@@ -112,14 +109,11 @@ export default {
     };
 
     render();
+    bindFilters(root, st, KEYS, () => render());
     root.addEventListener('click', async (e) => {
       const t = e.target;
       const add = t.closest('[data-add]');
       if (add) { await addToDay(add.dataset.add, add.dataset.day); return; }
-      const mode = t.closest('[data-mode]');
-      if (mode) { st.mode = mode.dataset.mode; render(); return; }
-      const f = t.closest('[data-f]');
-      if (f) { st[f.dataset.f] = f.dataset.v; render(); return; }
       const cell = t.closest('[data-day].cal-cell');
       if (cell) { st.selected = cell.dataset.day; render(); return; }
       const dp = t.closest('.day[data-dayp]');
@@ -139,7 +133,7 @@ export default {
     // Deslizar horizontalmente para cambiar de mes/semana.
     let sx = 0, sy = 0, tracking = false, moved = false;
     root.addEventListener('pointerdown', (e) => {
-      if (e.target.closest('.chips,.seg,.dialog')) return;
+      if (e.target.closest('.fbar,.dialog')) return;
       tracking = true; moved = false; sx = e.clientX; sy = e.clientY;
     });
     root.addEventListener('pointermove', (e) => {

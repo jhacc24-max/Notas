@@ -12,6 +12,7 @@
   --md-scrim: rgb(0 0 0 / .4); --md-inverse-surface: #2b3231; --md-inverse-on-surface: #ecf2f0;
   --p-high: #c62828; --p-medium: #ef6c00; --p-low: #2e7d32;
   --star: #f9a825; --rec: #d32f2f;
+  --k-personal: #7e57c2; --k-hospital: #1e88e5;
 
   --font: Roboto, 'Google Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   /* Escala tipográfica MD3 (tamaño/interlineado/peso) */
@@ -48,6 +49,7 @@
     --md-outline: #899390; --md-outline-variant: #3f4947;
     --md-inverse-surface: #dde4e1; --md-inverse-on-surface: #2b3231;
     --p-high: #ff8a80; --p-medium: #ffb74d; --p-low: #81c784; --rec: #ff6659;
+    --k-personal: #b39ddb; --k-hospital: #64b5f6;
   }
 }
 :root[data-theme='dark'] {
@@ -60,6 +62,7 @@
   --md-outline: #899390; --md-outline-variant: #3f4947;
   --md-inverse-surface: #dde4e1; --md-inverse-on-surface: #2b3231;
   --p-high: #ff8a80; --p-medium: #ffb74d; --p-low: #81c784; --rec: #ff6659;
+  --k-personal: #b39ddb; --k-hospital: #64b5f6;
 }
 @media (prefers-reduced-motion: reduce) {
   :root { --d-short: 1ms; --d-med: 1ms; --d-long: 1ms; }

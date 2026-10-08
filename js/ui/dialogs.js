@@ -117,7 +117,7 @@ export function quickAddDialog({ mode, dayMs, defaultAt }) {
     const isRem = mode === 'reminder';
     const day = new Date(dayMs);
     const at = defaultAt ?? new Date(day.getFullYear(), day.getMonth(), day.getDate(), new Date().getHours() + 1, 0).getTime();
-    let prio = 'medium';
+    let prio = 'medium', kind = '';
     const { el, close } = mountScrim(`
       <div class="dialog" role="dialog" aria-modal="true" aria-label="${isRem ? 'Nuevo recordatorio' : 'Nueva nota'}">
         <h2>${isRem ? 'Nuevo recordatorio' : 'Nueva nota'}</h2>
@@ -127,11 +127,18 @@ export function quickAddDialog({ mode, dayMs, defaultAt }) {
         <div class="chips" style="padding:0" role="group" aria-label="Prioridad">
           ${[['high', 'Alta'], ['medium', 'Media'], ['low', 'Baja']].map(([id, l]) => `<button class="chip p-${id}" data-prio="${id}" aria-pressed="${id === prio}"><i class="dot"></i>${l}</button>`).join('')}
         </div>
+        <div class="chips" style="padding:0" role="group" aria-label="Tipo">
+          ${[['personal', 'Personal'], ['hospital', 'Hospital']].map(([id, l]) => `<button class="chip kchip k-${id}" data-kind="${id}" aria-pressed="false"><i class="dot"></i>${l}</button>`).join('')}
+        </div>
         <div class="actions"><button class="btn text" data-cancel>Cancelar</button><button class="btn filled" data-ok>Guardar</button></div>
       </div>`, { onClose: resolve });
     el.querySelectorAll('[data-prio]').forEach((b) => b.addEventListener('click', () => {
       prio = b.dataset.prio;
       el.querySelectorAll('[data-prio]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    }));
+    el.querySelectorAll('[data-kind]').forEach((b) => b.addEventListener('click', () => {
+      kind = kind === b.dataset.kind ? '' : b.dataset.kind;
+      el.querySelectorAll('[data-kind]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.kind === kind)));
     }));
     el.querySelector('[data-cancel]').onclick = () => close(undefined);
     el.querySelector('[data-ok]').onclick = () => {
@@ -141,7 +148,7 @@ export function quickAddDialog({ mode, dayMs, defaultAt }) {
       if (!v) return;
       const when = isRem ? new Date(v).getTime()
         : new Date(day.getFullYear(), day.getMonth(), day.getDate(), +v.slice(0, 2), +v.slice(3, 5)).getTime();
-      close({ title, text: el.querySelector('#qa-text')?.value.trim() ?? '', at: when, priority: prio });
+      close({ title, text: el.querySelector('#qa-text')?.value.trim() ?? '', at: when, priority: prio, kind });
     };
   });
 }

@@ -7,6 +7,7 @@ import { setReminder, clearReminder, syncNoteChange, googleSyncActive } from '..
 import { googleCalendarUrl, icsFile, requestNotificationPermission } from '../reminders/reminders.js';
 import { googleConfigured, wasConnected, getToken } from '../google/oauth.js';
 import { PRIORITIES } from './components.js';
+import { KINDS } from '../notes/kinds.js';
 
 export async function deleteNotes(ids) {
   const one = ids.length === 1;
@@ -53,6 +54,16 @@ export async function pickPriority(ids) {
 }
 
 /** Abre el selector de recordatorio y devuelve { at } | { remove } | undefined, sin aplicar nada. */
+export async function pickKind(ids) {
+  const k = await menuSheet({
+    title: 'Tipo de nota',
+    items: [...KINDS.map((x) => ({ id: x.id, label: x.label })), { id: 'none', label: 'Sin tipo' }],
+  });
+  if (!k) return false;
+  for (const id of ids) await Notes.update(id, { kind: k === 'none' ? '' : k });
+  return true;
+}
+
 export async function reminderPicker(note) {
   return reminderDialog({
     at: note.reminder?.at, withGoogle: googleSyncActive(), googleReady: googleConfigured() && !wasConnected(),

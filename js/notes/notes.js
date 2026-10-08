@@ -49,11 +49,11 @@ export const byRecent = (a, b) => b.createdAt - a.createdAt;
 export const byPriority = (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority] || byRecent(a, b);
 
 /** Crea y guarda una nota (con su audio, si existe). */
-export async function create({ text = '', title = '', audio = null, transcriptStatus = 'done', priority = 'medium', createdAt = Date.now(), category = '' }) {
+export async function create({ text = '', title = '', audio = null, transcriptStatus = 'done', priority = 'medium', createdAt = Date.now(), category = '', kind = '' }) {
   const now = createdAt;
   const note = {
     id: uid(), title: title.trim() || autoTitle(text, now), text, createdAt: now, updatedAt: now,
-    done: false, priority, favorite: false, category,
+    done: false, priority, favorite: false, category, kind,
     hasAudio: !!audio, audioMime: audio?.mime || '', audioDuration: audio?.duration || 0,
     transcriptStatus, deletedAt: null, reminder: null, autoTitle: !title.trim(),
   };
@@ -127,11 +127,13 @@ export const TRASH_RETENTION_DAYS = TRASH_DAYS;
 export const getAudio = (id) => dbGet('audio', id);
 
 // ----- consultas -----
-export function filterNotes(list, { status = 'all', priority = 'all', sort = 'recent' } = {}) {
+export function filterNotes(list, { status = 'all', priority = 'all', kind = 'all', sort = 'recent' } = {}) {
   let out = list;
   if (status === 'pending') out = out.filter((n) => !n.done);
   if (status === 'done') out = out.filter((n) => n.done);
   if (priority !== 'all') out = out.filter((n) => n.priority === priority);
-  return [...out].sort(sort === 'priority' ? byPriority : byRecent);
+  if (kind === 'none') out = out.filter((n) => !n.kind);
+  else if (kind !== 'all') out = out.filter((n) => n.kind === kind);
+  return [...out].sort(sort === 'priority' ? byPriority : sort === 'old' ? (a, b) => a.createdAt - b.createdAt : byRecent);
 }
 export const search = (q) => searchIndex.search(q).map(get).filter((n) => n && !n.deletedAt);
