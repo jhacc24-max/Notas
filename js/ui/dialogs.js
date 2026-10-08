@@ -43,7 +43,7 @@ export function menuSheet({ title = '', items }) {
 }
 
 /** Selector de fecha/hora para el recordatorio. Resuelve { at } | { remove:true } | undefined. */
-export function reminderDialog({ at, withGoogle, googleReady, onConnect, calendarLink, onIcs }) {
+export function reminderDialog({ at, withGoogle, push, googleReady, onConnect, calendarLink, onIcs }) {
   return new Promise((resolve) => {
     const def = at ?? (() => { const d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0); return d.getTime(); })();
     const { el, close } = mountScrim(`
@@ -51,11 +51,12 @@ export function reminderDialog({ at, withGoogle, googleReady, onConnect, calenda
         <h2>${at ? 'Modificar recordatorio' : 'Añadir recordatorio'}</h2>
         <div class="field"><label for="rem-at">Fecha y hora</label><input id="rem-at" type="datetime-local" value="${toLocalInput(def)}"></div>
         <p id="rem-info">${withGoogle ? 'Se añadirá a tu Google Calendar (te avisa a la hora exacta, incluso con la app cerrada) y a Google Tasks.'
-          : 'Aviso dentro de la app. Para que te avise con la app cerrada, conecta tu cuenta de Google.'}</p>
+          : push ? 'Te avisaremos con una notificación de ntfy a la hora exacta, aunque la app esté cerrada.'
+            : 'Te avisa dentro de la app. Para que también avise con la app cerrada usa «Calendario del teléfono» (abajo) o activa los avisos push en Ajustes.'}</p>
         ${googleReady ? '<button class="btn tonal" data-connect style="align-self:flex-start">Conectar con Google</button>' : ''}
         <div class="actions" style="justify-content:flex-start">
-          <a class="btn text" href="${esc(calendarLink)}" target="_blank" rel="noopener" data-cal>Google Calendar</a>
-          <button class="btn text" data-ics>Archivo .ics</button>
+          <a class="btn tonal" href="${esc(calendarLink)}" target="_blank" rel="noopener" data-cal>📅 Calendario del teléfono</a>
+          <button class="btn text" data-ics>Otro calendario (.ics)</button>
         </div>
         <div class="actions">
           ${at ? '<button class="btn text danger" data-del>Eliminar</button>' : ''}

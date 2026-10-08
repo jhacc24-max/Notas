@@ -15,7 +15,7 @@ import { mountDictPicker } from '../dict-picker.js';
 import { prioChips, kindChips } from '../components.js';
 import { reminderPicker } from '../actions.js';
 import { autoTitle } from '../../notes/titles.js';
-import { setReminder } from '../../reminders/service.js';
+import { setReminder, reminderToast } from '../../reminders/service.js';
 import { requestNotificationPermission } from '../../reminders/reminders.js';
 import { fmtDateTime } from '../../core/util.js';
 
@@ -136,7 +136,7 @@ export default {
         if (m.reminderAt) {
           const r = await setReminder(Notes.get(n.id), m.reminderAt);
           requestNotificationPermission();
-          remMsg = r.synced ? ' · recordatorio añadido a Google' : ' · con recordatorio';
+          remMsg = ` · ${reminderToast(r).replace('Recordatorio guardado', 'con recordatorio')}`;
         }
         await clearDraft();
         const btn = root.querySelector('#save-btn');

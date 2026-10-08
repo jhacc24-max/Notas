@@ -1,5 +1,5 @@
 // Service worker: precache del "app shell" (funciona sin conexión) + actualización por versión.
-const VERSION = 'v1.6.0';
+const VERSION = 'v1.7.0';
 const CACHE = `notas-${VERSION}`;
 const CDN = 'notas-cdn'; // fuera de la versión: no se vuelve a descargar el motor en cada actualización
 const SHELL = [
@@ -12,7 +12,7 @@ const SHELL = [
   'js/audio/recorder.js',
   'js/transcription/index.js', 'js/transcription/webspeech.js', 'js/transcription/whisper.js', 'js/transcription/local.js', 'js/transcription/asr-worker.js',
   'js/medical/terms.js', 'js/medical/dictionary.js', 'js/medical/corrector.js',
-  'js/calendar/calendar.js', 'js/reminders/reminders.js', 'js/reminders/service.js',
+  'js/calendar/calendar.js', 'js/reminders/reminders.js', 'js/reminders/service.js', 'js/reminders/ntfy.js',
   'js/google/oauth.js', 'js/google/tasks.js', 'js/google/calendar.js', 'js/search/search-index.js', 'js/share/share.js',
   'js/ui/router.js', 'js/ui/shell.js', 'js/ui/components.js', 'js/ui/dialogs.js', 'js/ui/player.js', 'js/ui/selection.js',
   'js/ui/actions.js', 'js/ui/fold.js', 'js/ui/dict-picker.js', 'js/ui/draft.js', 'js/ui/recording.js', 'js/ui/install.js',

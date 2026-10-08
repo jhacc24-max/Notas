@@ -2,6 +2,7 @@ import { loadSettings } from './settings/settings.js';
 import { initNotes, get as getNote, active, update } from './notes/notes.js';
 import { requestPersistence } from './storage/db.js';
 import { startReminderWatcher } from './reminders/reminders.js';
+import { scheduleDueNtfy } from './reminders/service.js';
 import { processQueue } from './transcription/index.js';
 import { queueApi } from './app-services.js';
 import { addRoute, start, onRoute, back } from './ui/router.js';
@@ -43,6 +44,9 @@ async function boot() {
   if (location.hash.includes('new=1')) { location.replace('#/'); setTimeout(startRecordingFlow, 300); } // atajo "Grabar"
   requestPersistence();
   startReminderWatcher(getNote);
+  const pushDue = () => scheduleDueNtfy(getNote);
+  pushDue(); setInterval(pushDue, 3600e3);
+  window.addEventListener('online', pushDue);
   // Si la app se cerró a mitad de una transcripción, la nota vuelve a la cola.
   for (const n of active()) if (n.transcriptStatus === 'processing') await update(n.id, { transcriptStatus: 'pending' }, { silent: true });
   const runQueue = () => processQueue(queueApi());

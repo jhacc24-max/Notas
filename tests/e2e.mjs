@@ -346,6 +346,60 @@ check('Cargar notas de ejemplo', (await page.evaluate(() => window.__notas.count
 await page.click('[data-act=demo-clear]');
 await page.waitForTimeout(400);
 
+// Avisos push gratuitos con ntfy (servidor simulado)
+const ntfyCalls = [];
+await ctx.route('https://ntfy.sh/**', async (r) => {
+  const q = r.request();
+  ntfyCalls.push({ method: q.method(), url: q.url(), h: q.headers(), body: q.postData() || '' });
+  await r.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*', 'access-control-allow-methods': '*' }, body: '{}' });
+});
+await page.goto('http://localhost:8181/#/settings');
+await page.waitForSelector('[data-act-sw=ntfy]');
+await page.click('[data-act-sw=ntfy]');
+await page.waitForSelector('[data-act=ntfy-test]');
+const topic = await page.evaluate(async () => (await import('/js/settings/settings.js')).getSetting('ntfyTopic'));
+check('ntfy: se crea un tema privado aleatorio', /^notas-[a-z0-9]{12,}$/.test(topic), topic);
+check('ntfy: ofrece abrir la app ntfy suscrita al tema', (await page.getAttribute('a[href^="ntfy://"]', 'href')).endsWith('/' + topic));
+await page.click('[data-act=ntfy-test]');
+await page.waitForTimeout(300);
+check('ntfy: aviso de prueba enviado al tema', ntfyCalls.some((c) => c.method === 'POST' && c.url === `https://ntfy.sh/${topic}`));
+const nid = await page.evaluate(async () => { const m = await import('/js/notes/notes.js'); return (await m.create({ title: 'Control con el neurólogo', text: 'texto médico privado' })).id; });
+const setRem = async (ms) => page.evaluate(async ({ nid, ms }) => {
+  const m = await import('/js/notes/notes.js'); const r = await import('/js/reminders/service.js');
+  return r.setReminder(m.get(nid), ms);
+}, { nid, ms });
+const at2h = Date.now() + 2 * 3600e3;
+const res2h = await setRem(at2h);
+const sched = ntfyCalls.find((c) => c.method === 'POST' && c.h.delay);
+check('ntfy: programa el aviso con la hora exacta (Delay)', Number(sched?.h.delay) === Math.floor(at2h / 1000), sched?.h.delay);
+check('ntfy: por privacidad no envía el título ni el texto', sched && !JSON.stringify(sched).includes('neurólogo') && !JSON.stringify(sched).includes('privado') && sched.h.title === 'Tienes un recordatorio');
+check('ntfy: el aviso abre la nota (Click)', sched?.h.click?.includes(`#/note/${nid}`));
+check('El aviso confirma «aviso push programado»', res2h.push === true);
+const before5 = ntfyCalls.length;
+const at5d = Date.now() + 5 * 86400e3;
+const res5d = await setRem(at5d);
+check('ntfy: un recordatorio a más de 3 días no se programa aún', ntfyCalls.length === before5 && res5d.push === false);
+// al acercarse (ventana de 3 días) se programa al abrir la app
+await page.evaluate(async ({ nid }) => {
+  const rem = await import('/js/reminders/reminders.js'); const svc = await import('/js/reminders/service.js'); const m = await import('/js/notes/notes.js');
+  const r = await rem.getReminder(nid); await rem.saveReminder({ ...r, at: Date.now() + 86400e3, ntfyAt: null });
+  await svc.scheduleDueNtfy(m.get);
+}, { nid });
+check('ntfy: los recordatorios que entran en la ventana se programan solos', ntfyCalls.slice(before5).some((c) => c.method === 'POST' && c.h.click?.includes(`#/note/${nid}`)));
+await page.evaluate(async ({ nid }) => { const m = await import('/js/notes/notes.js'); const r = await import('/js/reminders/service.js'); await r.clearReminder(m.get(nid)); }, { nid });
+await page.waitForTimeout(300);
+check('ntfy: al borrar el recordatorio se intenta cancelar el aviso', ntfyCalls.some((c) => c.method === 'DELETE' && c.url.startsWith(`https://ntfy.sh/${topic}/`)));
+// Diálogo: «Calendario del teléfono»
+await page.evaluate(async ({ nid }) => { await import('/js/settings/settings.js').then((s) => s.setSetting('ntfyOn', false)); }, { nid });
+await page.goto(`http://localhost:8181/#/note/${nid}`);
+await page.waitForSelector('[data-act=reminder]');
+await page.click('[data-act=reminder]');
+await page.waitForSelector('[data-cal]');
+check('El recordatorio ofrece «Calendario del teléfono» y .ics', (await page.textContent('[data-cal]')).includes('Calendario del teléfono') && !!(await page.$('[data-ics]')));
+const calHref = await page.evaluate(() => { const a = document.querySelector('[data-cal]'); a.addEventListener('click', (e) => e.preventDefault(), { once: true }); a.click(); return a.href; });
+check('El enlace abre Google Calendar con el evento y la hora', calHref.startsWith('https://calendar.google.com/calendar/render?action=TEMPLATE') && /dates=\d{8}T\d{6}Z/.test(calHref), calHref.slice(0, 90));
+await page.click('[data-cancel]');
+
 // Modo oscuro
 await page.emulateMedia({ colorScheme: 'dark' });
 await page.goto('http://localhost:8181/#/');

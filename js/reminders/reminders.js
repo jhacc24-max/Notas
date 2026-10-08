@@ -76,6 +76,7 @@ export function icsFile(note, at) {
     `UID:${note.id}@notas`, `DTSTAMP:${f(Date.now())}`, `DTSTART:${f(at)}`, `DTEND:${f(at + 15 * 60000)}`,
     `SUMMARY:${t(note.title)}`, `DESCRIPTION:${t((note.text || '').slice(0, 800))}`,
     'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Recordatorio', 'TRIGGER:PT0M', 'END:VALARM',
+    'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Recordatorio en 10 minutos', 'TRIGGER:-PT10M', 'END:VALARM',
     'END:VEVENT', 'END:VCALENDAR',
   ].join('\r\n');
   return new File([body], 'recordatorio.ics', { type: 'text/calendar' });

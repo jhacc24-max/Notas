@@ -52,7 +52,14 @@ npx wrangler secret put APP_TOKEN        # una contraseña larga; también en Aj
 npx wrangler deploy
 ```
 
-## Google Calendar y Google Tasks
+## Recordatorios gratis, sin Google (recomendado)
+
+Tres vías, ninguna necesita cuentas ni claves:
+1. **Dentro de la app** (con la app abierta).
+2. **Calendario del teléfono:** en el diálogo del recordatorio, «📅 Calendario del teléfono» abre Google Calendar (o el calendario que uses) con el evento ya rellenado: un toque en Guardar y el calendario avisa con la app cerrada. «Otro calendario (.ics)» descarga un archivo que abre cualquier app de calendario (incluye avisos a la hora y 10 min antes).
+3. **Avisos push con ntfy** (Ajustes → Recordatorios y avisos): instala la app gratuita *ntfy*, pulsa «Abrir ntfy y suscribirme» y listo. La app programa cada aviso en ntfy y llega a la hora exacta aunque la app esté cerrada. Límites: ntfy admite programar con hasta 3 días de antelación (los más lejanos se programan solos al abrir la app); cancelar un aviso ya programado es «mejor esfuerzo» según la versión del servidor. Por privacidad el aviso no lleva el título salvo que lo actives.
+
+## Google Calendar y Google Tasks (opcional, avanzado)
 
 Para el usuario final es el flujo de siempre: **Ajustes → Conectar con Google** (o el botón «Conectar con Google» dentro del recordatorio) → ventana de Google: elige tu cuenta, entra con usuario y contraseña si hace falta y pulsa **Permitir**. Nada más.
 

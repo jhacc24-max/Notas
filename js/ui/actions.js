@@ -3,10 +3,11 @@ import * as Notes from '../notes/notes.js';
 import { confirmDialog, menuSheet, reminderDialog, shareDialog, toast } from './dialogs.js';
 import { shareNotes, whatsappUrl, mailUrl } from '../share/share.js';
 import { getSetting, setSetting } from '../settings/settings.js';
-import { setReminder, clearReminder, syncNoteChange, googleSyncActive } from '../reminders/service.js';
+import { setReminder, clearReminder, syncNoteChange, googleSyncActive, reminderToast } from '../reminders/service.js';
 import { googleCalendarUrl, icsFile, requestNotificationPermission } from '../reminders/reminders.js';
 import { googleConfigured, wasConnected, getToken } from '../google/oauth.js';
 import { PRIORITIES } from './components.js';
+import { ntfyOn } from '../reminders/ntfy.js';
 import { KINDS } from '../notes/kinds.js';
 
 export async function deleteNotes(ids) {
@@ -66,7 +67,7 @@ export async function pickKind(ids) {
 
 export async function reminderPicker(note) {
   return reminderDialog({
-    at: note.reminder?.at, withGoogle: googleSyncActive(), googleReady: googleConfigured() && !wasConnected(),
+    at: note.reminder?.at, withGoogle: googleSyncActive(), push: ntfyOn(), googleReady: googleConfigured() && !wasConnected(),
     onConnect: async () => { try { await getToken(true); return true; } catch (e) { toast(e.message); return false; } },
     calendarLink: googleCalendarUrl(note, note.reminder?.at ?? Date.now() + 3600e3),
     onIcs: (at) => {
@@ -84,7 +85,7 @@ export async function reminderUI(note) {
   if (res.remove) { await clearReminder(note); toast('Recordatorio eliminado'); return; }
   const r = await setReminder(note, res.at);
   requestNotificationPermission();
-  toast(r.synced ? 'Recordatorio guardado y añadido a Google' : 'Recordatorio guardado');
+  toast(reminderToast(r));
 }
 
 export { syncNoteChange };

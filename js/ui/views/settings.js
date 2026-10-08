@@ -11,6 +11,7 @@ import { on } from '../../core/events.js';
 import { queueApi } from '../../app-services.js';
 import { toast, menuSheet } from '../dialogs.js';
 import { foldHead, foldBodyStart, bindFolds } from '../fold.js';
+import { enableNtfy, sendTestNtfy, subscribeLink } from '../../reminders/ntfy.js';
 
 const foldOpen = (id, title, def) => `<section class="settings-group fold">${foldHead(id, title, { def })}${foldBodyStart(id, def)}`;
 const foldClose = () => '</div></section>';
@@ -82,7 +83,32 @@ export default {
           <div style="padding:8px 16px"><button class="btn tonal" data-act="save-terms">Guardar diccionario</button></div>
         ${foldClose()}
 
-        ${foldOpen('set-g', 'Google (Calendar y Tasks)', false)}
+        ${foldOpen('set-av', 'Recordatorios y avisos', true)}
+          <p class="note-info"><b>Tres formas de que te avise, todas gratis y sin cuentas técnicas:</b><br>
+            1) <b>Dentro de la app</b> (siempre, con la app abierta).<br>
+            2) <b>Calendario del teléfono</b>: al crear un recordatorio, toca «📅 Calendario del teléfono» y guárdalo. Tu calendario avisa con la app cerrada.<br>
+            3) <b>Avisos push con ntfy</b> (abajo): automático, a la hora exacta, con la app cerrada.</p>
+          <div style="padding:0 16px"><button class="btn tonal" data-act="notif">${icon('bell')} Notificaciones de la app: ${notif}</button></div>
+          <label class="switch-row"><span class="grow">Avisos push con ntfy<small>Gratis, sin registrarte</small></span>
+            <input class="switch" type="checkbox" data-act-sw="ntfy" ${s.ntfyOn ? 'checked' : ''}></label>
+          ${s.ntfyOn && s.ntfyTopic ? `
+            <div class="note-info">
+              <b>Para activarlo (una vez):</b><br>
+              1. Instala la app gratuita <b>ntfy</b> desde Google Play (o F-Droid).<br>
+              2. Pulsa el botón de abajo: se abrirá ntfy y te suscribirá a tu tema privado <code class="selectable">${esc(s.ntfyTopic)}</code>.<br>
+              3. Pulsa «Enviar aviso de prueba».<br>
+              <small>Si el botón no abre ntfy: en ntfy toca «+» y escribe el tema exacto.</small></div>
+            <div style="padding:0 16px;display:flex;gap:8px;flex-wrap:wrap">
+              <a class="btn filled" href="${esc(subscribeLink())}">Abrir ntfy y suscribirme</a>
+              <button class="btn tonal" data-act="ntfy-test">Enviar aviso de prueba</button>
+              <button class="btn outlined" data-act="ntfy-copy">Copiar tema</button></div>
+            <label class="switch-row"><span class="grow">Mostrar el título de la nota en el aviso<small>Desactivado: solo dice «Tienes un recordatorio» (más privado)</small></span>
+              <input class="switch" type="checkbox" data-sw="ntfyShowTitle" ${s.ntfyShowTitle ? 'checked' : ''}></label>
+            <p class="note-info">ntfy programa cada aviso con hasta <b>3 días</b> de antelación; los más lejanos se programan solos cuando abres la app.
+              Si cambias o borras un recordatorio ya programado, el aviso antiguo puede llegar igualmente.</p>` : ''}
+        ${foldClose()}
+
+        ${foldOpen('set-g', 'Google Calendar y Tasks (avanzado)', false)}
           ${googleConfigured() ? (wasConnected() ? `
             <p class="note-info">✅ Cuenta de Google conectada.</p>
             <label class="switch-row"><span class="grow">Añadir recordatorios a Google Calendar<small>Te avisa a la hora exacta, con la app cerrada</small></span>
@@ -100,10 +126,6 @@ export default {
             <div style="padding:8px 16px"><button class="btn tonal" data-act="save-g">Guardar</button></div>
           </div>
         ${foldClose()}
-
-        ${foldOpen('set-av', 'Avisos', false)}
-          <div style="padding:0 16px"><button class="btn tonal" data-act="notif">${icon('bell')} Permiso de notificaciones: ${notif}</button></div>
-          <p class="note-info">Una PWA no puede despertarse sola con la app cerrada. Con la app abierta avisa a la hora exacta; para avisos con la app cerrada usa Google Tasks / Google Calendar.</p>${foldClose()}
 
         ${foldOpen('set-pr', 'Privacidad: qué sale del dispositivo', false)}
           <div class="note-info selectable">
@@ -169,6 +191,8 @@ export default {
           } catch { toast('Clave guardada, pero no se pudo comprobar (¿sin Internet?)'); }
           render(); break;
         }
+        case 'ntfy-test': try { await sendTestNtfy(); toast('Aviso enviado: míralo en la app ntfy'); } catch (err) { toast(err.message); } break;
+        case 'ntfy-copy': try { await navigator.clipboard.writeText(allSettings().ntfyTopic); toast('Tema copiado'); } catch { toast(allSettings().ntfyTopic); } break;
         case 'rm-groq': await setSetting('groqKey', ''); toast('Clave quitada'); render(); break;
         case 'asr-dl': prepareModel(modelKey()).catch((err) => toast(`No se pudo descargar: ${err.message}`)); break;
         case 'g-on':
@@ -186,6 +210,7 @@ export default {
     root.addEventListener('change', async (e) => {
       const t = e.target;
       if (t.dataset.sw) await setSetting(t.dataset.sw, t.checked);
+      if (t.dataset.actSw === 'ntfy') { if (t.checked) await enableNtfy(); else await setSetting('ntfyOn', false); render(); }
     });
     const off = [on('asr:progress', () => { const el = root.querySelector('#asr-status'); if (el) el.innerHTML = asrStatus(); })];
     return { destroy: () => off.forEach((f) => f()) };

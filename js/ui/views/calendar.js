@@ -6,7 +6,7 @@ import { dayKey, esc, fmtDay, fmtMonth, fmtTime, startOfDay } from '../../core/u
 import { icon } from '../../core/icons.js';
 import { navigate, setNavContext } from '../router.js';
 import { quickAddDialog, toast } from '../dialogs.js';
-import { setReminder } from '../../reminders/service.js';
+import { setReminder, reminderToast } from '../../reminders/service.js';
 import { requestNotificationPermission } from '../../reminders/reminders.js';
 
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -102,7 +102,7 @@ export default {
       if (kind === 'reminder') {
         const r = await setReminder(n, res.at);
         requestNotificationPermission();
-        toast(r.synced ? 'Recordatorio creado y añadido a Google Tasks' : 'Recordatorio creado');
+        toast(reminderToast(r));
         st.selected = dayKey(res.at);
       } else { toast('Nota creada'); st.selected = k; }
       st.cursor = parseKey(st.selected).getTime();
