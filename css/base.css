@@ -314,3 +314,8 @@ textarea.transcript { width: 100%; resize: vertical; color: inherit; outline: 2p
 .select-btn:active { background: var(--md-surface-c-high); }
 .adv-toggle { display: flex; align-items: center; gap: 6px; width: 100%; min-height: 48px; padding: 0 20px; font: var(--t-label-l); color: var(--md-primary); text-align: left; }
 .adv-body { padding-bottom: 8px; }
+
+/* Revisión: detalles antes de guardar y botón de guardar siempre a la vista */
+.opts { display: flex; flex-direction: column; gap: 12px; }
+.savebar { position: sticky; bottom: 0; z-index: 4; padding: 12px 0 calc(8px + var(--safe-b)); background: linear-gradient(to top, var(--md-surface) 70%, transparent); }
+.opts .chips { flex-wrap: wrap; overflow: visible; }

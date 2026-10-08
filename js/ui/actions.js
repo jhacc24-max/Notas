@@ -52,8 +52,9 @@ export async function pickPriority(ids) {
   return true;
 }
 
-export async function reminderUI(note) {
-  const res = await reminderDialog({
+/** Abre el selector de recordatorio y devuelve { at } | { remove } | undefined, sin aplicar nada. */
+export async function reminderPicker(note) {
+  return reminderDialog({
     at: note.reminder?.at, withGoogle: googleSyncActive(), googleReady: googleConfigured() && !wasConnected(),
     onConnect: async () => { try { await getToken(true); return true; } catch (e) { toast(e.message); return false; } },
     calendarLink: googleCalendarUrl(note, note.reminder?.at ?? Date.now() + 3600e3),
@@ -64,6 +65,10 @@ export async function reminderUI(note) {
       setTimeout(() => URL.revokeObjectURL(url), 5000);
     },
   });
+}
+
+export async function reminderUI(note) {
+  const res = await reminderPicker(note);
   if (!res) return;
   if (res.remove) { await clearReminder(note); toast('Recordatorio eliminado'); return; }
   const r = await setReminder(note, res.at);

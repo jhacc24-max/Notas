@@ -171,6 +171,33 @@ await page.waitForFunction(async () => { const m = await import('/js/notes/notes
 check('La nota se completa sola cuando termina la transcripción', true);
 slow = false;
 
+// 8) Opciones al guardar: prioridad, estado, favorita y recordatorio desde la pantalla de revisión
+await page.goto('http://localhost:8282/#/');
+await page.waitForTimeout(300);
+await page.click('#fab');
+await page.waitForSelector('.rec-screen');
+await page.waitForTimeout(1200);
+await page.click('#rec-stop');
+await page.waitForFunction(() => document.querySelector('.transcript')?.textContent.includes('levodopa'), null, { timeout: 8000 });
+check('Revisión muestra estado, prioridad y recordatorio antes de guardar', !!(await page.$('[data-act=opt-done]')) && !!(await page.$('[data-prio=high]')) && !!(await page.$('[data-act=opt-reminder]')));
+await shot('24-revision-opciones');
+await page.click('[data-prio=high]');
+await page.click('[data-act=opt-done]');
+await page.click('[data-act=opt-fav]');
+await page.click('[data-act=opt-reminder]');
+await page.waitForSelector('#rem-at');
+const d8 = new Date(Date.now() + 2 * 86400000); d8.setHours(8, 15, 0, 0);
+await page.fill('#rem-at', `${d8.getFullYear()}-${p2(d8.getMonth() + 1)}-${p2(d8.getDate())}T08:15`);
+await page.click('[data-ok]');
+await page.waitForSelector('.reminder-row');
+check('El recordatorio queda marcado en la revisión', (await page.textContent('.reminder-row')).includes('08:15'));
+await page.click('#save-btn');
+await page.waitForSelector('.card');
+await page.waitForTimeout(600);
+const saved = await page.evaluate(async () => { const m = await import('/js/notes/notes.js'); const n = m.active().sort(m.byRecent)[0]; return { p: n.priority, done: n.done, fav: n.favorite, rem: n.reminder?.at, eventId: n.reminder?.eventId }; });
+check('Se guarda con prioridad alta, realizada y favorita', saved.p === 'high' && saved.done === true && saved.fav === true, JSON.stringify(saved));
+check('Se guarda con su recordatorio (y evento de Google)', saved.rem === d8.getTime() && saved.eventId === 'ev1', JSON.stringify(saved));
+
 check('Sin errores en consola', errors.length === 0, errors.join(' | '));
 await browser.close(); server.close();
 const failed = results.filter((r) => !r[1]).length;
