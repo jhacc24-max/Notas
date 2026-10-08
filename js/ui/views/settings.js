@@ -9,7 +9,7 @@ import { resolveEngine, processQueue, modelKey } from '../../transcription/index
 import { modelReady, prepareModel, downloadState, MODELS } from '../../transcription/local.js';
 import { on } from '../../core/events.js';
 import { queueApi } from '../../app-services.js';
-import { toast } from '../dialogs.js';
+import { toast, menuSheet } from '../dialogs.js';
 import { loadDemo, clearDemo, demoIds } from '../../notes/demo.js';
 import { navigate } from '../router.js';
 import { esc } from '../../core/util.js';
@@ -24,6 +24,13 @@ function asrStatus() {
   if (modelReady(modelKey())) return '✅ <b>Transcripción gratuita lista</b>. Funciona sin conexión y el audio no sale de tu teléfono.';
   return `Transcripción gratuita en tu teléfono. Falta descargar el motor una vez (~${MODELS[modelKey()].mb} MB, mejor con Wi-Fi). ${downloadState.error ? '<br>Error: ' + esc(downloadState.error) : ''}<br><button class="btn filled" data-act="asr-dl" style="margin-top:8px">Descargar ahora</button>`;
 }
+const ENGINE_CHOICES = { auto: 'Automático (recomendado)', local: 'En el teléfono (gratis)', whisper: 'Mi servidor Whisper', webspeech: 'Navegador en vivo (experimental)' };
+function pickField(id, label, value, hint = '', hintId = '') {
+  return `<div class="field"><label id="pl-${id}">${esc(label)}</label>
+    <button class="select-btn" data-pick="${id}" aria-haspopup="listbox" aria-labelledby="pl-${id}"><span>${esc(value)}</span>${icon('down')}</button>
+    ${hint ? `<small ${hintId ? `id="${hintId}"` : ''}>${esc(hint)}</small>` : ''}</div>`;
+}
+const adv = { tx: false, g: false }; // secciones avanzadas abiertas
 const mb = (n) => (n / 1048576).toFixed(1) + ' MB';
 
 export default {
@@ -42,27 +49,18 @@ export default {
 
         <section class="settings-group"><h2>Transcripción</h2>
           <div class="note-info" id="asr-status">${asrStatus()}</div>
-          <div class="field"><label for="s-model">Calidad del motor gratuito</label>
-            <select id="s-model">
-              ${Object.entries(MODELS).map(([k, m]) => `<option value="${k}" ${modelKey() === k ? 'selected' : ''}>${m.label} (~${m.mb} MB)${modelReady(k) ? ' · descargado' : ''}</option>`).join('')}
-            </select><small>«Alta precisión» reconoce mejor los términos médicos pero tarda más y ocupa más.</small></div>
-          <div class="field"><label for="s-lang">Idioma / variante</label>
-            <select id="s-lang">${LANGS.map(([c, n]) => `<option value="${c}" ${s.language === c ? 'selected' : ''}>Español (${n})</option>`).join('')}</select></div>
-          <details class="adv"><summary>Opciones avanzadas</summary>
-            <div class="field"><label for="s-engine">Motor</label>
-              <select id="s-engine">
-                <option value="auto" ${s.engine === 'auto' ? 'selected' : ''}>Automático (recomendado)</option>
-                <option value="local" ${s.engine === 'local' ? 'selected' : ''}>En el teléfono (gratis)</option>
-                <option value="whisper" ${s.engine === 'whisper' ? 'selected' : ''}>Mi servidor Whisper</option>
-                <option value="webspeech" ${s.engine === 'webspeech' ? 'selected' : ''}>Navegador en vivo (experimental)</option>
-              </select><small>En uso ahora: ${ENGINE_NAMES[resolveEngine()]}</small></div>
+          ${pickField('model', 'Calidad del motor gratuito', `${MODELS[modelKey()].label} (~${MODELS[modelKey()].mb} MB)${modelReady(modelKey()) ? ' · descargado' : ''}`, '«Alta precisión» reconoce mejor los términos médicos pero tarda más y ocupa más.')}
+          ${pickField('lang', 'Idioma / variante', `Español (${LANGS.find(([c]) => c === s.language)?.[1] ?? s.language})`)}
+          <button class="adv-toggle" data-adv="tx" aria-expanded="${adv.tx}">Opciones avanzadas ${icon(adv.tx ? 'left' : 'right')}</button>
+          <div class="adv-body" ${adv.tx ? '' : 'hidden'}>
+            ${pickField('engine', 'Motor', ENGINE_CHOICES[s.engine] ?? 'Automático', `En uso ahora: ${ENGINE_NAMES[resolveEngine()]}`, 's-engine-note')}
             <div class="field"><label for="s-endpoint">URL de tu servidor de transcripción (opcional)</label>
               <input id="s-endpoint" type="url" inputmode="url" placeholder="https://tu-proxy.workers.dev" value="${esc(s.transcriptionEndpoint)}">
               <small>Ver carpeta <b>server/</b>. Permite Whisper grande con vocabulario médico como contexto.</small></div>
             <div class="field"><label for="s-token">Token de acceso a tu servidor</label>
               <input id="s-token" type="password" autocomplete="off" value="${esc(s.transcriptionToken)}"></div>
             <div style="padding:8px 16px"><button class="btn tonal" data-act="save-tx">Guardar</button></div>
-          </details>
+          </div>
         </section>
 
         <section class="settings-group"><h2>Diccionario médico (${termCount()} términos base + los tuyos)</h2>
@@ -83,11 +81,12 @@ export default {
           : `<p class="note-info">Conecta tu cuenta para que los recordatorios aparezcan en Google Calendar y Google Tasks. Se abrirá la ventana normal de Google: eliges tu cuenta, entras con tu usuario y contraseña y pulsas «Permitir».</p>
             <div style="padding:0 16px"><button class="btn filled big" data-act="g-on">Conectar con Google</button></div>`)
           : '<p class="note-info">Google todavía no está configurado en esta app (lo hace una sola vez quien la publica; ver README). Mientras tanto los recordatorios funcionan dentro de la app y con Google Calendar manual/.ics.</p>'}
-          <details class="adv"><summary>Opciones avanzadas</summary>
+          <button class="adv-toggle" data-adv="g" aria-expanded="${adv.g}">Opciones avanzadas ${icon(adv.g ? 'left' : 'right')}</button>
+          <div class="adv-body" ${adv.g ? '' : 'hidden'}>
             <div class="field"><label for="s-gid">Client ID de OAuth (Google Cloud)</label>
               <input id="s-gid" placeholder="xxxx.apps.googleusercontent.com" value="${esc(s.googleClientId)}" autocomplete="off"><small>Es público; nunca pegues un «client secret».</small></div>
             <div style="padding:8px 16px"><button class="btn tonal" data-act="save-g">Guardar</button></div>
-          </details>
+          </div>
         </section>
 
         <section class="settings-group"><h2>Avisos</h2>
@@ -115,8 +114,25 @@ export default {
           ${isStandalone() ? '<p class="note-info">Estás usando la app instalada ✅</p>' : ''}
         </section>`;
     };
+    // Selectores propios (hoja inferior): más fiables en móvil que el <select> nativo.
+    const CHOICES = {
+      model: { title: 'Calidad del motor gratuito', key: 'localModel', cur: () => modelKey(), opts: () => Object.entries(MODELS).map(([k, m]) => [k, `${m.label} (~${m.mb} MB)${modelReady(k) ? ' · descargado' : ''}`]) },
+      lang: { title: 'Idioma / variante', key: 'language', cur: () => allSettings().language, opts: () => LANGS.map(([c, n]) => [c, `Español (${n})`]) },
+      engine: { title: 'Motor de transcripción', key: 'engine', cur: () => allSettings().engine, opts: () => Object.entries(ENGINE_CHOICES) },
+    };
+    async function choose(id) {
+      const c = CHOICES[id];
+      const v = await menuSheet({ title: c.title, items: c.opts().map(([k, label]) => ({ id: k, label, icon: k === c.cur() ? 'check' : 'blank' })) });
+      if (v === undefined) return;
+      await setSetting(c.key, v);
+      await render();
+    }
     render();
     root.addEventListener('click', async (e) => {
+      const pick = e.target.closest('[data-pick]');
+      if (pick) { await choose(pick.dataset.pick); return; }
+      const advBtn = e.target.closest('[data-adv]');
+      if (advBtn) { adv[advBtn.dataset.adv] = !adv[advBtn.dataset.adv]; await render(); return; }
       const b = e.target.closest('[data-act],[data-theme]');
       if (!b) return;
       const $ = (id) => root.querySelector('#' + id);
@@ -124,7 +140,6 @@ export default {
       switch (b.dataset.act) {
         case 'back': history.length > 1 ? history.back() : navigate('/'); break;
         case 'save-tx':
-          await setSetting('engine', $('s-engine').value);
           await setSetting('transcriptionEndpoint', $('s-endpoint').value.trim().replace(/\/$/, ''));
           await setSetting('transcriptionToken', $('s-token').value.trim());
           toast('Transcripción guardada'); render(); processQueue(queueApi()); break;
@@ -145,8 +160,6 @@ export default {
     });
     root.addEventListener('change', async (e) => {
       const t = e.target;
-      if (t.id === 's-lang') await setSetting('language', t.value);
-      if (t.id === 's-model') { await setSetting('localModel', t.value); render(); }
       if (t.dataset.sw) await setSetting(t.dataset.sw, t.checked);
     });
     const off = [on('asr:progress', () => { const el = root.querySelector('#asr-status'); if (el) el.innerHTML = asrStatus(); })];

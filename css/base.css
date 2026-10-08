@@ -307,3 +307,10 @@ textarea.transcript { width: 100%; resize: vertical; color: inherit; outline: 2p
 .dict-chip span { overflow: hidden; text-overflow: ellipsis; }
 .dict-chip .ic { width: 20px; height: 20px; }
 .adv { margin: 4px 0; } .adv summary { cursor: pointer; padding: 12px 20px; font: var(--t-label-l); color: var(--md-on-surface-variant); } .adv[open] summary { color: var(--md-primary); }
+
+/* Selectores propios y secciones avanzadas (sin <select>/<details> nativos) */
+.select-btn { width: 100%; min-height: 52px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 0 16px; text-align: left;
+  background: var(--md-surface-c-highest); border-bottom: 2px solid var(--md-outline); border-radius: var(--r-xs) var(--r-xs) 0 0; font: var(--t-body-l); }
+.select-btn:active { background: var(--md-surface-c-high); }
+.adv-toggle { display: flex; align-items: center; gap: 6px; width: 100%; min-height: 48px; padding: 0 20px; font: var(--t-label-l); color: var(--md-primary); text-align: left; }
+.adv-body { padding-bottom: 8px; }

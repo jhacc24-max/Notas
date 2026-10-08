@@ -45,11 +45,11 @@ await shot('01-home-vacio');
 
 // Configurar servicio de transcripción
 await page.click('[data-act=settings]');
-await page.click('details.adv summary');
+await page.click('[data-adv=tx]');
 await page.fill('#s-endpoint', 'http://localhost:9099/transcribe');
 await page.click('[data-act=save-tx]');
 await page.waitForTimeout(200);
-check('Ajustes: motor servidor activo', (await page.textContent('#s-engine ~ small')).includes('Whisper'));
+check('Ajustes: motor servidor activo', (await page.textContent('#s-engine-note')).includes('Whisper'));
 await page.goto('http://localhost:8181/#/');
 await page.waitForTimeout(300);
 
