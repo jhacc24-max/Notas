@@ -49,11 +49,11 @@ export const byRecent = (a, b) => b.createdAt - a.createdAt;
 export const byPriority = (a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority] || byRecent(a, b);
 
 /** Crea y guarda una nota (con su audio, si existe). */
-export async function create({ text = '', title = '', audio = null, transcriptStatus = 'done', priority = 'medium' }) {
-  const now = Date.now();
+export async function create({ text = '', title = '', audio = null, transcriptStatus = 'done', priority = 'medium', createdAt = Date.now(), category = '' }) {
+  const now = createdAt;
   const note = {
     id: uid(), title: title.trim() || autoTitle(text, now), text, createdAt: now, updatedAt: now,
-    done: false, priority, favorite: false, category: '',
+    done: false, priority, favorite: false, category,
     hasAudio: !!audio, audioMime: audio?.mime || '', audioDuration: audio?.duration || 0,
     transcriptStatus, deletedAt: null, reminder: null, autoTitle: !title.trim(),
   };

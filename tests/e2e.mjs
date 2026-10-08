@@ -186,15 +186,55 @@ await page.waitForSelector('.reminder-row');
 
 // Calendario
 await page.goto('http://localhost:8181/#/calendar');
-await page.waitForSelector('.cal-day');
-check('Calendario: días con notas marcados', (await page.$$('.cal-day .mark')).length >= 2);
-await page.click('[data-act=next]');
-await page.click(`.cal-day[data-day="${tomorrow.getFullYear()}-${pad(tomorrow.getMonth() + 1)}-${pad(tomorrow.getDate())}"]`).catch(() => {});
-await shot('10-calendario');
+await page.waitForSelector('.cal-cell');
+check('Calendario: días con notas marcados', (await page.$$('.cal-cell .ev')).length >= 2);
 const todayKey = new Date(); const tk = `${todayKey.getFullYear()}-${pad(todayKey.getMonth() + 1)}-${pad(todayKey.getDate())}`;
 await page.click('[data-act=today]');
-await page.click(`.cal-day[data-day="${tk}"]`);
+await page.click(`.cal-cell[data-day="${tk}"]`);
 check('Calendario: lista del día seleccionado', (await page.$$('.agenda-item')).length >= 2);
+
+// Calendario v2: semana, títulos, alta rápida, filtros, deslizar
+await page.goto('http://localhost:8181/#/calendar');
+await page.waitForSelector('.cal-cell');
+await page.click('[data-act=today]');
+check('Calendario mensual muestra títulos en las celdas', (await page.$$('.cal-cell .ev')).length >= 2);
+await page.click('[data-mode=week]');
+await page.waitForSelector('.day');
+check('Vista semanal: 7 días con títulos', (await page.$$('.day')).length === 7 && (await page.$$('.day .agenda-item')).length >= 2);
+await shot('10b-semana');
+await page.click('[data-mode=month]');
+await page.click(`.cal-cell[data-day="${tk}"]`);
+await page.click(`.day [data-add=reminder]`);
+await page.fill('#qa-title', 'Llamar al médico');
+await page.click('.dialog [data-ok]');
+await page.waitForTimeout(300);
+check('Crear recordatorio desde un día', (await page.textContent('.day')).includes('Llamar al médico'));
+await page.click(`.day [data-add=note]`);
+await page.fill('#qa-title', 'Nota creada en el calendario');
+await page.click('.dialog [data-prio=high]');
+await page.click('.dialog [data-ok]');
+await page.waitForTimeout(300);
+check('Crear nota desde un día', (await page.textContent('.day')).includes('Nota creada en el calendario'));
+const before2 = (await page.$$('.day .agenda-item')).length;
+await page.click('.chips [data-f=prio][data-v=high]');
+await page.waitForTimeout(150);
+const afterHigh = (await page.$$('.day .agenda-item')).length;
+check('Filtro por prioridad en el calendario', afterHigh >= 1 && afterHigh < before2, `${before2} → ${afterHigh}`);
+await page.click('.chips [data-f=prio][aria-pressed=true]');
+await page.click('.chips [data-f=status][data-v=done]');
+await page.waitForTimeout(150);
+check('Filtro por estado en el calendario', (await page.$$('.day .agenda-item')).length < before2);
+await page.click('.chips [data-f=status][data-v=all]');
+const m0 = await page.textContent('.cal-head h2');
+const cb = await page.locator('.cal-body').boundingBox();
+const cswipe = async (dx) => { await page.mouse.move(cb.x + 200, cb.y + 40); await page.mouse.down(); await page.mouse.move(cb.x + 200 + dx / 2, cb.y + 44, { steps: 4 }); await page.mouse.move(cb.x + 200 + dx, cb.y + 46, { steps: 4 }); await page.mouse.up(); await page.waitForTimeout(350); };
+await cswipe(-150);
+const m1 = await page.textContent('.cal-head h2');
+check('Deslizar izquierda → mes siguiente', m1 !== m0, `${m0} → ${m1}`);
+await cswipe(150);
+check('Deslizar derecha → mes anterior', (await page.textContent('.cal-head h2')) === m0);
+await shot('10c-mes-titulos');
+await page.click('[data-act=today]');
 
 // Selección múltiple
 await page.goto('http://localhost:8181/#/notes');
@@ -280,6 +320,14 @@ await page.waitForFunction(() => [...document.querySelectorAll('.badge.pending')
 await page.waitForTimeout(800);
 const queued = await page.evaluate(async () => { const m = await import('/js/notes/notes.js'); return m.active().filter((n) => n.transcriptStatus === 'pending').length; });
 check('Al volver la conexión se transcriben las notas pendientes', queued === 0);
+
+// Datos de ejemplo
+await page.goto('http://localhost:8181/#/settings');
+await page.click('[data-act=demo]');
+await page.waitForTimeout(600);
+check('Cargar notas de ejemplo', (await page.evaluate(() => window.__notas.count())) >= before + 10);
+await page.click('[data-act=demo-clear]');
+await page.waitForTimeout(400);
 
 // Modo oscuro
 await page.emulateMedia({ colorScheme: 'dark' });

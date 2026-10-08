@@ -1,5 +1,5 @@
 // Service worker: precache del "app shell" (funciona sin conexión) + actualización por versión.
-const VERSION = 'v1.0.0';
+const VERSION = 'v1.1.0';
 const CACHE = `notas-${VERSION}`;
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest', 'css/tokens.css', 'css/base.css',
@@ -7,7 +7,7 @@ const SHELL = [
   'js/main.js', 'js/config.js', 'js/app-services.js',
   'js/core/util.js', 'js/core/events.js', 'js/core/icons.js',
   'js/storage/db.js', 'js/settings/settings.js',
-  'js/notes/notes.js', 'js/notes/titles.js',
+  'js/notes/notes.js', 'js/notes/titles.js', 'js/notes/demo.js',
   'js/audio/recorder.js',
   'js/transcription/index.js', 'js/transcription/webspeech.js', 'js/transcription/whisper.js',
   'js/medical/terms.js', 'js/medical/dictionary.js', 'js/medical/corrector.js',

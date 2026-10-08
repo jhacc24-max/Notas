@@ -102,3 +102,38 @@ export function toast(text, { action, onAction, ms = 4500 } = {}) {
   setTimeout(() => el.remove(), ms);
 }
 on('toast', ({ text }) => toast(text));
+
+/** Alta rápida desde el calendario. mode: 'note' | 'reminder'. Resuelve {title,text,at,priority} | undefined. */
+export function quickAddDialog({ mode, dayMs, defaultAt }) {
+  return new Promise((resolve) => {
+    const isRem = mode === 'reminder';
+    const day = new Date(dayMs);
+    const at = defaultAt ?? new Date(day.getFullYear(), day.getMonth(), day.getDate(), new Date().getHours() + 1, 0).getTime();
+    let prio = 'medium';
+    const { el, close } = mountScrim(`
+      <div class="dialog" role="dialog" aria-modal="true" aria-label="${isRem ? 'Nuevo recordatorio' : 'Nueva nota'}">
+        <h2>${isRem ? 'Nuevo recordatorio' : 'Nueva nota'}</h2>
+        <div class="field"><label for="qa-title">${isRem ? 'Qué recordar' : 'Título'}</label><input id="qa-title" autofocus autocomplete="off" placeholder="${isRem ? 'Ej.: Llamar al médico' : 'Ej.: Control de presión'}"></div>
+        ${isRem ? '' : '<div class="field"><label for="qa-text">Texto (opcional)</label><textarea id="qa-text" rows="3"></textarea></div>'}
+        <div class="field"><label for="qa-at">${isRem ? 'Fecha y hora' : 'Hora'}</label><input id="qa-at" type="${isRem ? 'datetime-local' : 'time'}" value="${isRem ? toLocalInput(at) : toLocalInput(at).slice(11)}"></div>
+        <div class="chips" style="padding:0" role="group" aria-label="Prioridad">
+          ${[['high', 'Alta'], ['medium', 'Media'], ['low', 'Baja']].map(([id, l]) => `<button class="chip p-${id}" data-prio="${id}" aria-pressed="${id === prio}"><i class="dot"></i>${l}</button>`).join('')}
+        </div>
+        <div class="actions"><button class="btn text" data-cancel>Cancelar</button><button class="btn filled" data-ok>Guardar</button></div>
+      </div>`, { onClose: resolve });
+    el.querySelectorAll('[data-prio]').forEach((b) => b.addEventListener('click', () => {
+      prio = b.dataset.prio;
+      el.querySelectorAll('[data-prio]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    }));
+    el.querySelector('[data-cancel]').onclick = () => close(undefined);
+    el.querySelector('[data-ok]').onclick = () => {
+      const title = el.querySelector('#qa-title').value.trim();
+      const v = el.querySelector('#qa-at').value;
+      if (!title && isRem) { el.querySelector('#qa-title').focus(); return; }
+      if (!v) return;
+      const when = isRem ? new Date(v).getTime()
+        : new Date(day.getFullYear(), day.getMonth(), day.getDate(), +v.slice(0, 2), +v.slice(3, 5)).getTime();
+      close({ title, text: el.querySelector('#qa-text')?.value.trim() ?? '', at: when, priority: prio });
+    };
+  });
+}

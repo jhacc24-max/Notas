@@ -277,3 +277,25 @@ textarea.transcript { width: 100%; resize: vertical; color: inherit; outline: 2p
 .agenda-item .t { flex: 1; font: var(--t-body-l); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .agenda-item.done .t { text-decoration: line-through; opacity: .6; }
 [hidden] { display: none !important; }
+
+/* Calendario v2 */
+.cal-grid { gap: 3px; }
+.cal-cell { min-height: 74px; border-radius: var(--r-s); background: var(--md-surface-c-low); border: 1px solid transparent; padding: 3px 2px; display: flex; flex-direction: column; gap: 2px; align-items: stretch; text-align: left; overflow: hidden; font: var(--t-label-m); transition: background var(--d-short); min-width: 0; }
+.cal-cell:active { background: var(--md-surface-c-high); }
+.cal-cell .num { align-self: center; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; font: var(--t-label-l); font-size: .75rem; }
+.cal-cell.today .num { background: var(--md-primary); color: var(--md-on-primary); }
+.cal-cell.sel { border-color: var(--md-primary); background: var(--md-secondary-container); }
+.cal-cell .ev { font-size: 9.5px; line-height: 12px; padding: 0 3px; border-radius: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--md-on-surface); border-left: 3px solid currentColor; background: var(--md-surface-c-highest); }
+.cal-cell .ev.done { text-decoration: line-through; opacity: .55; }
+.p-bg-high { border-color: var(--p-high); } .p-bg-medium { border-color: var(--p-medium); } .p-bg-low { border-color: var(--p-low); }
+.cal-cell .ev.p-bg-high { border-left-color: var(--p-high); } .cal-cell .ev.p-bg-medium { border-left-color: var(--p-medium); } .cal-cell .ev.p-bg-low { border-left-color: var(--p-low); }
+.cal-cell .more { font-size: 9.5px; color: var(--md-on-surface-variant); text-align: center; }
+.cal-body.slide-left { animation: slideL var(--d-med) var(--ease); }
+.cal-body.slide-right { animation: slideR var(--d-med) var(--ease); }
+.day { margin: 12px 8px 0; padding: 4px 8px 8px; border-radius: var(--r-m); }
+.day.sel { background: var(--md-surface-c-low); }
+.day.today .section-head h2 { color: var(--md-primary); }
+.day-actions { display: flex; gap: 6px; }
+.btn.sm { min-height: 36px; padding: 0 12px; font-size: .8rem; }
+.day-empty { font: var(--t-body-m); color: var(--md-on-surface-variant); padding: 0 4px 4px; }
+.day .section-head { flex-wrap: wrap; gap: 4px; }

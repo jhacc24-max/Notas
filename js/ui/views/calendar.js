@@ -1,61 +1,161 @@
+// Calendario: vistas Mes y Semana, títulos por día, filtros, gestos y alta rápida de nota/recordatorio.
 import * as Notes from '../../notes/notes.js';
-import { appBar, emptyState, iconBtn } from '../components.js';
+import { appBar, PRIORITIES } from '../components.js';
 import { groupByDay, monthGrid, effectiveDate } from '../../calendar/calendar.js';
-import { dayKey, esc, fmtDay, fmtMonth, fmtTime } from '../../core/util.js';
+import { dayKey, esc, fmtDay, fmtMonth, fmtTime, startOfDay } from '../../core/util.js';
 import { icon } from '../../core/icons.js';
 import { navigate, setNavContext } from '../router.js';
+import { quickAddDialog, toast } from '../dialogs.js';
+import { setReminder } from '../../reminders/service.js';
+import { requestNotificationPermission } from '../../reminders/reminders.js';
 
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const DOW = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-let view = null, selected = dayKey(Date.now());
+const WD = new Intl.DateTimeFormat('es', { weekday: 'long' });
+const SHORT = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'short' });
+
+// Estado que se conserva al salir y volver al calendario.
+const st = { mode: 'month', cursor: startOfDay(Date.now()), selected: dayKey(Date.now()), status: 'all', prio: 'all' };
+
+const parseKey = (k) => { const [y, m, d] = k.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (ms, n) => { const d = new Date(ms); d.setDate(d.getDate() + n); return d.getTime(); };
+const addMonths = (ms, n) => { const d = new Date(ms); d.setDate(1); d.setMonth(d.getMonth() + n); return d.getTime(); };
+const weekStart = (ms) => { const d = new Date(ms); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); d.setHours(0, 0, 0, 0); return d.getTime(); };
+
+const visible = () => Notes.active().filter((n) =>
+  (st.status === 'all' || (st.status === 'done') === n.done) && (st.prio === 'all' || n.priority === st.prio));
+
+const agendaItem = (n) => `
+  <button class="agenda-item ${n.done ? 'done' : ''}" data-id="${n.id}">
+    <time>${fmtTime(effectiveDate(n))}</time><span class="t">${esc(n.title)}</span>
+    <span class="p-${n.priority}" title="Prioridad"><i class="dot"></i></span>${n.reminder ? icon('bell') : ''}${n.favorite ? `<span style="color:var(--star)">${icon('star')}</span>` : ''}
+  </button>`;
 
 export default {
   nav: true, fab: true,
   mount(root) {
-    view ??= { y: new Date().getFullYear(), m: new Date().getMonth() };
-    const render = () => {
-      const groups = groupByDay(Notes.active());
-      const cells = monthGrid(view.y, view.m);
+    const render = (dir = '') => {
+      const groups = groupByDay(visible());
       const today = dayKey(Date.now());
-      const [sy, sm, sd] = selected.split('-').map(Number);
-      const items = groups.get(selected) || [];
-      root.innerHTML = `
-        ${appBar({ title: 'Calendario', large: true, actions: `<button class="btn text" data-act="today">Hoy</button>` })}
-        <div class="cal">
-          <div class="cal-head">${iconBtn('prev', 'left', 'Mes anterior')}<h2>${cap(fmtMonth(new Date(view.y, view.m, 1)))}</h2>${iconBtn('next', 'right', 'Mes siguiente')}</div>
+      const cur = new Date(st.cursor);
+      const ws = weekStart(st.cursor);
+      const title = st.mode === 'month' ? cap(fmtMonth(cur.getTime()))
+        : `${SHORT.format(ws)} – ${SHORT.format(addDays(ws, 6))} ${new Date(addDays(ws, 6)).getFullYear()}`;
+      const chip = (k, v, label) => `<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${st[k] === v}">${label}</button>`;
+
+      let body;
+      if (st.mode === 'month') {
+        const cells = monthGrid(cur.getFullYear(), cur.getMonth());
+        body = `
           <div class="cal-grid" role="grid">
             ${DOW.map((d) => `<div class="dow" role="columnheader">${d}</div>`).join('')}
             ${cells.map((d) => {
               if (!d) return '<div></div>';
-              const k = dayKey(d.getTime());
-              const list = groups.get(k);
-              const hi = list?.some((n) => !n.done && n.priority === 'high');
-              return `<button class="cal-day ${k === today ? 'today' : ''} ${k === selected ? 'sel' : ''}" data-day="${k}" aria-label="${fmtDay(d.getTime())}${list ? `, ${list.length} notas` : ''}" aria-pressed="${k === selected}">
-                ${d.getDate()}${list ? `<span class="mark"><i class="${hi ? 'hi' : ''}"></i>${list.length > 1 ? '<i></i>' : ''}${list.length > 2 ? '<i></i>' : ''}</span>` : ''}</button>`;
+              const k = dayKey(d.getTime()), list = groups.get(k) || [];
+              return `<button class="cal-cell ${k === today ? 'today' : ''} ${k === st.selected ? 'sel' : ''}" data-day="${k}"
+                aria-label="${fmtDay(d.getTime())}${list.length ? `, ${list.length} notas` : ''}" aria-pressed="${k === st.selected}">
+                <span class="num">${d.getDate()}</span>
+                ${list.slice(0, 2).map((n) => `<span class="ev p-bg-${n.priority} ${n.done ? 'done' : ''}">${esc(n.title)}</span>`).join('')}
+                ${list.length > 2 ? `<span class="more">+${list.length - 2}</span>` : ''}</button>`;
             }).join('')}
           </div>
-        </div>
-        <div class="section-head" style="margin-top:12px"><h2>${cap(fmtDay(new Date(sy, sm - 1, sd).getTime()))}</h2></div>
-        ${items.length ? `<div class="list" data-nav-list>${items.map((n) => `
-          <button class="agenda-item ${n.done ? 'done' : ''}" data-id="${n.id}">
-            <time>${fmtTime(effectiveDate(n))}</time><span class="t">${esc(n.title)}</span>
-            <span class="p-${n.priority}"><i class="dot"></i></span>${n.reminder ? icon('bell') : ''}${n.favorite ? `<span style="color:var(--star)">${icon('star')}</span>` : ''}
-          </button>`).join('')}</div>` : emptyState('calendar', 'Sin notas este día')}`;
-    };
-    render();
-    root.addEventListener('click', (e) => {
-      const day = e.target.closest('[data-day]');
-      if (day) { selected = day.dataset.day; render(); return; }
-      const item = e.target.closest('.agenda-item');
-      if (item) { setNavContext([...root.querySelectorAll('.agenda-item')].map((x) => x.dataset.id)); navigate(`/note/${item.dataset.id}`); return; }
-      const act = e.target.closest('[data-act]')?.dataset.act;
-      if (act === 'prev' || act === 'next') {
-        view.m += act === 'next' ? 1 : -1;
-        if (view.m < 0) { view.m = 11; view.y--; } if (view.m > 11) { view.m = 0; view.y++; }
-        render();
+          ${dayPanel(st.selected, groups.get(st.selected) || [], true)}`;
+      } else {
+        body = Array.from({ length: 7 }, (_, i) => {
+          const ms = addDays(ws, i), k = dayKey(ms);
+          return dayPanel(k, groups.get(k) || [], false, ms, k === today);
+        }).join('');
       }
-      if (act === 'today') { const t = new Date(); view = { y: t.getFullYear(), m: t.getMonth() }; selected = dayKey(t.getTime()); render(); }
+
+      root.innerHTML = `
+        ${appBar({ title: 'Calendario', large: true, actions: '<button class="btn text" data-act="today">Hoy</button>' })}
+        <div class="seg" role="group" aria-label="Vista"><button data-mode="month" aria-pressed="${st.mode === 'month'}">Mes</button><button data-mode="week" aria-pressed="${st.mode === 'week'}">Semana</button></div>
+        <div class="chips" role="group" aria-label="Filtros">
+          ${chip('status', 'all', 'Todas')}${chip('status', 'pending', 'Pendientes')}${chip('status', 'done', '☑ Realizadas')}
+          ${PRIORITIES.map((p) => `<button class="chip p-${p.id}" data-f="prio" data-v="${st.prio === p.id ? 'all' : p.id}" aria-pressed="${st.prio === p.id}"><i class="dot"></i>${p.label}</button>`).join('')}
+        </div>
+        <div class="cal">
+          <div class="cal-head"><button class="iconbtn" data-act="prev" aria-label="Anterior">${icon('left')}</button><h2>${title}</h2><button class="iconbtn" data-act="next" aria-label="Siguiente">${icon('right')}</button></div>
+          <div class="cal-body ${dir ? 'slide-' + dir : ''}" id="cal-body">${body}</div>
+          <p class="nav-hint">Desliza ← → para cambiar de ${st.mode === 'month' ? 'mes' : 'semana'}</p>
+        </div>`;
+    };
+
+    function dayPanel(k, list, withHeader, ms = parseKey(k).getTime(), isToday = false) {
+      const label = `${cap(WD.format(ms))} ${SHORT.format(ms)}`;
+      return `<section class="day ${k === st.selected && !withHeader ? 'sel' : ''} ${isToday ? 'today' : ''}" data-dayp="${k}">
+        <div class="section-head" style="padding-left:4px"><h2>${withHeader ? cap(fmtDay(ms)) : `${label}${isToday ? ' · Hoy' : ''}`}</h2>
+          <span class="day-actions"><button class="btn tonal sm" data-add="note" data-day="${k}">${icon('add')}Nota</button><button class="btn tonal sm" data-add="reminder" data-day="${k}">${icon('bell')}Recordatorio</button></span></div>
+        ${list.length ? `<div class="list" style="padding:0" data-nav-list>${list.map(agendaItem).join('')}</div>` : `<p class="day-empty">Sin notas</p>`}
+      </section>`;
+    }
+
+    const move = (n) => {
+      st.cursor = st.mode === 'month' ? addMonths(st.cursor, n) : addDays(st.cursor, 7 * n);
+      render(n > 0 ? 'left' : 'right');
+    };
+
+    const addToDay = async (kind, k) => {
+      const res = await quickAddDialog({ mode: kind, dayMs: parseKey(k).getTime() });
+      if (!res) return;
+      const n = await Notes.create({
+        title: res.title, text: res.text, priority: res.priority, transcriptStatus: 'none',
+        createdAt: kind === 'note' ? res.at : Date.now(),
+      });
+      if (kind === 'reminder') {
+        const r = await setReminder(n, res.at);
+        requestNotificationPermission();
+        toast(r.synced ? 'Recordatorio creado y añadido a Google Tasks' : 'Recordatorio creado');
+        st.selected = dayKey(res.at);
+      } else { toast('Nota creada'); st.selected = k; }
+      st.cursor = parseKey(st.selected).getTime();
+    };
+
+    render();
+    root.addEventListener('click', async (e) => {
+      const t = e.target;
+      const add = t.closest('[data-add]');
+      if (add) { await addToDay(add.dataset.add, add.dataset.day); return; }
+      const mode = t.closest('[data-mode]');
+      if (mode) { st.mode = mode.dataset.mode; render(); return; }
+      const f = t.closest('[data-f]');
+      if (f) { st[f.dataset.f] = f.dataset.v; render(); return; }
+      const cell = t.closest('[data-day].cal-cell');
+      if (cell) { st.selected = cell.dataset.day; render(); return; }
+      const dp = t.closest('.day[data-dayp]');
+      const item = t.closest('.agenda-item');
+      if (item) {
+        setNavContext([...item.closest('[data-nav-list]').querySelectorAll('.agenda-item')].map((x) => x.dataset.id));
+        navigate(`/note/${item.dataset.id}`); return;
+      }
+      if (dp && st.mode === 'week' && !t.closest('button')) { st.selected = dp.dataset.dayp; render(); return; }
+      const act = t.closest('[data-act]')?.dataset.act;
+      if (act === 'prev') move(-1);
+      if (act === 'next') move(1);
+      if (act === 'today') { st.cursor = startOfDay(Date.now()); st.selected = dayKey(Date.now()); render(); }
+      if (act === 'back') navigate('/');
     });
-    return { update: render };
+
+    // Deslizar horizontalmente para cambiar de mes/semana.
+    let sx = 0, sy = 0, tracking = false, moved = false;
+    root.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.chips,.seg,.dialog')) return;
+      tracking = true; moved = false; sx = e.clientX; sy = e.clientY;
+    });
+    root.addEventListener('pointermove', (e) => {
+      if (tracking && Math.abs(e.clientX - sx) > 12 && Math.abs(e.clientX - sx) > Math.abs(e.clientY - sy)) moved = true;
+    });
+    const end = (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.clientX - sx;
+      if (moved && Math.abs(dx) > 70) { swiped = true; setTimeout(() => { swiped = false; }, 50); move(dx < 0 ? 1 : -1); }
+    };
+    let swiped = false;
+    root.addEventListener('click', (e) => { if (swiped) { e.stopPropagation(); e.preventDefault(); } }, true);
+    root.addEventListener('pointerup', end);
+    root.addEventListener('pointercancel', () => { tracking = false; });
+
+    return { update: () => render() };
   },
 };

@@ -8,6 +8,7 @@ import { installAvailable, promptInstall, isStandalone } from '../install.js';
 import { resolveEngine, processQueue } from '../../transcription/index.js';
 import { queueApi } from '../../app-services.js';
 import { toast } from '../dialogs.js';
+import { loadDemo, clearDemo, demoIds } from '../../notes/demo.js';
 import { navigate } from '../router.js';
 import { esc } from '../../core/util.js';
 import { icon } from '../../core/icons.js';
@@ -83,6 +84,8 @@ export default {
           <p class="note-info">Usado: ${mb(est.usage)} de ${mb(est.quota)} · ${est.persisted ? 'Persistente ✅' : 'No persistente (el navegador podría liberar espacio)'}</p>
           ${est.persisted ? '' : '<div style="padding:0 16px"><button class="btn tonal" data-act="persist">Proteger mis notas</button></div>'}
           <div style="padding:8px 16px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn outlined" data-act="demo">Cargar notas de ejemplo</button>
+            ${demoIds().length ? '<button class="btn outlined danger" data-act="demo-clear">Quitar ejemplos</button>' : ''}
             <button class="btn outlined" data-act="trash">${icon('delete')} Papelera</button>
             ${installAvailable() ? `<button class="btn filled" data-act="install">${icon('download')} Instalar app</button>` : ''}
           </div>
@@ -112,6 +115,8 @@ export default {
         case 'notif': toast(`Notificaciones: ${await requestNotificationPermission()}`); render(); break;
         case 'persist': toast((await requestPersistence()) ? 'Almacenamiento protegido' : 'El navegador no lo concedió'); render(); break;
         case 'install': await promptInstall(); render(); break;
+        case 'demo': await loadDemo(); toast('Notas de ejemplo cargadas'); render(); break;
+        case 'demo-clear': await clearDemo(); toast('Ejemplos eliminados'); render(); break;
         case 'trash': navigate('/trash'); break;
       }
     });
