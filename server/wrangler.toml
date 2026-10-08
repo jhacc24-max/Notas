@@ -1,0 +1,10 @@
+name = "notas-transcribe"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# Secretos (no van en este archivo):
+#   npx wrangler secret put OPENAI_API_KEY
+#   npx wrangler secret put APP_TOKEN
+[vars]
+ALLOWED_ORIGIN = "https://TU_USUARIO.github.io"
+MODEL = "whisper-1"
