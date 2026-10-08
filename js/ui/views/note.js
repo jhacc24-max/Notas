@@ -118,7 +118,9 @@ export default {
       }
     });
 
-    const leave = () => { const nx = neighbor(1) || neighbor(-1); nx ? navigate(`/note/${nx}`, { replace: true }) : navigate('/', { replace: true }); };
+    // Tras eliminar la nota se vuelve a la lista de notas (sin dejar la nota borrada en el historial).
+    let left = false;
+    const leave = () => { if (left) return; left = true; navigate('/list', { replace: true }); };
 
     // Pantalla completa (API nativa si existe + modo lector en CSS como respaldo).
     function toggleFs() {
@@ -187,7 +189,7 @@ export default {
     return {
       update() {
         const n = Notes.get(id);
-        if (!n || n.deletedAt) return;
+        if (!n || n.deletedAt) { leave(); return; }
         if (editing) return; // no pisar lo que se está escribiendo
         render();
       },
