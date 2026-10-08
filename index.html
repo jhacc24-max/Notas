@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Notas médicas por voz</title>
+  <meta name="description" content="Notas de voz transcritas al español con vocabulario médico. Funciona sin conexión.">
+  <meta name="theme-color" content="#f4fbf9">
+  <meta name="color-scheme" content="light dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+  <div id="splash" aria-label="Cargando"><div class="logo"><svg class="ic" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg></div></div>
+  <div id="app">
+    <main id="view" tabindex="-1"></main>
+    <button id="fab" class="fab" aria-label="Nueva nota de voz"></button>
+    <nav id="nav" aria-label="Navegación principal"></nav>
+  </div>
+  <div id="selbar" class="selbar" style="position:fixed;top:0;left:0;right:0;z-index:30;max-width:720px;margin:0 auto" hidden></div>
+  <div id="overlay"></div>
+  <noscript><p style="padding:24px">Esta aplicación necesita JavaScript.</p></noscript>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
