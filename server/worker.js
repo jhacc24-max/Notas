@@ -6,6 +6,9 @@
 //   APP_TOKEN       (recomendada, secreto: la app lo envía como "Bearer"; evita que otros usen tu clave)
 //   ALLOWED_ORIGIN  (recomendada, ej. https://tuusuario.github.io — se usa para CORS)
 //   MODEL           (opcional, por defecto "whisper-1"; también sirve "gpt-4o-mini-transcribe")
+//   UPSTREAM_URL    (opcional) otro servicio compatible con OpenAI. GRATIS: Groq →
+//                   https://api.groq.com/openai/v1/audio/transcriptions con MODEL=whisper-large-v3
+//                   y OPENAI_API_KEY = tu clave gratuita de Groq (console.groq.com; tiene límites de uso)
 const MAX_BYTES = 25 * 1024 * 1024; // límite de la API de OpenAI
 
 export default {
@@ -42,7 +45,7 @@ export default {
     const prompt = String(form.get('prompt') || '').slice(0, 1200);
     if (prompt) out.append('prompt', prompt);
 
-    const res = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+    const res = await fetch(env.UPSTREAM_URL || 'https://api.openai.com/v1/audio/transcriptions', {
       method: 'POST', headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}` }, body: out,
     });
     if (!res.ok) return json({ error: 'upstream', status: res.status }, 502);

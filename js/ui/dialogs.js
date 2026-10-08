@@ -13,7 +13,7 @@ function mountScrim(inner, { sheet = false, dismiss = true, onClose } = {}) {
   document.addEventListener('keydown', onKey);
   el.addEventListener('click', (e) => { if (e.target === el && dismiss) close(undefined); });
   root().appendChild(el);
-  el.querySelector('[autofocus], button, input')?.focus?.({ preventScroll: true });
+  el.querySelector('input, textarea, button')?.focus?.({ preventScroll: true });
   return { el, close };
 }
 
@@ -43,15 +43,16 @@ export function menuSheet({ title = '', items }) {
 }
 
 /** Selector de fecha/hora para el recordatorio. Resuelve { at } | { remove:true } | undefined. */
-export function reminderDialog({ at, withGoogle, calendarLink, onIcs }) {
+export function reminderDialog({ at, withGoogle, googleReady, onConnect, calendarLink, onIcs }) {
   return new Promise((resolve) => {
     const def = at ?? (() => { const d = new Date(Date.now() + 3600e3); d.setMinutes(0, 0, 0); return d.getTime(); })();
     const { el, close } = mountScrim(`
       <div class="dialog" role="dialog" aria-modal="true" aria-label="Recordatorio">
         <h2>${at ? 'Modificar recordatorio' : 'Añadir recordatorio'}</h2>
-        <div class="field"><label for="rem-at">Fecha y hora</label><input id="rem-at" type="datetime-local" value="${toLocalInput(def)}" autofocus></div>
-        <p>${withGoogle ? 'Se creará también una tarea en Google Tasks (Google solo conserva la fecha, no la hora).'
-          : 'Aviso dentro de la app. Para avisos con la app cerrada, conecta Google Tasks en Ajustes o usa Google Calendar.'}</p>
+        <div class="field"><label for="rem-at">Fecha y hora</label><input id="rem-at" type="datetime-local" value="${toLocalInput(def)}"></div>
+        <p id="rem-info">${withGoogle ? 'Se añadirá a tu Google Calendar (te avisa a la hora exacta, incluso con la app cerrada) y a Google Tasks.'
+          : 'Aviso dentro de la app. Para que te avise con la app cerrada, conecta tu cuenta de Google.'}</p>
+        ${googleReady ? '<button class="btn tonal" data-connect style="align-self:flex-start">Conectar con Google</button>' : ''}
         <div class="actions" style="justify-content:flex-start">
           <a class="btn text" href="${esc(calendarLink)}" target="_blank" rel="noopener" data-cal>Google Calendar</a>
           <button class="btn text" data-ics>Archivo .ics</button>
@@ -63,6 +64,13 @@ export function reminderDialog({ at, withGoogle, calendarLink, onIcs }) {
         </div></div>`, { onClose: resolve });
     const input = el.querySelector('#rem-at');
     el.querySelector('[data-cancel]').onclick = () => close(undefined);
+    el.querySelector('[data-connect]')?.addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      if (await onConnect()) {
+        btn.remove();
+        el.querySelector('#rem-info').textContent = 'Google conectado: se añadirá a tu Google Calendar (aviso a la hora exacta) y a Google Tasks.';
+      }
+    });
     el.querySelector('[data-del]')?.addEventListener('click', () => close({ remove: true }));
     el.querySelector('[data-ics]').onclick = () => input.value && onIcs(new Date(input.value).getTime());
     el.querySelector('[data-cal]').addEventListener('click', (e) => {
@@ -113,7 +121,7 @@ export function quickAddDialog({ mode, dayMs, defaultAt }) {
     const { el, close } = mountScrim(`
       <div class="dialog" role="dialog" aria-modal="true" aria-label="${isRem ? 'Nuevo recordatorio' : 'Nueva nota'}">
         <h2>${isRem ? 'Nuevo recordatorio' : 'Nueva nota'}</h2>
-        <div class="field"><label for="qa-title">${isRem ? 'Qué recordar' : 'Título'}</label><input id="qa-title" autofocus autocomplete="off" placeholder="${isRem ? 'Ej.: Llamar al médico' : 'Ej.: Control de presión'}"></div>
+        <div class="field"><label for="qa-title">${isRem ? 'Qué recordar' : 'Título'}</label><input id="qa-title" autocomplete="off" placeholder="${isRem ? 'Ej.: Llamar al médico' : 'Ej.: Control de presión'}"></div>
         ${isRem ? '' : '<div class="field"><label for="qa-text">Texto (opcional)</label><textarea id="qa-text" rows="3"></textarea></div>'}
         <div class="field"><label for="qa-at">${isRem ? 'Fecha y hora' : 'Hora'}</label><input id="qa-at" type="${isRem ? 'datetime-local' : 'time'}" value="${isRem ? toLocalInput(at) : toLocalInput(at).slice(11)}"></div>
         <div class="chips" style="padding:0" role="group" aria-label="Prioridad">
@@ -134,6 +142,35 @@ export function quickAddDialog({ mode, dayMs, defaultAt }) {
       const when = isRem ? new Date(v).getTime()
         : new Date(day.getFullYear(), day.getMonth(), day.getDate(), +v.slice(0, 2), +v.slice(3, 5)).getTime();
       close({ title, text: el.querySelector('#qa-text')?.value.trim() ?? '', at: when, priority: prio });
+    };
+  });
+}
+
+/** Diálogo "Añadir al diccionario". Resuelve { term, fixAlways, replaceHere } | undefined. */
+export function termDialog({ selected }) {
+  return new Promise((resolve) => {
+    const { el, close } = mountScrim(`
+      <div class="dialog" role="dialog" aria-modal="true" aria-label="Añadir al diccionario">
+        <h2>Añadir al diccionario</h2>
+        <p>Escribe cómo debe quedar la palabra. Así se reconocerá mejor en las próximas notas.</p>
+        <div class="field"><label for="td-term">Palabra o término correcto</label><input id="td-term" value="${esc(selected)}" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <label class="switch-row" id="td-fix" style="padding:0" hidden><span class="grow">Corregir siempre «${esc(selected)}»<small>La próxima vez que se escuche así, se cambiará sola</small></span><input class="switch" type="checkbox" id="td-always" checked></label>
+        <label class="switch-row" id="td-here" style="padding:0" hidden><span class="grow">Cambiarla también en este texto</span><input class="switch" type="checkbox" id="td-replace" checked></label>
+        <div class="actions"><button class="btn text" data-cancel>Cancelar</button><button class="btn filled" data-ok>Añadir</button></div>
+      </div>`, { onClose: resolve });
+    const input = el.querySelector('#td-term');
+    const sync = () => {
+      const changed = input.value.trim() && input.value.trim().toLowerCase() !== selected.toLowerCase();
+      el.querySelector('#td-fix').hidden = !changed;
+      el.querySelector('#td-here').hidden = !changed;
+    };
+    input.addEventListener('input', sync);
+    input.select();
+    el.querySelector('[data-cancel]').onclick = () => close(undefined);
+    el.querySelector('[data-ok]').onclick = () => {
+      const term = input.value.trim();
+      if (!term) return input.focus();
+      close({ term, fixAlways: el.querySelector('#td-always').checked, replaceHere: el.querySelector('#td-replace').checked });
     };
   });
 }

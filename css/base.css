@@ -299,3 +299,11 @@ textarea.transcript { width: 100%; resize: vertical; color: inherit; outline: 2p
 .btn.sm { min-height: 36px; padding: 0 12px; font-size: .8rem; }
 .day-empty { font: var(--t-body-m); color: var(--md-on-surface-variant); padding: 0 4px 4px; }
 .day .section-head { flex-wrap: wrap; gap: 4px; }
+
+/* Opción flotante "Añadir al diccionario" */
+.dict-chip { position: fixed; left: 0; right: 0; margin: 0 auto; width: fit-content; bottom: calc(var(--safe-b) + 24px); z-index: 45; display: inline-flex; align-items: center; gap: 8px;
+  max-width: calc(100% - 32px); min-height: 48px; padding: 0 20px; border-radius: var(--r-full); background: var(--md-inverse-surface); color: var(--md-inverse-on-surface);
+  box-shadow: var(--e3); font: var(--t-label-l); animation: snack var(--d-med) var(--ease); white-space: nowrap; }
+.dict-chip span { overflow: hidden; text-overflow: ellipsis; }
+.dict-chip .ic { width: 20px; height: 20px; }
+.adv { margin: 4px 0; } .adv summary { cursor: pointer; padding: 12px 20px; font: var(--t-label-l); color: var(--md-on-surface-variant); } .adv[open] summary { color: var(--md-primary); }

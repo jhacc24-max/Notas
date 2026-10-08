@@ -5,7 +5,9 @@ import { emit } from '../core/events.js';
 const defaults = {
   theme: 'system',            // system | light | dark
   language: DEFAULT_CONFIG.language,
-  engine: 'auto',             // auto | webspeech | whisper
+  engine: 'auto',             // auto | local | whisper | webspeech
+  localModel: 'base',         // base (≈80 MB) | small (≈250 MB, más precisa)
+  googleCalendarSync: true,
   transcriptionEndpoint: DEFAULT_CONFIG.transcriptionEndpoint,
   transcriptionToken: '',     // token opcional de acceso a TU proxy (no es una clave de OpenAI)
   googleClientId: DEFAULT_CONFIG.googleClientId,

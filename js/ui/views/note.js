@@ -12,6 +12,7 @@ import { queueApi } from '../../app-services.js';
 import { clearReminder } from '../../reminders/service.js';
 import { getSetting } from '../../settings/settings.js';
 import { on } from '../../core/events.js';
+import { mountDictPicker } from '../dict-picker.js';
 
 let fullscreen = false;
 
@@ -172,6 +173,13 @@ export default {
     };
     document.addEventListener('keydown', onKey);
 
+    const dict = mountDictPicker(root, {
+      getText: () => (editing ? root.querySelector('#f-text')?.value : Notes.get(id)?.text) ?? '',
+      setText: async (t) => {
+        if (editing) root.querySelector('#f-text').value = t;
+        else { await Notes.update(id, { text: t }); syncNoteChange(Notes.get(id)); }
+      },
+    });
     render();
     const off = on('settings:changed', () => !editing && render());
     return {
@@ -181,7 +189,7 @@ export default {
         if (editing) return; // no pisar lo que se está escribiendo
         render();
       },
-      destroy() { off(); player?.destroy(); document.removeEventListener('keydown', onKey); document.removeEventListener('fullscreenchange', onFsChange); if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); },
+      destroy() { off(); dict.destroy(); player?.destroy(); document.removeEventListener('keydown', onKey); document.removeEventListener('fullscreenchange', onFsChange); if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); },
     };
   },
 };

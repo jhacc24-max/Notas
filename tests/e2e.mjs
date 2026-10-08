@@ -45,6 +45,7 @@ await shot('01-home-vacio');
 
 // Configurar servicio de transcripción
 await page.click('[data-act=settings]');
+await page.click('details.adv summary');
 await page.fill('#s-endpoint', 'http://localhost:9099/transcribe');
 await page.click('[data-act=save-tx]');
 await page.waitForTimeout(200);

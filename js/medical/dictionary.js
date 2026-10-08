@@ -1,7 +1,7 @@
 // Diccionario médico unificado: términos base + términos del usuario (Ajustes).
 import { BASE_TERMS, BASE_ALIASES } from './terms.js';
 import { normalize } from '../core/util.js';
-import { getSetting } from '../settings/settings.js';
+import { getSetting, setSetting } from '../settings/settings.js';
 import { on } from '../core/events.js';
 
 let built = null;
@@ -81,4 +81,14 @@ export function contextTerms(max = 120) {
 /** Prompt para Whisper: frase natural con terminología (Whisper imita el estilo/vocabulario del prompt). */
 export function whisperPrompt() {
   return `Nota clínica en español. Vocabulario médico: ${contextTerms(70).join(', ')}.`;
+}
+
+/** Añade un término al diccionario del usuario. Con `alias`, también corrige siempre alias → término. */
+export async function addCustomTerm(term, alias = null) {
+  term = term.trim();
+  if (!term) return;
+  const lines = String(getSetting('customTerms') || '').split('\n').map((l) => l.trim()).filter(Boolean);
+  const line = alias ? `${alias.trim()}=${term}` : term;
+  if (!lines.some((l) => normalize(l) === normalize(line))) lines.push(line);
+  await setSetting('customTerms', lines.join('\n'));
 }

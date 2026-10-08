@@ -13,47 +13,52 @@ Para instalarla en Android necesitas HTTPS: despliega (el workflow `.github/work
 
 Pruebas E2E (Chromium con micrófono y servicio de transcripción simulados): `PW_MODULE=/ruta/a/node_modules npm test`.
 
-## Transcripción (decisión clave)
+## Transcripción (gratis, sin cuentas)
 
-| Motor | Cómo usa la terminología médica | Coste | Privacidad |
+Por defecto la app transcribe **en el propio teléfono** con Whisper (transformers.js + ONNX/WASM), sin servidor, sin claves y sin coste:
+
+1. Primera vez: la app descarga el motor una sola vez (Estándar ≈ 80 MB · Alta precisión ≈ 250 MB; se elige en Ajustes). Un aviso en Inicio lo ofrece y muestra el progreso. Conviene Wi-Fi.
+2. Después funciona **sin Internet** y el audio **nunca sale del teléfono**.
+3. Se graba el audio completo y *luego* se transcribe: no depende de compartir el micrófono con el reconocimiento del navegador (que falla en muchos Android, y era el motivo de que no transcribiera).
+
+| Motor | Terminología médica | Coste | Privacidad |
 |---|---|---|---|
-| **Servidor Whisper** (recomendado) vía tu proxy `server/worker.js` | El diccionario viaja como **`prompt`** de Whisper: el modelo lo usa como contexto al decodificar. Después hay un corrector conservador (alias, unión de palabras, fonética, tildes). | OpenAI `whisper-1` ≈ 0,006 USD/min (≈ 0,36 USD/h; `gpt-4o-mini-transcribe` ≈ la mitad). **Verifica precios vigentes.** Cloudflare Workers: plan gratuito suficiente. | El audio va a tu proxy y a OpenAI. Nunca el texto de las notas. |
-| **Navegador** (Web Speech) | Si el navegador soporta `SpeechRecognition.phrases` (Chrome reciente) se pasan los términos como sesgo; si no, solo actúa el corrector posterior. | Gratis | El audio lo procesa Google (Chrome). Requiere Internet. |
+| **En el teléfono** (por defecto) | Corrector médico posterior (alias, unión de palabras, fonética, tildes) + tu diccionario. Whisper local no admite *prompt* de vocabulario. | Gratis | Todo local |
+| **Servidor Whisper** (opcional, `server/worker.js`) | El diccionario viaja como `prompt`: contexto real al decodificar. Mejor precisión. | OpenAI ≈ 0,006 USD/min; **o gratis con Groq** (`UPSTREAM_URL`, límites de uso) | Audio → tu proxy → proveedor |
+| **Navegador en vivo** (experimental) | Sesgo con `phrases` si el navegador lo soporta | Gratis | Audio → servicio de voz del navegador (Google) |
 
-Con motor «Automático» se usa Whisper si hay URL configurada; si no, el del navegador. **Sin conexión** el audio se guarda y la nota queda «Por transcribir»: se procesa sola al volver Internet (requiere el servidor Whisper configurado).
+Notas largas: Whisper procesa por tramos de 30 s; en móviles modestos 1 min de audio puede tardar de decenas de segundos a un par de minutos. La nota queda guardada y se transcribe en segundo plano.
 
-### Desplegar el proxy (≈5 min)
+### Diccionario personal
+- **Al transcribir:** selecciona (mantén pulsada) una palabra del texto → aparece **«Añadir al diccionario»**. Escribe la forma correcta; si es distinta de lo seleccionado, puedes marcar «Corregir siempre» y «Cambiarla también en este texto».
+- También en **Ajustes → Diccionario médico** (un término por línea; `alias=Término`).
+- Paquete base: `js/medical/terms.js` y frases en `js/medical/dictionary.js`.
+
+### Servidor opcional (≈5 min)
 ```bash
 cd server
 npx wrangler secret put OPENAI_API_KEY   # tu clave (solo vive en el servidor)
-npx wrangler secret put APP_TOKEN        # una contraseña larga; la pegas también en Ajustes
-# edita ALLOWED_ORIGIN en wrangler.toml con la URL de tu app
+npx wrangler secret put APP_TOKEN        # una contraseña larga; también en Ajustes → Opciones avanzadas
+# edita ALLOWED_ORIGIN (y UPSTREAM_URL/MODEL si usas Groq) en wrangler.toml
 npx wrangler deploy
 ```
-Pega la URL del Worker (y el token) en **Ajustes → Transcripción**.
 
-### Ampliar el diccionario
-- Sin tocar código: **Ajustes → Diccionario médico** (un término por línea; `alias=Término` corrige errores habituales).
-- Paquete base: `js/medical/terms.js` (datos por categorías) y frases en `js/medical/dictionary.js`.
+## Google Calendar y Google Tasks
 
-## Google Tasks
+Para el usuario final es el flujo de siempre: **Ajustes → Conectar con Google** (o el botón «Conectar con Google» dentro del recordatorio) → ventana de Google: elige tu cuenta, entra con usuario y contraseña si hace falta y pulsa **Permitir**. Nada más.
 
-1. [Google Cloud Console](https://console.cloud.google.com) → proyecto nuevo → habilita **Google Tasks API**.
-2. Pantalla de consentimiento OAuth (externa; añade tu cuenta como usuario de prueba) con el alcance `.../auth/tasks`.
-3. Credenciales → **ID de cliente OAuth → Aplicación web** → *Orígenes JavaScript autorizados*: la URL de tu app (no hace falta URI de redirección).
-4. Pega el **Client ID** en Ajustes → Google Tasks → **Conectar**.
+- **Google Calendar:** crea un evento con la **hora exacta** y notificación del móvil a esa hora (funciona con la app cerrada).
+- **Google Tasks:** crea la tarea (Google solo guarda la fecha).
+- Editar/borrar el recordatorio actualiza/borra el evento y la tarea. Solo viajan título, hora y enlace a la nota (nunca el texto clínico).
 
-Flujo OAuth: Google Identity Services (token model). No hay *client secret*; el token vive solo en memoria. Coste: API gratuita.
-
-**Limitaciones reales**
-- La API de Google Tasks **solo guarda la fecha** de vencimiento; la hora se descarta. La hora exacta va en las notas de la tarea. Para un aviso a la hora exacta, el diálogo ofrece **Google Calendar** y **.ics**.
-- Una PWA **no puede despertarse con la app cerrada** a una hora concreta (los *notification triggers* no están disponibles). La app avisa a la hora si está abierta; con la app cerrada avisan Google Tasks/Calendar.
-- Tareas y notas se mantienen asociadas (id de tarea guardado en el recordatorio; la tarea enlaza a la nota). Editar/borrar el recordatorio actualiza/borra la tarea; completar la nota completa la tarea. Los cambios hechos en Google no se sincronizan de vuelta.
+### Configuración única de quien publica la app (no la hace el usuario)
+Ver **[docs/GOOGLE.md](docs/GOOGLE.md)**: crear el Client ID (5 pasos) y pegarlo en `js/config.js`. Los usuarios ya no ven nada técnico.
 
 ## Privacidad: qué sale del dispositivo
 - **Local siempre:** notas, audios, recordatorios y ajustes (IndexedDB; se pide almacenamiento persistente).
-- **Motor navegador:** audio → servicio de voz del navegador. **Motor servidor:** audio + lista de términos → tu proxy → OpenAI.
-- **Google Tasks:** solo título, fecha/hora y enlace a la nota.
+- **Motor en el teléfono (por defecto):** nada sale; solo se descarga el modelo una vez desde Internet.
+- **Motor navegador:** audio → servicio de voz del navegador. **Motor servidor:** audio + lista de términos → tu proxy → proveedor.
+- **Google (solo si lo conectas):** título, hora y enlace a la nota.
 - Sin analítica, sin anuncios; la app no escribe contenido de notas en logs. Las claves no están en el código: la de OpenAI es un secreto del Worker; el Client ID de Google es público por diseño.
 - Compartir usa la hoja de Android; tú eliges el destino.
 
@@ -78,5 +83,5 @@ server/          proxy de transcripción (Cloudflare Worker)
 **Sincronización futura:** cada nota tiene `id` y `updatedAt`, y el audio/recordatorios van en almacenes aparte; un adaptador de nube solo tiene que leer/escribir esos registros.
 
 ## Estado de verificación
-Probado automáticamente (39 comprobaciones, Chromium emulando móvil táctil, micrófono falso y transcripción simulada): grabación, temporizador, transcripción + corrección, reproducción, edición, guardado, búsqueda, favoritos, prioridades, calendario, recordatorios, selección múltiple, compartir, papelera, gestos, persistencia, modo sin conexión, tema oscuro, manifest/service worker y ausencia de errores de consola.
+Probado automáticamente (E2E, ~65 comprobaciones, Chromium emulando móvil táctil, micrófono falso y transcripción simulada): grabación, temporizador, transcripción + corrección, reproducción, edición, guardado, búsqueda, favoritos, prioridades, calendario, recordatorios, selección múltiple, compartir, papelera, gestos, persistencia, modo sin conexión, tema oscuro, manifest/service worker y ausencia de errores de consola.
 **No verificado aquí:** dispositivo Android físico, Web Speech real, OpenAI real y Google OAuth/Tasks reales (requieren tus credenciales). En algunos Android el micrófono no se puede compartir entre la grabación y el reconocimiento en vivo del navegador: la app lo detecta, guarda el audio y ofrece transcribir/escribir después.

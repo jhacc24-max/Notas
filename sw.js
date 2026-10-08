@@ -1,6 +1,7 @@
 // Service worker: precache del "app shell" (funciona sin conexión) + actualización por versión.
-const VERSION = 'v1.1.0';
+const VERSION = 'v1.2.0';
 const CACHE = `notas-${VERSION}`;
+const CDN = 'notas-cdn'; // fuera de la versión: no se vuelve a descargar el motor en cada actualización
 const SHELL = [
   './', 'index.html', 'manifest.webmanifest', 'css/tokens.css', 'css/base.css',
   'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/icon-180.png',
@@ -9,12 +10,12 @@ const SHELL = [
   'js/storage/db.js', 'js/settings/settings.js',
   'js/notes/notes.js', 'js/notes/titles.js', 'js/notes/demo.js',
   'js/audio/recorder.js',
-  'js/transcription/index.js', 'js/transcription/webspeech.js', 'js/transcription/whisper.js',
+  'js/transcription/index.js', 'js/transcription/webspeech.js', 'js/transcription/whisper.js', 'js/transcription/local.js', 'js/transcription/asr-worker.js',
   'js/medical/terms.js', 'js/medical/dictionary.js', 'js/medical/corrector.js',
   'js/calendar/calendar.js', 'js/reminders/reminders.js', 'js/reminders/service.js',
-  'js/google/oauth.js', 'js/google/tasks.js', 'js/search/search-index.js', 'js/share/share.js',
+  'js/google/oauth.js', 'js/google/tasks.js', 'js/google/calendar.js', 'js/search/search-index.js', 'js/share/share.js',
   'js/ui/router.js', 'js/ui/shell.js', 'js/ui/components.js', 'js/ui/dialogs.js', 'js/ui/player.js', 'js/ui/selection.js',
-  'js/ui/actions.js', 'js/ui/draft.js', 'js/ui/recording.js', 'js/ui/install.js',
+  'js/ui/actions.js', 'js/ui/dict-picker.js', 'js/ui/draft.js', 'js/ui/recording.js', 'js/ui/install.js',
   'js/ui/views/home.js', 'js/ui/views/notes.js', 'js/ui/views/search.js', 'js/ui/views/calendar.js',
   'js/ui/views/note.js', 'js/ui/views/review.js', 'js/ui/views/settings.js', 'js/ui/views/trash.js',
 ];
@@ -23,13 +24,25 @@ self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', (e) => {
-  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE && k !== CDN).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
 
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
-  // Solo recursos propios (nunca se cachean APIs de transcripción ni de Google).
+  // La librería del motor de voz (jsDelivr) se guarda para que funcione sin conexión tras el primer uso.
+  // Los modelos los guarda la propia librería (Cache API). Nunca se cachean APIs de Google ni de transcripción.
+  if (req.method === 'GET' && url.hostname === 'cdn.jsdelivr.net' && url.pathname.includes('/@huggingface/transformers@')) {
+    e.respondWith((async () => {
+      const cache = await caches.open(CDN);
+      const hit = await cache.match(req);
+      if (hit) return hit;
+      const r = await fetch(req);
+      if (r.ok) cache.put(req, r.clone());
+      return r;
+    })());
+    return;
+  }
   if (req.method !== 'GET' || url.origin !== location.origin) return;
   e.respondWith((async () => {
     const cache = await caches.open(CACHE);

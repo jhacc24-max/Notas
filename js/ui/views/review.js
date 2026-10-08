@@ -11,7 +11,14 @@ import { on } from '../../core/events.js';
 import { processQueue } from '../../transcription/index.js';
 import { retryRemoteTranscription } from '../recording.js';
 import { queueApi } from '../../app-services.js';
-import { getSetting } from '../../settings/settings.js';
+import { mountDictPicker } from '../dict-picker.js';
+
+function progressText(d) {
+  const p = d.progress || {};
+  if (p.phase === 'download') return `Descargando el motor de voz gratuito (solo la primera vez): ${p.pct ?? 0}%`;
+  if (p.phase === 'transcribe') return 'Transcribiendo en tu teléfono… puede tardar unos segundos.';
+  return 'Preparando la transcripción…';
+}
 
 export default {
   nav: false, fab: false,
@@ -28,9 +35,9 @@ export default {
       if (!d) return;
       const busy = d.status === 'transcribing';
       const note = {
-        pending: 'Sin conexión o sin servicio: el audio se guardará y se transcribirá cuando sea posible.',
-        none: getSetting('transcriptionEndpoint') ? 'No se obtuvo transcripción. Puedes escribirla.' : 'No hay transcripción automática disponible. Puedes escribir el texto.',
-        error: 'No se pudo transcribir. Reintenta o escribe el texto.',
+        pending: 'Sin conexión: el audio se guardará y se transcribirá solo cuando haya Internet.',
+        none: 'No se obtuvo texto. Puedes escribirlo o volver a grabar.',
+        error: `No se pudo transcribir${d.error ? ` (${d.error})` : ''}. Reintenta o escribe el texto.`,
       }[d.status];
       const wasPlaying = player && !player.audio.paused;
       root.innerHTML = `
@@ -38,7 +45,7 @@ export default {
         <div class="page">
           <div class="label-row"><span>Transcripción</span>
             ${busy ? '' : `<button class="btn tonal" data-act="edit" style="min-height:40px">${icon(editing ? 'check' : 'edit')}${editing ? 'Listo' : 'Editar'}</button>`}</div>
-          ${busy ? `<div class="processing" role="status"><span class="spinner"></span>Transcribiendo con vocabulario médico…</div>` : ''}
+          ${busy ? `<div class="processing" role="status"><span class="spinner"></span><span id="prog">${esc(progressText(d))}</span></div>` : ''}
           ${editing
             ? `<textarea class="transcript" id="txt" aria-label="Texto de la transcripción" spellcheck="true" lang="es" placeholder="Escribe o corrige el texto…">${esc(d.text)}</textarea>`
             : `<div class="transcript selectable ${d.text ? '' : 'empty-t'}" id="txt">${d.text ? esc(d.text) : (busy ? '' : 'Sin texto. Toca «Editar» para escribirlo.')}</div>`}
@@ -91,7 +98,12 @@ export default {
       if (e.target.id === 'txt') getDraft() && (getDraft().text = e.target.value);
     });
     const off = on('draft:changed', () => { if (!editing && !saved) render(); });
+    const offProg = on('draft:progress', () => { const el = root.querySelector('#prog'); if (el && getDraft()) el.textContent = progressText(getDraft()); });
+    const dict = mountDictPicker(root, {
+      getText: () => (editing ? root.querySelector('#txt')?.value : getDraft()?.text) ?? '',
+      setText: (t) => { if (editing) root.querySelector('#txt').value = t; patchDraft({ text: t }); if (editing) getDraft().text = t; },
+    });
     init();
-    return { destroy: () => { off(); player?.destroy(); } };
+    return { destroy: () => { off(); offProg(); dict.destroy(); player?.destroy(); } };
   },
 };

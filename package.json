@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node tests/serve.mjs",
     "icons": "node tests/make-icons.mjs",
-    "test": "node tests/e2e.mjs"
+    "test": "node tests/e2e.mjs && node tests/e2e-engines.mjs"
   },
   "devDependencies": {
     "playwright-core": "^1.48.0"

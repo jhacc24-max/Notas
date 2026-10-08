@@ -2,7 +2,7 @@
 // LIMITACIÓN DE LA API: el campo `due` solo conserva la FECHA; la hora se descarta. Por eso la hora
 // exacta se escribe en el título/notas de la tarea, y para un aviso a la hora exacta se ofrece además
 // "Añadir a Google Calendar / .ics" (ver reminders.js).
-import { getToken } from './oauth.js';
+import { getToken, forgetToken } from './oauth.js';
 import { fmtDateTime } from '../core/util.js';
 
 const BASE = 'https://tasks.googleapis.com/tasks/v1';
@@ -14,7 +14,7 @@ async function api(path, { method = 'GET', body } = {}, retry = true) {
     headers: { Authorization: `Bearer ${token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
     body: body ? JSON.stringify(body) : undefined,
   });
-  if (res.status === 401 && retry) { return api(path, { method, body }, false); }
+  if (res.status === 401 && retry) { forgetToken(); return api(path, { method, body }, false); }
   if (res.status === 404 && method === 'DELETE') return null;
   if (!res.ok) throw new Error(`Google Tasks ${res.status}`);
   return res.status === 204 ? null : res.json();

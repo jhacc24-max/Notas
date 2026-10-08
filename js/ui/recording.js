@@ -1,10 +1,11 @@
 // Pantalla de grabación: micrófono -> temporizador -> transcripción en vivo (si el motor lo permite) -> borrador.
 import { Recorder, recordingSupported } from '../audio/recorder.js';
-import { resolveEngine, createLiveRecognizer, transcribeBlob, polish } from '../transcription/index.js';
-import { setDraft, patchDraft, getDraft } from './draft.js';
-import { getSetting } from '../settings/settings.js';
+import { resolveEngine, createLiveRecognizer, transcribeBlob, polish, canTranscribeNow } from '../transcription/index.js';
+import { setDraft, patchDraft, getDraft, setProgress } from './draft.js';
 import { navigate } from './router.js';
 import { toast } from './dialogs.js';
+import { modelReady, MODELS } from '../transcription/local.js';
+import { modelKey } from '../transcription/index.js';
 import { fmtDuration, esc } from '../core/util.js';
 import { icon } from '../core/icons.js';
 
@@ -25,7 +26,11 @@ export async function startRecordingFlow() {
   el.setAttribute('role', 'dialog');
   el.setAttribute('aria-label', 'Grabando nota de voz');
   const online = navigator.onLine;
-  const hint = engine === 'webspeech'
+  const hint = engine === 'local'
+    ? (modelReady(modelKey()) ? 'Se transcribirá en tu teléfono al detener (gratis, sin enviar audio).'
+      : online ? 'Al detener se descargará una vez el motor de voz gratuito (~' + MODELS[modelKey()].mb + ' MB) y se transcribirá.'
+        : 'Sin conexión: se guardará el audio y se transcribirá cuando haya Internet.')
+    : engine === 'webspeech'
     ? (online ? 'Transcripción en vivo (reconocimiento del navegador).' : 'Sin conexión: el reconocimiento del navegador necesita Internet. Se guardará el audio.')
     : engine === 'whisper'
       ? (online ? 'Se transcribirá al detener la grabación.' : 'Sin conexión: se guardará el audio y se transcribirá después.')
@@ -44,7 +49,7 @@ export async function startRecordingFlow() {
   const tick = setInterval(() => { $('rec-time').textContent = fmtDuration(rec.elapsed); }, 250);
   rec.onLevel = (l) => $('rec-orb').style.setProperty('--lvl', Math.min(1, l * 2.2).toFixed(2));
 
-  if (engine === 'webspeech' && online) {
+  if (engine === 'webspeech' && online) { // modo en vivo (experimental): puede chocar con la grabación en algunos Android
     live = createLiveRecognizer({
       onUpdate: (f, i) => { $('rec-live').innerHTML = `${esc(f)} <span class="interim">${esc(i)}</span>`; },
       onError: (code) => {
@@ -70,27 +75,28 @@ export async function startRecordingFlow() {
 
 function finish(audio, liveText, online) {
   const base = { ...audio, at: Date.now(), text: '', status: 'none' };
-  const canRemote = !!getSetting('transcriptionEndpoint');
+  const engine = resolveEngine();
   if (liveText) setDraft({ ...base, text: polish(liveText), status: 'done' });
-  else if (canRemote && !online) setDraft({ ...base, status: 'pending' }); // se transcribe al volver la conexión
-  else if (canRemote) { setDraft({ ...base, status: 'transcribing' }); runRemote(); }
-  else setDraft({ ...base, status: 'none' });
+  else if (engine === 'local' || engine === 'whisper') {
+    // Local: si el modelo ya está descargado funciona sin Internet; si no, hace falta conexión una vez.
+    if (canTranscribeNow()) { setDraft({ ...base, status: 'transcribing' }); runTranscription(); }
+    else setDraft({ ...base, status: 'pending' }); // se transcribe sola al volver la conexión
+  } else setDraft({ ...base, status: 'none' });
   navigate('/review');
 }
 
-async function runRemote() {
+export async function runTranscription() {
   const d = getDraft();
   if (!d) return;
   const ctl = new AbortController();
   d.abort = () => ctl.abort();
+  setProgress({ phase: 'start' });
   try {
-    const text = await transcribeBlob(d.blob);
+    const text = await transcribeBlob(d.blob, setProgress);
     // No pisar lo que el usuario haya empezado a escribir mientras tanto.
-    if (getDraft() === d) patchDraft({ text: d.text?.trim() ? d.text : text, status: 'done' });
-  } catch {
-    if (getDraft() === d && !ctl.signal.aborted) {
-      patchDraft({ status: navigator.onLine ? 'error' : 'pending' });
-    }
+    if (getDraft() === d) patchDraft({ text: d.text?.trim() ? d.text : text, status: 'done', error: '' });
+  } catch (e) {
+    if (getDraft() === d && !ctl.signal.aborted) patchDraft({ status: navigator.onLine ? 'error' : 'pending', error: e.message });
   }
 }
-export { runRemote as retryRemoteTranscription };
+export { runTranscription as retryRemoteTranscription };

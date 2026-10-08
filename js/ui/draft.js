@@ -21,6 +21,7 @@ export function patchDraft(p) {
   emit('draft:changed');
   dbPut('settings', { key: KEY, value: { text: draft.text, status: draft.status, at: draft.at } }).catch(() => {});
 }
+export function setProgress(p) { if (draft) { draft.progress = p; emit('draft:progress'); } }
 export async function clearDraft() {
   draft?.abort?.();
   draft = null;

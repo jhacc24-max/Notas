@@ -8,6 +8,16 @@ import { startRecordingFlow } from '../recording.js';
 import { getDraft, hasSavedDraft, restoreDraft } from '../draft.js';
 import { installAvailable, promptInstall } from '../install.js';
 import { on } from '../../core/events.js';
+import { resolveEngine, modelKey } from '../../transcription/index.js';
+import { modelReady, prepareModel, downloadState, MODELS } from '../../transcription/local.js';
+import { toast } from '../dialogs.js';
+
+/** Aviso de primera vez: descargar el motor de voz gratuito (una sola vez). */
+function asrBanner() {
+  if (resolveEngine() !== 'local' || modelReady(modelKey())) return '';
+  if (downloadState.busy) return `<div class="banner" role="status"><span class="spinner"></span><span>Descargando el motor de voz… ${downloadState.pct}%</span></div>`;
+  return `<div class="banner" role="status">${icon('download')}<span>Para transcribir gratis, descarga una vez el motor de voz (~${MODELS[modelKey()].mb} MB, mejor con Wi-Fi).${downloadState.error ? ' Error: ' + esc(downloadState.error) : ''}</span><button class="btn tonal" data-act="asr">Descargar</button></div>`;
+}
 
 const section = (title, notes, more, query = '') => notes.length ? `
   <section class="section"><div class="section-head"><h2>${title}</h2>${more ? `<a class="btn text" href="#/notes${query}">Ver todas</a>` : ''}</div>
@@ -31,6 +41,7 @@ export default {
       root.innerHTML = `
         ${appBar({ title: 'Mis notas', large: true, actions: iconBtn('trash', 'delete', 'Papelera') + iconBtn('settings', 'settings', 'Ajustes') })}
         ${savedDraft || getDraft() ? `<div class="banner" role="status">${icon('mic')}<span>Tienes una grabación sin guardar.</span><button class="btn tonal" data-act="draft">Revisar</button></div>` : ''}
+        ${asrBanner()}
         ${installAvailable() ? `<div class="banner" role="status">${icon('download')}<span>Instala la app en tu teléfono para usarla sin conexión.</span><button class="btn tonal" data-act="install">Instalar</button></div>` : ''}
         <div class="hero">
           <h2>${act.length ? 'Hola 👋' : 'Bienvenido'}</h2>
@@ -58,9 +69,10 @@ export default {
       if (act === 'settings') navigate('/settings');
       if (act === 'trash') navigate('/trash');
       if (act === 'draft') { await restoreDraft(); navigate('/review'); }
+      if (act === 'asr') { prepareModel(modelKey()).catch((err) => toast(`No se pudo descargar: ${err.message}`)); }
       if (act === 'install') { await promptInstall(); render(); }
     });
-    const off = [on('install:changed', render), on('draft:changed', render)];
+    const off = [on('install:changed', render), on('draft:changed', render), on('asr:progress', render)];
     return { update: render, destroy: () => off.forEach((f) => f()) };
   },
 };
