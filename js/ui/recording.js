@@ -4,7 +4,7 @@ import { resolveEngine, createLiveRecognizer, transcribeBlob, polish, canTranscr
 import { setDraft, patchDraft, getDraft, setProgress } from './draft.js';
 import { navigate } from './router.js';
 import { toast } from './dialogs.js';
-import { modelReady, MODELS } from '../transcription/local.js';
+import { modelReady, MODELS, lastDiag } from '../transcription/local.js';
 import { modelKey } from '../transcription/index.js';
 import { fmtDuration, esc } from '../core/util.js';
 import { icon } from '../core/icons.js';
@@ -85,18 +85,28 @@ function finish(audio, liveText, online) {
   navigate('/review');
 }
 
-export async function runTranscription() {
+/** Lanza la transcripción del borrador. d.job (promesa) permite seguir procesando aunque se guarde la nota. */
+export function runTranscription() {
   const d = getDraft();
   if (!d) return;
-  const ctl = new AbortController();
-  d.abort = () => ctl.abort();
+  d.startedAt = Date.now();
   setProgress({ phase: 'start' });
-  try {
-    const text = await transcribeBlob(d.blob, setProgress);
+  d.job = transcribeBlob(d.blob, setProgress);
+  d.job.then((text) => {
+    if (getDraft() !== d) return;
     // No pisar lo que el usuario haya empezado a escribir mientras tanto.
-    if (getDraft() === d) patchDraft({ text: d.text?.trim() ? d.text : text, status: 'done', error: '' });
-  } catch (e) {
-    if (getDraft() === d && !ctl.signal.aborted) patchDraft({ status: navigator.onLine ? 'error' : 'pending', error: e.message });
-  }
+    const out = d.text?.trim() ? d.text : text;
+    patchDraft({ text: out, status: out.trim() ? 'done' : 'none', error: '', diag: out.trim() ? '' : diagText() });
+  }).catch((e) => {
+    if (getDraft() === d) patchDraft({ status: navigator.onLine ? 'error' : 'pending', error: e.message });
+  });
+}
+
+/** Explica por qué no salió texto (volumen, duración) para poder orientar al usuario. */
+function diagText() {
+  const g = lastDiag;
+  if (!g.seconds) return '';
+  const quiet = g.peak < 0.02 ? ' El audio está casi en silencio: acerca el micrófono o habla más alto.' : '';
+  return `Audio de ${g.seconds.toFixed(1)} s, volumen máx. ${(g.peak * 100).toFixed(0)}%.${quiet}`;
 }
 export { runTranscription as retryRemoteTranscription };

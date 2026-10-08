@@ -23,11 +23,14 @@ Por defecto la app transcribe **en el propio teléfono** con Whisper (transforme
 
 | Motor | Terminología médica | Coste | Privacidad |
 |---|---|---|---|
+| **Groq (clave gratuita pegada en Ajustes)** — la más rápida y precisa | Whisper grande con el diccionario como `prompt` (contexto real). Segundos por nota. | Gratis (límites de uso: ~2000 peticiones/día) | El audio va a Groq; la clave solo se guarda en tu teléfono |
 | **En el teléfono** (por defecto) | Corrector médico posterior (alias, unión de palabras, fonética, tildes) + tu diccionario. Whisper local no admite *prompt* de vocabulario. | Gratis | Todo local |
 | **Servidor Whisper** (opcional, `server/worker.js`) | El diccionario viaja como `prompt`: contexto real al decodificar. Mejor precisión. | OpenAI ≈ 0,006 USD/min; **o gratis con Groq** (`UPSTREAM_URL`, límites de uso) | Audio → tu proxy → proveedor |
 | **Navegador en vivo** (experimental) | Sesgo con `phrases` si el navegador lo soporta | Gratis | Audio → servicio de voz del navegador (Google) |
 
-Notas largas: Whisper procesa por tramos de 30 s; en móviles modestos 1 min de audio puede tardar de decenas de segundos a un par de minutos. La nota queda guardada y se transcribe en segundo plano.
+**Velocidad del motor del teléfono:** corre en WASM de un solo hilo (GitHub Pages no permite el aislamiento necesario para varios hilos), así que en móviles modestos 1 min de audio puede tardar de uno a varios minutos (Rápida < Estándar < Alta precisión). Puedes guardar la nota mientras procesa y se completa sola. Si necesitas rapidez, usa la clave de Groq.
+
+**Verificado:** la tubería real (decodificar el audio grabado → worker → modelo Whisper → texto) se probó en Chromium con el modelo `Xenova/whisper-tiny` real y una grabación de voz (≈11 s de audio en ≈12–17 s en un PC sin hilos).
 
 ### Diccionario personal
 - **Al transcribir:** selecciona (mantén pulsada) una palabra del texto → aparece **«Añadir al diccionario»**. Escribe la forma correcta; si es distinta de lo seleccionado, puedes marcar «Corregir siempre» y «Cambiarla también en este texto».

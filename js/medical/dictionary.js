@@ -80,7 +80,7 @@ export function contextTerms(max = 120) {
 
 /** Prompt para Whisper: frase natural con terminología (Whisper imita el estilo/vocabulario del prompt). */
 export function whisperPrompt() {
-  return `Nota clínica en español. Vocabulario médico: ${contextTerms(70).join(', ')}.`;
+  return `Nota clínica en español. Vocabulario médico: ${contextTerms(45).join(', ')}.`;
 }
 
 /** Añade un término al diccionario del usuario. Con `alias`, también corrige siempre alias → término. */

@@ -4,6 +4,7 @@
 import { emit } from '../core/events.js';
 
 export const MODELS = {
+  tiny: { id: 'Xenova/whisper-tiny', mb: 40, label: 'Rápida' },
   base: { id: 'Xenova/whisper-base', mb: 80, label: 'Estándar' },
   small: { id: 'Xenova/whisper-small', mb: 250, label: 'Alta precisión' },
 };
@@ -67,18 +68,24 @@ export async function prepareModel(key, onProgress) {
   const tick = (p) => { if (p.pct != null) downloadState.pct = p.pct; onProgress?.(p); emit('asr:progress'); };
   emit('asr:progress');
   try {
-    await call({ type: 'load', model: MODELS[key].id }, tick);
+    await call({ type: 'load', model: MODELS[key].id, expected: MODELS[key].mb * 1048576 }, tick);
     setReady(key);
   } catch (e) { downloadState.error = e.message; throw e; }
   finally { downloadState.busy = false; emit('asr:progress'); }
 }
 
+/** Datos del último audio procesado (para explicar por qué no salió texto). */
+export const lastDiag = { seconds: 0, peak: 0, model: '' };
+
 export async function transcribeLocal(blob, { key = 'base', lang = 'es-ES', onProgress } = {}) {
   const audio = await decodeAudio(blob);
+  let peak = 0;
+  for (let i = 0; i < audio.length; i += 16) peak = Math.max(peak, Math.abs(audio[i]));
+  Object.assign(lastDiag, { seconds: audio.length / 16000, peak, model: key });
   if (!audio.length) return '';
-  const language = { es: 'spanish' }[lang.slice(0, 2)] || 'spanish';
+  const language = { es: 'spanish', en: 'english' }[lang.slice(0, 2)] || 'spanish';
   const wasReady = modelReady(key);
-  const text = await call({ type: 'run', model: MODELS[key].id, audio, language }, (p) => {
+  const text = await call({ type: 'run', model: MODELS[key].id, audio, language, expected: MODELS[key].mb * 1048576 }, (p) => {
     if (p.phase === 'download') downloadState.pct = p.pct;
     onProgress?.(p);
   }, [audio.buffer]);

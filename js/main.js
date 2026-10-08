@@ -1,5 +1,5 @@
 import { loadSettings } from './settings/settings.js';
-import { initNotes, get as getNote, active } from './notes/notes.js';
+import { initNotes, get as getNote, active, update } from './notes/notes.js';
 import { requestPersistence } from './storage/db.js';
 import { startReminderWatcher } from './reminders/reminders.js';
 import { processQueue } from './transcription/index.js';
@@ -43,6 +43,8 @@ async function boot() {
   if (location.hash.includes('new=1')) { location.replace('#/'); setTimeout(startRecordingFlow, 300); } // atajo "Grabar"
   requestPersistence();
   startReminderWatcher(getNote);
+  // Si la app se cerró a mitad de una transcripción, la nota vuelve a la cola.
+  for (const n of active()) if (n.transcriptStatus === 'processing') await update(n.id, { transcriptStatus: 'pending' }, { silent: true });
   const runQueue = () => processQueue(queueApi());
   window.addEventListener('online', () => { toast('Conexión recuperada'); runQueue(); });
   window.addEventListener('offline', () => toast('Sin conexión: puedes seguir grabando y consultando notas.'));

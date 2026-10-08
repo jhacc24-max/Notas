@@ -1,5 +1,5 @@
 // Service worker: precache del "app shell" (funciona sin conexión) + actualización por versión.
-const VERSION = 'v1.2.1';
+const VERSION = 'v1.3.0';
 const CACHE = `notas-${VERSION}`;
 const CDN = 'notas-cdn'; // fuera de la versión: no se vuelve a descargar el motor en cada actualización
 const SHELL = [

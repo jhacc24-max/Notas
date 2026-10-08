@@ -8,6 +8,7 @@ const defaults = {
   engine: 'auto',             // auto | local | whisper | webspeech
   localModel: 'base',         // base (≈80 MB) | small (≈250 MB, más precisa)
   googleCalendarSync: true,
+  groqKey: '',                // clave GRATUITA de Groq (Whisper grande): solo se guarda en este dispositivo
   transcriptionEndpoint: DEFAULT_CONFIG.transcriptionEndpoint,
   transcriptionToken: '',     // token opcional de acceso a TU proxy (no es una clave de OpenAI)
   googleClientId: DEFAULT_CONFIG.googleClientId,

@@ -15,9 +15,11 @@ import { mountDictPicker } from '../dict-picker.js';
 
 function progressText(d) {
   const p = d.progress || {};
-  if (p.phase === 'download') return `Descargando el motor de voz gratuito (solo la primera vez): ${p.pct ?? 0}%`;
-  if (p.phase === 'transcribe') return 'Transcribiendo en tu teléfono… puede tardar unos segundos.';
-  return 'Preparando la transcripción…';
+  const secs = d.startedAt ? Math.round((Date.now() - d.startedAt) / 1000) : 0;
+  const t = secs ? ` (${secs} s)` : '';
+  if (p.phase === 'download') return `Descargando el motor de voz gratuito (solo la primera vez): ${p.pct ?? 0}%${t}`;
+  if (p.phase === 'transcribe') return `Transcribiendo… en teléfonos lentos puede tardar un par de minutos. Puedes guardar la nota: seguirá procesándose.${t}`;
+  return `Preparando la transcripción…${t}`;
 }
 
 export default {
@@ -36,7 +38,7 @@ export default {
       const busy = d.status === 'transcribing';
       const note = {
         pending: 'Sin conexión: el audio se guardará y se transcribirá solo cuando haya Internet.',
-        none: 'No se obtuvo texto. Puedes escribirlo o volver a grabar.',
+        none: `No se detectó texto. ${d.diag || 'Puedes escribirlo o volver a grabar.'}`,
         error: `No se pudo transcribir${d.error ? ` (${d.error})` : ''}. Reintenta o escribe el texto.`,
       }[d.status];
       const wasPlaying = player && !player.audio.paused;
@@ -81,11 +83,16 @@ export default {
         if (editing) patchDraft({ text: root.querySelector('#txt').value });
         const x = getDraft();
         const wantsQueue = x.status === 'pending' || (x.status === 'transcribing');
-        if (x.status === 'transcribing') x.abort?.();
+        const running = x.status === 'transcribing' && x.job && !x.text.trim();
         const n = await Notes.create({
           text: x.text, audio: x.blob ? { blob: x.blob, mime: x.mime, duration: x.duration } : null,
-          transcriptStatus: wantsQueue && !x.text.trim() ? 'pending' : (x.text.trim() ? 'done' : 'none'),
+          transcriptStatus: running ? 'processing' : (wantsQueue && !x.text.trim() ? 'pending' : (x.text.trim() ? 'done' : 'none')),
         });
+        // La transcripción en curso no se pierde: al terminar se completa la nota ya guardada.
+        if (running) {
+          x.job.then((text) => Notes.update(n.id, { text: Notes.get(n.id)?.text.trim() ? Notes.get(n.id).text : text, transcriptStatus: text.trim() ? 'done' : 'none' }))
+            .catch(() => Notes.update(n.id, { transcriptStatus: 'pending' }));
+        }
         await clearDraft();
         const btn = root.querySelector('#save-btn');
         btn?.classList.add('savedpulse');
@@ -103,7 +110,8 @@ export default {
       getText: () => (editing ? root.querySelector('#txt')?.value : getDraft()?.text) ?? '',
       setText: (t) => { if (editing) root.querySelector('#txt').value = t; patchDraft({ text: t }); if (editing) getDraft().text = t; },
     });
+    const tick = setInterval(() => { const el = root.querySelector('#prog'); if (el && getDraft()?.status === 'transcribing') el.textContent = progressText(getDraft()); }, 1000);
     init();
-    return { destroy: () => { off(); offProg(); dict.destroy(); player?.destroy(); } };
+    return { destroy: () => { clearInterval(tick); off(); offProg(); dict.destroy(); player?.destroy(); } };
   },
 };

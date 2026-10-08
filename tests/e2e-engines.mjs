@@ -80,6 +80,8 @@ check('Se aplica en el texto actual', (await page.textContent('.transcript')).in
 await page.click('#save-btn');
 await page.waitForSelector('.card');
 
+
+
 // 4) Google: conectar desde el propio diálogo del recordatorio y crear evento + tarea
 await page.evaluate(async () => { await (await import('/js/settings/settings.js')).setSetting('googleClientId', 'test.apps.googleusercontent.com'); });
 await page.click('.card');
@@ -113,19 +115,61 @@ check('Ajustes: Google conectado con interruptores', !!(await page.$('[data-sw=g
 await shot('22-ajustes');
 await page.click('[data-pick=model]');
 await page.waitForSelector('.sheet .menu-item');
-await page.click('.sheet .menu-item >> nth=1');
+await page.click('.sheet .menu-item:has-text("Alta precisión")');
 await page.waitForTimeout(300);
 check('Ajustes: el selector de calidad se despliega y cambia', (await page.textContent('[data-pick=model]')).includes('Alta precisión'));
 await page.click('[data-adv=tx]');
 await page.click('[data-pick=engine]');
 await page.click('.sheet .menu-item >> nth=2');
 await page.waitForTimeout(300);
-check('Ajustes: opciones avanzadas se despliegan y el motor cambia', (await page.textContent('[data-pick=engine]')).includes('servidor'));
+check('Ajustes: opciones avanzadas se despliegan y el motor cambia', (await page.textContent('[data-pick=engine]')).includes('Nube'));
 await page.click('[data-pick=lang]');
 await page.click('.sheet .menu-item >> nth=1');
 await page.waitForTimeout(300);
 check('Ajustes: el idioma cambia', (await page.textContent('[data-pick=lang]')).includes('México'));
 await shot('23-selector');
+
+// 6) Groq (gratis): clave pegada en Ajustes -> Whisper grande con vocabulario médico
+const groqReqs = [];
+let slow = false;
+await ctx.route('https://api.groq.com/**', async (r) => {
+  const req = r.request();
+  if (slow && req.url().includes('audio/transcriptions')) await new Promise((r) => setTimeout(r, 1800));
+  groqReqs.push({ url: req.url(), auth: req.headers().authorization, body: req.postData() || '' });
+  await r.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*', 'access-control-allow-headers': '*' }, body: JSON.stringify(req.url().includes('/models') ? { data: [] } : { text: 'Paciente con levo dopa y presion arterial alta' }) });
+});
+await page.evaluate(() => window.scrollTo(0, 0));
+await page.fill('#s-groq', 'gsk_test_123');
+await page.click('[data-act=save-groq]');
+await page.waitForTimeout(600);
+check('Groq: se comprueba la clave', groqReqs.some((q) => q.url.includes('/models') && q.auth === 'Bearer gsk_test_123'));
+await page.goto('http://localhost:8282/#/');
+await page.waitForTimeout(300);
+await page.click('#fab');
+await page.waitForSelector('.rec-screen');
+await page.waitForTimeout(1500);
+await page.click('#rec-stop');
+await page.waitForFunction(() => document.querySelector('.transcript')?.textContent.includes('levodopa'), null, { timeout: 8000 });
+const gq = groqReqs.find((q) => q.url.includes('audio/transcriptions'));
+check('Groq: transcribe con Whisper grande y corrección médica', !!gq && gq.body.includes('whisper-large-v3') && /Vocabulario m/.test(gq.body) && (await page.textContent('.transcript')).includes('presión'), (await page.textContent('.transcript')).slice(0, 60));
+check('Groq: la clave solo viaja a Groq', gq.auth === 'Bearer gsk_test_123');
+await page.click('#save-btn');
+await page.waitForSelector('.card');
+
+// 7) Guardar mientras aún transcribe: la nota se completa sola al terminar
+slow = true;
+await page.click('#fab');
+await page.waitForSelector('.rec-screen');
+await page.waitForTimeout(1200);
+await page.click('#rec-stop');
+await page.waitForSelector('#prog');
+await page.click('#save-btn');
+await page.waitForSelector('.card');
+const midStatus = await page.evaluate(async () => { const m = await import('/js/notes/notes.js'); return m.active().sort(m.byRecent)[0].transcriptStatus; });
+check('Guardar durante la transcripción deja la nota «procesando»', midStatus === 'processing', midStatus);
+await page.waitForFunction(async () => { const m = await import('/js/notes/notes.js'); const n = m.active().sort(m.byRecent)[0]; return n.transcriptStatus === 'done' && n.text.includes('levodopa'); }, null, { timeout: 8000 });
+check('La nota se completa sola cuando termina la transcripción', true);
+slow = false;
 
 check('Sin errores en consola', errors.length === 0, errors.join(' | '));
 await browser.close(); server.close();
