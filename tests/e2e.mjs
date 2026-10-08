@@ -43,6 +43,10 @@ await page.waitForFunction(() => window.__notas?.ready);
 await page.waitForTimeout(600);
 check('La app arranca (sin notas)', (await page.textContent('.hero')).includes('Bienvenido'));
 await shot('01-home-vacio');
+check('Ya no hay botón flotante', !(await page.$('#fab')) && !(await page.$('.fab')));
+const navItems = await page.$$('#nav > *');
+const rb = await page.locator('#nav-rec').boundingBox();
+check('Menú inferior con 5 elementos y «Grabar» en el centro', navItems.length === 5 && Math.abs(rb.x + rb.width / 2 - 393 / 2) < 4, `x=${Math.round(rb.x + rb.width / 2)}`);
 
 // Configurar servicio de transcripción
 await page.click('[data-act=settings]');
@@ -55,7 +59,7 @@ await page.goto('http://localhost:8181/#/');
 await page.waitForTimeout(300);
 
 // Grabar
-await page.click('#fab');
+await page.click('#nav-rec');
 await page.waitForSelector('.rec-screen');
 await page.waitForTimeout(2300);
 const t = await page.textContent('#rec-time');
@@ -118,6 +122,14 @@ await page.waitForSelector('.card');
 await page.click('.card [data-act=fav]');
 await page.goto('http://localhost:8181/#/favorites');
 await page.waitForSelector('.card');
+const navBox = await page.locator('#nav').boundingBox();
+const fbBox = await page.locator('.fbar').boundingBox();
+check('Favoritos: los filtros quedan fijos abajo, justo sobre el menú', Math.abs(fbBox.y + fbBox.height - navBox.y) <= 2 && fbBox.y > 500, `fbar bottom=${Math.round(fbBox.y + fbBox.height)} nav top=${Math.round(navBox.y)}`);
+await page.click('[data-filter=priority]');
+const sheetBox = await page.locator('.sheet').boundingBox();
+check('La lista de opciones se abre abajo', sheetBox.y + sheetBox.height >= 790);
+await page.keyboard.press('Escape');
+await page.waitForTimeout(200);
 check('Favoritos', (await page.$$('.card')).length === 1);
 await page.click('.card [data-act=done]');
 await page.waitForTimeout(200);
@@ -308,7 +320,9 @@ await page.reload();
 await page.waitForFunction(() => window.__notas?.ready, null, { timeout: 8000 });
 check('Funciona sin conexión (recarga offline)', (await page.evaluate(() => window.__notas.count())) === before);
 // Nota sin conexión
-await page.click('#fab');
+await page.evaluate(() => { location.hash = '#/'; });
+await page.waitForSelector('#nav-rec', { state: 'visible' });
+await page.click('#nav-rec');
 await page.waitForSelector('.rec-screen');
 await page.waitForTimeout(1200);
 await page.click('#rec-stop');

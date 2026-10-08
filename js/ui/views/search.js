@@ -14,7 +14,7 @@ const applyFilters = (list) => list.filter((n) =>
   && (F.kind === 'all' || (F.kind === 'none' ? !n.kind : n.kind === F.kind)));
 
 export default {
-  nav: true, fab: true,
+  nav: true,
   mount(root) {
     root.innerHTML = `
       ${appBar({ title: 'Buscar', large: true })}

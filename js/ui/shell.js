@@ -8,14 +8,15 @@ import { shareUI, deleteNotes, pickPriority, pickKind } from './actions.js';
 import { toast } from './dialogs.js';
 import { syncNoteChange } from '../reminders/service.js';
 
-const NAV = [['/', 'home', 'Inicio'], ['/calendar', 'calendar', 'Calendario'], ['/favorites', 'star', 'Favoritos'], ['/search', 'search', 'Buscar']];
+// Quinto elemento del menú, en el centro: grabar una nota de voz (id 'rec').
+const NAV = [['/', 'home', 'Inicio'], ['/calendar', 'calendar', 'Calendario'], ['rec', 'mic', 'Grabar'], ['/favorites', 'star', 'Favoritos'], ['/search', 'search', 'Buscar']];
 
 export function buildShell() {
   const nav = document.getElementById('nav');
-  nav.innerHTML = NAV.map(([href, ic, label]) => `<a href="#${href}" data-nav="${href}"><span class="pill">${icon(ic)}</span>${label}</a>`).join('');
-  const fab = document.getElementById('fab');
-  fab.innerHTML = `${icon('mic')}<span>Nueva nota</span>`;
-  fab.addEventListener('click', startRecordingFlow);
+  nav.innerHTML = NAV.map(([href, ic, label]) => href === 'rec'
+    ? `<button id="nav-rec" class="rec-item" aria-label="Grabar nota de voz"><span class="pill">${icon(ic)}</span>${label}</button>`
+    : `<a href="#${href}" data-nav="${href}"><span class="pill">${icon(ic)}</span>${label}</a>`).join('');
+  nav.querySelector('#nav-rec').addEventListener('click', startRecordingFlow);
 
   const bar = document.getElementById('selbar');
   const paint = () => {
@@ -50,7 +51,6 @@ export function buildShell() {
   return {
     onRoute(path, view) {
       nav.classList.toggle('hidden', !view.nav);
-      fab.classList.toggle('hidden', !view.fab);
       nav.querySelectorAll('a').forEach((a) => (a.dataset.nav === path ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
       if (sel.active) clearSelection();
     },

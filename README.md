@@ -15,7 +15,8 @@ Pruebas E2E (Chromium con micrófono y servicio de transcripción simulados): `P
 
 ## Tipos de nota y filtros
 - **Tipos con color:** *Personal* (morado) y *Hospital* (azul), además de la prioridad. Se eligen al revisar la nota, en la nota, al crear desde el calendario o en lote (selección múltiple → etiqueta).
-- **Filtros desplegables** (Estado · Prioridad · Tipo · Orden) en una sola fila en Todas las notas, Favoritos, Buscar y Calendario (también Vista Mes/Semana); en Inicio, el filtro Tipo.
+- **Menú inferior de 5 elementos:** Inicio · Calendario · **Grabar** (centro) · Favoritos · Buscar. No hay botón flotante.
+- **Filtros desplegables**, fijos en la parte baja justo sobre el menú (alcance del pulgar) y con sus listas abriéndose abajo (Estado · Prioridad · Tipo · Orden) en una sola fila en Todas las notas, Favoritos, Buscar y Calendario (también Vista Mes/Semana); en Inicio, el filtro Tipo.
 - **Secciones plegables:** en Inicio (Próximos recordatorios, Prioridad alta, Pendientes, Recientes) y en Ajustes, tocando el título; la app recuerda lo que dejaste abierto o cerrado.
 
 ## Transcripción (gratis, sin cuentas)

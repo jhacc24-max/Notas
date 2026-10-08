@@ -26,7 +26,7 @@ const section = (id, title, notes, total, link = '') => notes.length
 const F = { kind: 'all' };
 
 export default {
-  nav: true, fab: true,
+  nav: true,
   mount(root) {
     let savedDraft = false;
     const render = () => {

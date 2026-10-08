@@ -49,7 +49,7 @@ await page.waitForFunction(() => !document.querySelector('[data-act=asr]') && !d
 check('Descarga del motor completada (el aviso desaparece)', !(await page.$('[data-act=asr]')));
 
 // 2) Grabar → transcribe en el teléfono
-await page.click('#fab');
+await page.click('#nav-rec');
 await page.waitForSelector('.rec-screen');
 await page.waitForTimeout(1800);
 await page.click('#rec-stop');
@@ -145,7 +145,7 @@ await page.waitForTimeout(600);
 check('Groq: se comprueba la clave', groqReqs.some((q) => q.url.includes('/models') && q.auth === 'Bearer gsk_test_123'));
 await page.goto('http://localhost:8282/#/');
 await page.waitForTimeout(300);
-await page.click('#fab');
+await page.click('#nav-rec');
 await page.waitForSelector('.rec-screen');
 await page.waitForTimeout(1500);
 await page.click('#rec-stop');
@@ -158,7 +158,7 @@ await page.waitForSelector('.card');
 
 // 7) Guardar mientras aún transcribe: la nota se completa sola al terminar
 slow = true;
-await page.click('#fab');
+await page.click('#nav-rec');
 await page.waitForSelector('.rec-screen');
 await page.waitForTimeout(1200);
 await page.click('#rec-stop');
@@ -174,7 +174,7 @@ slow = false;
 // 8) Opciones al guardar: prioridad, estado, favorita y recordatorio desde la pantalla de revisión
 await page.goto('http://localhost:8282/#/');
 await page.waitForTimeout(300);
-await page.click('#fab');
+await page.click('#nav-rec');
 await page.waitForSelector('.rec-screen');
 await page.waitForTimeout(1200);
 await page.click('#rec-stop');

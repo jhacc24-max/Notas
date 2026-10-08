@@ -31,7 +31,7 @@ function progressText(d) {
 }
 
 export default {
-  nav: false, fab: false,
+  nav: false,
   mount(root) {
     let player = null, editing = false, saved = false;
     const init = async () => {

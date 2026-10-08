@@ -6,7 +6,7 @@ import { icon } from '../../core/icons.js';
 import { navigate } from '../router.js';
 
 export default {
-  nav: false, fab: false,
+  nav: false,
   mount(root) {
     const render = () => {
       const list = Notes.trashed();

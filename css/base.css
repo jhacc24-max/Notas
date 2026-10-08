@@ -24,7 +24,7 @@ mark { background: var(--md-primary-container); color: var(--md-on-primary-conta
 @keyframes pop { from { transform: scale(.6); opacity: 0; } }
 
 #app { position: fixed; inset: 0; display: flex; flex-direction: column; max-width: 720px; margin: 0 auto; background: var(--md-surface); }
-#view { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; padding-bottom: calc(var(--nav-h) + var(--safe-b) + 88px); }
+#view { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; padding-bottom: calc(var(--nav-h) + var(--safe-b) + 16px); }
 #view.no-nav { padding-bottom: 24px; }
 .view-enter { animation: viewIn var(--d-med) var(--ease); }
 .view-enter-left { animation: slideL var(--d-med) var(--ease); }
@@ -59,21 +59,13 @@ mark { background: var(--md-primary-container); color: var(--md-on-primary-conta
 .btn[disabled] { opacity: .4; pointer-events: none; }
 .btn .ic { width: 20px; height: 20px; }
 
-/* FAB */
-.fab { position: absolute; right: 16px; bottom: calc(var(--nav-h) + var(--safe-b) + 16px); z-index: 20; height: 64px; min-width: 64px; padding: 0 22px;
-  border-radius: var(--r-l); background: var(--md-primary-container); color: var(--md-on-primary-container); display: flex; align-items: center; gap: 12px;
-  box-shadow: var(--e3); font: var(--t-title-m); transition: transform var(--d-med) var(--ease), opacity var(--d-short); }
-.fab:active { transform: scale(.94); }
-.fab.hidden { transform: scale(.6) translateY(40px); opacity: 0; pointer-events: none; }
-.fab .ic { width: 28px; height: 28px; }
-
 /* Navegación inferior */
 #nav { position: absolute; left: 0; right: 0; bottom: 0; z-index: 10; height: calc(var(--nav-h) + var(--safe-b)); padding-bottom: var(--safe-b);
   display: flex; background: var(--md-surface-c); transition: transform var(--d-med) var(--ease); }
 #nav.hidden { transform: translateY(100%); }
-#nav a { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding-top: 4px; text-decoration: none;
+#nav a, #nav button { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding-top: 4px; text-decoration: none;
   color: var(--md-on-surface-variant); font: var(--t-label-m); }
-#nav a .pill { width: 64px; height: 32px; border-radius: var(--r-full); display: grid; place-items: center; transition: background var(--d-med) var(--ease); }
+#nav a .pill, #nav button .pill { width: 64px; height: 32px; border-radius: var(--r-full); display: grid; place-items: center; transition: background var(--d-med) var(--ease); }
 #nav a[aria-current='page'] { color: var(--md-on-surface); font-weight: 700; }
 #nav a[aria-current='page'] .pill { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
 #nav a:active .pill { background: var(--md-surface-c-highest); }
@@ -355,3 +347,20 @@ textarea.transcript { width: 100%; resize: vertical; color: inherit; outline: 2p
 .selbar .iconbtn { width: 44px; }
 .selbar h1 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: .95rem; padding: 0 6px; }
 .card .selbox { top: auto; bottom: 12px; right: 12px; }
+
+/* Botón central «Grabar» dentro del menú inferior (sustituye al botón flotante) */
+#nav .rec-item { color: var(--md-on-surface); font-weight: 700; }
+#nav .rec-item .pill { width: 64px; height: 36px; background: var(--md-primary); color: var(--md-on-primary); box-shadow: var(--e1); transition: transform var(--d-short) var(--ease); }
+#nav .rec-item:active .pill { transform: scale(.92); background: var(--md-primary); }
+#nav .rec-item .ic { width: 26px; height: 26px; }
+
+/* Filtros fijos abajo, encima del menú: alcanzables con el pulgar; sus listas también se abren abajo */
+.fbar { position: fixed; left: 0; right: 0; bottom: calc(var(--nav-h) + var(--safe-b)); max-width: 720px; margin: 0 auto; z-index: 8;
+  padding: 8px 16px; background: var(--md-surface-c); border-top: 1px solid var(--md-outline-variant); }
+#view.no-nav .fbar { bottom: 0; padding-bottom: calc(8px + var(--safe-b)); }
+#view:has(.fbar) { padding-bottom: calc(var(--nav-h) + var(--safe-b) + 76px); }
+#view.no-nav:has(.fbar) { padding-bottom: calc(var(--safe-b) + 76px); }
+body:has(#view .fbar) .snackbar { bottom: calc(var(--nav-h) + var(--safe-b) + 72px); }
+/* Sin desplazamientos en la entrada de pantalla: un transform rompería los elementos fijos */
+.view-enter { animation: fadeOnly var(--d-med) var(--ease); }
+@keyframes fadeOnly { from { opacity: 0; } }

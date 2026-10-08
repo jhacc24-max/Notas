@@ -40,7 +40,7 @@ const adv = { tx: false, g: false }; // secciones avanzadas abiertas
 const mb = (n) => (n / 1048576).toFixed(1) + ' MB';
 
 export default {
-  nav: false, fab: false,
+  nav: false,
   mount(root) {
     const render = async () => {
       const s = allSettings();

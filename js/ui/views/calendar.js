@@ -34,7 +34,7 @@ const agendaItem = (n) => `
   </button>`;
 
 export default {
-  nav: true, fab: true,
+  nav: true,
   mount(root) {
     const render = (dir = '') => {
       const groups = groupByDay(visible());

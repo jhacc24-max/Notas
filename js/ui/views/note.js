@@ -17,7 +17,7 @@ import { mountDictPicker } from '../dict-picker.js';
 let fullscreen = false;
 
 export default {
-  nav: false, fab: false,
+  nav: false,
   mount(root, { id }) {
     if (!Notes.get(id) || Notes.get(id).deletedAt) { navigate('/', { replace: true }); return {}; }
     let editing = false, player = null, audioToken = 0;

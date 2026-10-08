@@ -7,7 +7,7 @@ import { hashQuery, navigate } from '../router.js';
 const KEYS = ['status', 'priority', 'kind', 'sort'];
 
 export const makeListView = ({ title, source, emptyIcon, emptyText, back = false }) => ({
-  nav: !back, fab: true,
+  nav: !back,
   mount(root) {
     const q = hashQuery();
     const f = { status: q.get('s') || 'all', priority: q.get('p') || 'all', kind: q.get('k') || 'all', sort: q.get('o') || 'recent' };
