@@ -1,0 +1,95 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#fff">
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { ALL as MODELS } from "./modelos.js";
+
+const SIZE = 512;
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(SIZE, SIZE);
+renderer.setClearColor(0x000000, 0);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.VSMShadowMap;
+document.body.appendChild(renderer.domElement);
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+// contact-shadow texture
+const cv = document.createElement("canvas"); cv.width = cv.height = 128;
+const cx = cv.getContext("2d"); const gr = cx.createRadialGradient(64, 64, 0, 64, 64, 64);
+gr.addColorStop(0, "rgba(0,0,0,0.55)"); gr.addColorStop(0.55, "rgba(0,0,0,0.18)"); gr.addColorStop(1, "rgba(0,0,0,0)");
+cx.fillStyle = gr; cx.fillRect(0, 0, 128, 128);
+const blobTex = new THREE.CanvasTexture(cv);
+
+// view direction: 3/4 from front-left, ~30° from above
+const AZ = THREE.MathUtils.degToRad(-38), EL = THREE.MathUtils.degToRad(30);
+const DIR = new THREE.Vector3(Math.sin(AZ) * Math.cos(EL), Math.sin(EL), Math.cos(AZ) * Math.cos(EL)).normalize();
+
+function renderModel(id) {
+  const scene = new THREE.Scene();
+  scene.environment = envTex;
+  const hemi = new THREE.HemisphereLight(0xffffff, 0xd8d4cc, 0.55); scene.add(hemi);
+  const key = new THREE.DirectionalLight(0xffffff, 1.9);
+  key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 9; key.shadow.blurSamples = 16; key.shadow.bias = -0.0004;
+  const sc = key.shadow.camera; sc.left = sc.bottom = -1.6; sc.right = sc.top = 1.6; sc.near = 0.1; sc.far = 12;
+  scene.add(key); scene.add(key.target);
+  const fill = new THREE.DirectionalLight(0xfff4e6, 0.35); fill.position.set(3, 2, 2); scene.add(fill);
+
+  const obj = MODELS[id](THREE);
+  obj.updateMatrixWorld(true);
+  // normalize: largest dimension = 1, sit on ground, centered on x/z
+  let box = new THREE.Box3().setFromObject(obj);
+  const s = box.getSize(new THREE.Vector3());
+  const k = 1 / Math.max(s.x, s.y, s.z);
+  obj.scale.multiplyScalar(k);
+  obj.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(obj);
+  const c = box.getCenter(new THREE.Vector3());
+  obj.position.x -= c.x; obj.position.z -= c.z; obj.position.y -= box.min.y;
+  obj.updateMatrixWorld(true);
+  box = new THREE.Box3().setFromObject(obj);
+  obj.traverse(m => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } });
+  scene.add(obj);
+
+  const fs = box.getSize(new THREE.Vector3());
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.ShadowMaterial({ opacity: 0.16 }));
+  ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+  const blob = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: blobTex, transparent: true, depthWrite: false, opacity: 0.55 }));
+  blob.rotation.x = -Math.PI / 2; blob.position.y = 0.002; blob.scale.set(fs.x * 1.05 + 0.08, fs.z * 1.05 + 0.08, 1); scene.add(blob);
+
+  key.position.set(-1.8, 4.2, 2.4); key.target.position.set(0, 0, 0);
+
+  // camera fit (tight, centered on projected bounds)
+  const cam = new THREE.PerspectiveCamera(20, 1, 0.1, 50);
+  const target = box.getCenter(new THREE.Vector3());
+  let dist = 4;
+  const corners = [];
+  for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) corners.push(new THREE.Vector3(x, y, z));
+  for (let it = 0; it < 4; it++) {
+    cam.position.copy(target).addScaledVector(DIR, dist); cam.lookAt(target); cam.updateMatrixWorld(); cam.updateProjectionMatrix();
+    let mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9;
+    for (const p of corners) { const q = p.clone().project(cam); mnx = Math.min(mnx, q.x); mxx = Math.max(mxx, q.x); mny = Math.min(mny, q.y); mxy = Math.max(mxy, q.y); }
+    // re-center: shift target in camera plane
+    const cxn = (mnx + mxx) / 2, cyn = (mny + mxy) / 2;
+    const right = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
+    const h = Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) * dist;
+    target.addScaledVector(right, cxn * h).addScaledVector(up, cyn * h);
+    const ext = Math.max(mxx - mnx, mxy - mny) / 2;
+    dist *= ext / 0.80;
+  }
+  cam.position.copy(target).addScaledVector(DIR, dist); cam.lookAt(target);
+  renderer.render(scene, cam);
+  const url = renderer.domElement.toDataURL("image/png");
+  scene.traverse(o => { if (o.geometry) o.geometry.dispose(); });
+  return url;
+}
+window.MODEL_IDS = Object.keys(MODELS);
+window.renderModel = renderModel;
+window.READY = true;
+</script>
