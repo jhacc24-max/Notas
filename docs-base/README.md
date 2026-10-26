@@ -10,7 +10,7 @@ Kit de 9 documentos reutilizables para todas tus apps (StockZap, NutriApp, apps 
 | 04 | `04-UIUX-DESIGN-BRIEF.md` | ¿Cómo se ve? Patrones A–H | Poco (tipografía, variante de barra y de ingreso) |
 | 05 | `05-BACKEND-SCHEMA.md` | ¿Cómo se guardan los datos? | Medio (tablas base + propias) |
 | 06 | `06-IMPLEMENTATION-PLAN.md` | ¿En qué orden se construye? | Medio (Fases D y 0 siempre iguales) |
-| 07 | `07-MOTION-DESIGN.md` | ¿Cómo se mueve? | Poco (nivel + animación firma) |
+| 07 | `07-MOTION-DESIGN.md` | ¿Cómo se mueve? (incluye los grupos Mov A–F) | Poco (nivel estándar o expresivo + animación firma) |
 | 08 | `08-PALETAS-DE-COLOR.md` | ¿Qué colores, en claro y oscuro, y con qué se combinan? | Eliges una de las 21 paletas y una de sus 3 combinaciones |
 | 09 | `09-ICONOS.md` | ¿Qué tipo de íconos y cuáles? | Eliges librería, estilo y set |
 
@@ -19,6 +19,7 @@ Kit de 9 documentos reutilizables para todas tus apps (StockZap, NutriApp, apps 
 - `iconos/selector-iconos.html`: los 12 tipos de ícono con 8 librerías reales y la colección propia Miniatura 3D, para elegir y armar el set de la app.
 - `flujos/efectos-flujo.html`: 4 modelos de flujo (G1–G4) con sus efectos: onboarding, registro por pasos y elección de opciones.
 - `iconos/miniatura-3d/`: 100 íconos Miniatura 3D (.webp de 512 px) y su generador para crear más.
+- `movimientos/movimientos-interaccion.html`: los grupos de movimiento Mov A–F (contar, reaccionar, apilar, estirar, completar, elegir) con 18 micro-interacciones en vivo y selector estándar/expresivo.
 - `pedidos/app-pedidos.html`: app de pedidos con delivery (Patrón H): inicio, escaneo de carta, plato, carrito, pago, pedido realizado y seguimiento; cada efecto se puede ver por separado.
 - `ingreso/pantallas-ingreso.html`: las 7 pantallas de ingreso (F1–F7) con sus efectos.
 - `paletas/paletas.html`: eliges color y combinación y ves las pantallas en claro y oscuro. `paletas/paletas.css` y `paletas/paletas.json` contienen el código.

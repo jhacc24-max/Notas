@@ -1,8 +1,8 @@
 ---
 documento: Motion Design System — Movimiento, transiciones e interacción
-version_base: 1.0
+version_base: 1.1
 app: "{{NOMBRE_APP}}"
-nivel_de_movimiento: "expresivo"   # sutil | estándar | expresivo
+nivel_de_movimiento: "expresivo"   # estándar | expresivo
 ultima_actualizacion: "{{AAAA-MM-DD}}"
 ---
 
@@ -76,9 +76,10 @@ Viven en `/src/motion/tokens.ts` y `/src/styles/tokens.css`. **Cada app hereda e
 
 | Nivel | Distancias | Rebote (damping) | Para qué apps |
 |---|---|---|---|
-| sutil | ×0.5 | +10 | apps financieras / formales |
-| estándar | ×1 | igual | la mayoría |
+| estándar | ×1 | igual | pantallas con mucha información, apps de trabajo |
 | **expresivo (base)** | ×1.25 | −5 | apps de consumo, como las tuyas |
+
+Solo hay **dos niveles**. El nivel "sutil" se retiró porque se movía demasiado poco: cualquier app usa estándar o expresivo.
 
 ---
 
@@ -287,6 +288,51 @@ Modelo en vivo: `pedidos/app-pedidos.html` (página "App de pedidos"). Referenci
 | `live-countdown` | seguimiento | km y minutos cuentan hacia atrás; el punto "En vivo" late |
 | `timeline-check` | estado del pedido | los pasos se marcan uno a uno con ✓ y la línea que los une se llena; el paso actual late |
 
+### 3.9 Movimientos de interacción · grupos Mov A–F
+
+Página en vivo: `movimientos/movimientos-interaccion.html` (página "Movimientos de interacción"), con selector **Estándar / Expresivo**. Origen: 14 bloques de bencho.dev (columna izquierda: el último; centro: 1, 3, 4, 11 y 13; derecha: 2, 3, 5, 7, 8, 10, 11 y 12), recreados desde cero, más 4 propios (marcados ✦).
+
+Los efectos parecidos están juntos en **6 grupos con nombre corto**, para pedirlos fácil: *"en el carrito usa Mov A"*, *"en favoritos, Mov B"*. Los grupos de movimiento (Mov A–F) **no son** los patrones de pantalla A–H de `04-UIUX`: los patrones dicen cómo se arma una pantalla; los Mov dicen cómo responde un elemento.
+
+| Grupo | Cuándo usarlo | Efectos |
+|---|---|---|
+| **Mov A · Contar** | cuando **cambia un número** | `odometer-roll` |
+| **Mov B · Reaccionar** | cuando el usuario **expresa algo** (le gusta, reacciona) | `like-burst`, `emoji-fly` |
+| **Mov C · Apilar** | cuando hay **varias tarjetas** y se ve una a la vez | `card-swap`, `carousel-3d`, `toast-fan`, `flip-reveal` ✦ |
+| **Mov D · Estirar** | cuando el usuario **arrastra o mantiene** algo | `slosh-slider`, `compare-drag`, `pull-stretch`, `hold-fill` ✦ |
+| **Mov E · Completar** | cuando **ingresa datos o termina** una tarea | `otp-boxes`, `drop-upload`, `ticket-print` ✦ |
+| **Mov F · Elegir** | cuando **selecciona o despliega** opciones | `avatar-stack`, `palette-morph`, `corner-unfold`, `chip-magnet` ✦ |
+
+**Detalle de cada efecto** (valores en nivel estándar → expresivo):
+
+| Grupo | Nombre | Origen | Qué pasa | Estándar → Expresivo |
+|---|---|---|---|---|
+| A | `odometer-roll` | Rolling counter | cada dígito rueda en su columna y arrastra al siguiente, de derecha a izquierda (45 ms entre columnas) con un leve desenfoque; mantener +/− acelera (×5 tras 1 s); arrastrar el número lo cambia y al soltarlo sigue por inercia | 440 → 520 ms, rebote bajo → alto |
+| B | `like-burst` | Like | el corazón baja a 0.6, salta y se rellena; sale un anillo que crece y 8 chispas en círculo; el contador usa `odometer-roll` | salto ×1.3 → ×1.38, chispas a 34 → 42 px |
+| B | `emoji-fly` | Emoji reactions | del botón nace una píldora de emojis (escala desde el botón); el que está bajo el dedo crece y sus vecinos menos (efecto lupa); el elegido vuela en arco a su chip, que late, y su número rueda | lupa ×1.55 → ×1.69, arco 50 → 62 px |
+| C | `card-swap` | Card swap | la tarjeta de adelante sube y gira un poco, pasa al fondo y las demás avanzan un paso (−14 px y −6 % de tamaño por nivel); se puede lanzar; modo automático cada 4 s | subida 150 → 188 px |
+| C | `carousel-3d` | Carousel | 6 tarjetas en una tornamesa 3D que flotan (±4 px), se inclinan según la altura del puntero y giran al deslizar con inercia; al detenerse se asientan en la más cercana | inclinación 14° → 17° |
+| C | `toast-fan` | Toast stack | 3 avisos apilados que asoman 12 px por arriba; al tocar o pasar se abren en lista con resorte y al salir se vuelven a apilar | asomo 12 → 15 px |
+| C | `flip-reveal` ✦ | propio | la tarjeta gira 180° en 3D y atrás muestra el detalle (tallas, nutrientes) sin cambiar de pantalla | 600 → 700 ms |
+| D | `slosh-slider` | Slosh slider | el relleno sigue al control con inercia de resorte: si se arrastra rápido se pasa del borde, se inclina (hasta 25°) y vuelve | más amortiguado → más oleaje |
+| D | `compare-drag` | Image compare | una línea divide dos imágenes; si se lanza (más de 0.5 px/ms) se desliza sola hasta el borde | 420 ms → 525 ms de deslizamiento |
+| D | `pull-stretch` | Pull to refresh | al tirar, la tarjeta baja con resistencia y se estira hasta 8 %; 6 puntos se encienden según el avance; pasada la línea (70 px), al soltar giran y entra el dato nuevo desde arriba | estiramiento 8 → 10 % |
+| D | `hold-fill` ✦ | propio | al mantener presionado, el botón se llena de líquido con ola en 1.2 s; si se suelta antes se vacía en 0.4 s; al llenarse confirma y late | igual |
+| E | `otp-boxes` | One-time code | seis casillas que son un solo campo (pegar, autocompletar y borrar funcionan); cada dígito entra con un pop; correcto → ola verde de izquierda a derecha; incorrecto → sacudida roja y se borra | sacudida 10 → 12.5 px |
+| E | `drop-upload` | Upload dropzone | la caja crece 4 % y se ilumina al pasar el archivo; barra de progreso y ✓ que salta; si pesa demasiado, sacudida roja y mensaje con el límite | crecimiento 4 → 5 % |
+| E | `ticket-print` ✦ | propio | la boleta sale de la ranura a saltos, línea por línea, y el total rueda (`odometer-roll`); al tocarla se corta y cae girando | giro al caer 14° → 17° |
+| F | `avatar-stack` | Assignees | al marcar a alguien, su cara vuela desde la lista y se apila en la píldora (superpuestas 10 px); al desmarcar se encoge y sale | arco 40 → 50 px |
+| F | `palette-morph` | Palette | cada franja cambia al siguiente juego de colores una tras otra (70 ms) con un leve aplastamiento; usa las combinaciones de `08-PALETAS` §4b | aplastamiento 8 → 10 % |
+| F | `corner-unfold` | Action node | las acciones viven plegadas en la esquina; al tocar salen en abanico una tras otra (55 ms) y la tarjeta se recoge a 0.97 | radio 62 → 69 px |
+| F | `chip-magnet` ✦ | propio | el filtro elegido salta y se pega a la barra de elegidos (técnica FLIP); al quitarlo vuelve volando a su lugar | 470 → 520 ms |
+
+**Combinaciones recomendadas:**
+- Carrito y pedidos (Patrón H): `odometer-roll` en cantidades y totales + `hold-fill` para anular + `ticket-print` al confirmar.
+- Inventario (StockZap): `flip-reveal` para ver tallas, `chip-magnet` en filtros, `toast-fan` para alertas de stock y `pull-stretch` en movimientos.
+- Ingreso (Patrón F/G): `otp-boxes` para el código.
+
+**Reglas del grupo:** un solo efecto de Mov B por pantalla (si todo estalla, nada destaca); los efectos de arrastre (Mov D) siempre tienen también una alternativa con toque (botón o campo); y todo respeta "reducir movimiento" (§8).
+
 ---
 
 ## 4. Especificación por componente
@@ -466,7 +512,7 @@ const enter = reduce ? { opacity: 1 } : { opacity: 1, y: 0 };
 
 | Ajuste | Valor en esta app | Motivo |
 |---|---|---|
-| nivel_de_movimiento | {{expresivo}} | |
+| nivel_de_movimiento | {{estándar / expresivo}} | |
 | Animación "firma" de la app | {{Ej.: StockZap → `scan-line` + `count-up` del stock}} | |
 | Animaciones desactivadas | {{}} | |
 | Animaciones extra | {{}} | |
