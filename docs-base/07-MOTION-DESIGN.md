@@ -290,7 +290,7 @@ Modelo en vivo: `pedidos/app-pedidos.html` (página "App de pedidos"). Referenci
 
 ### 3.9 Movimientos de interacción · grupos Mov A–F
 
-Página en vivo: `movimientos/movimientos-interaccion.html` (página "Movimientos de interacción"), con selector **Estándar / Expresivo**. Origen: 14 bloques de bencho.dev (columna izquierda: el último; centro: 1, 3, 4, 11 y 13; derecha: 2, 3, 5, 7, 8, 10, 11 y 12), recreados desde cero, más 4 propios (marcados ✦).
+Página en vivo: `movimientos/movimientos-interaccion.html` (página "Movimientos de interacción"), con selector **Estándar / Expresivo**. Origen: 16 bloques de bencho.dev (columna izquierda: el último; centro: 1, 3, 4, 11, 12 y 13; derecha: 2, 3, 5, 7, 8, 10, 11, 12 y 15), recreados desde cero, más 4 propios (marcados ✦).
 
 Los efectos parecidos están juntos en **6 grupos con nombre corto**, para pedirlos fácil: *"en el carrito usa Mov A"*, *"en favoritos, Mov B"*. Los grupos de movimiento (Mov A–F) **no son** los patrones de pantalla A–H de `04-UIUX`: los patrones dicen cómo se arma una pantalla; los Mov dicen cómo responde un elemento.
 
@@ -301,7 +301,7 @@ Los efectos parecidos están juntos en **6 grupos con nombre corto**, para pedir
 | **Mov C · Apilar** | cuando hay **varias tarjetas** y se ve una a la vez | `card-swap`, `carousel-3d`, `toast-fan`, `flip-reveal` ✦ |
 | **Mov D · Estirar** | cuando el usuario **arrastra o mantiene** algo | `slosh-slider`, `compare-drag`, `pull-stretch`, `hold-fill` ✦ |
 | **Mov E · Completar** | cuando **ingresa datos o termina** una tarea | `otp-boxes`, `drop-upload`, `ticket-print` ✦ |
-| **Mov F · Elegir** | cuando **selecciona o despliega** opciones | `avatar-stack`, `palette-morph`, `corner-unfold`, `chip-magnet` ✦ |
+| **Mov F · Elegir** | cuando **selecciona o despliega** opciones | `avatar-stack`, `palette-morph`, `corner-unfold`, `dock-magnify`, `search-expand`, `chip-magnet` ✦ |
 
 **Detalle de cada efecto** (valores en nivel estándar → expresivo):
 
@@ -324,12 +324,15 @@ Los efectos parecidos están juntos en **6 grupos con nombre corto**, para pedir
 | F | `avatar-stack` | Assignees | al marcar a alguien, su cara vuela desde la lista y se apila en la píldora (superpuestas 10 px); al desmarcar se encoge y sale | arco 40 → 50 px |
 | F | `palette-morph` | Palette | cada franja cambia al siguiente juego de colores una tras otra (70 ms) con un leve aplastamiento; usa las combinaciones de `08-PALETAS` §4b | aplastamiento 8 → 10 % |
 | F | `corner-unfold` | Action node | las acciones viven plegadas en la esquina; al tocar salen en abanico una tras otra (55 ms) y la tarjeta se recoge a 0.97 | radio 62 → 69 px |
+| F | `dock-magnify` | Magnifying dock | barra de íconos que crecen hacia el puntero: el más cercano hasta ×1.32 y sube 8 px, los 2 vecinos de cada lado crecen menos; muestra su nombre; al tocar, rebota y queda marcado con un punto | lupa ×1.32 → ×1.36, subida 8 → 10 px |
+| F | `search-expand` | Search | la lupa y el campo son un solo objeto: al tocar, el botón redondo se estira con resorte hasta 270 px, el texto entra desde la izquierda, aparece ✕ y los resultados caen escalonados; ✕ o Esc lo cierra | rebote del estiramiento bajo → alto |
 | F | `chip-magnet` ✦ | propio | el filtro elegido salta y se pega a la barra de elegidos (técnica FLIP); al quitarlo vuelve volando a su lugar | 470 → 520 ms |
 
 **Combinaciones recomendadas:**
 - Carrito y pedidos (Patrón H): `odometer-roll` en cantidades y totales + `hold-fill` para anular + `ticket-print` al confirmar.
 - Inventario (StockZap): `flip-reveal` para ver tallas, `chip-magnet` en filtros, `toast-fan` para alertas de stock y `pull-stretch` en movimientos.
 - Ingreso (Patrón F/G): `otp-boxes` para el código.
+- Cabeceras compactas: `search-expand` en lugar de una barra de búsqueda fija; en computadora, `dock-magnify` para los accesos rápidos.
 
 **Reglas del grupo:** un solo efecto de Mov B por pantalla (si todo estalla, nada destaca); los efectos de arrastre (Mov D) siempre tienen también una alternativa con toque (botón o campo); y todo respeta "reducir movimiento" (§8).
 

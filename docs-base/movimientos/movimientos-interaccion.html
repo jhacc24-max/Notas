@@ -226,6 +226,28 @@ section.grp{display:flex;flex-direction:column;gap:12px;scroll-margin-top:16px}
 .mbar .mchip{background:var(--acc);color:var(--acc-on)}
 .mbar .mchip::after{content:" ✕";font-size:10px}
 
+/* F5 dock */
+.dock{display:flex;align-items:flex-end;gap:6px;background:color-mix(in srgb,var(--surface) 85%,transparent);border-radius:22px;padding:10px 12px;box-shadow:0 10px 30px rgb(0 0 0/.14);height:68px;touch-action:none}
+.dk{width:40px;height:40px;flex:none;border-radius:13px;display:grid;place-items:center;font-size:21px;border:0;cursor:pointer;transform-origin:50% 100%;position:relative;transition:width .12s,height .12s}
+.dk.bounce{animation:dkb calc(600ms*var(--dur)) var(--ease)}
+@keyframes dkb{30%{translate:0 calc(-16px*var(--amp))}60%{translate:0 0}80%{translate:0 calc(-5px*var(--amp))}}
+.dk::after{content:"";position:absolute;bottom:-7px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--fg2);opacity:0;transition:opacity .2s}
+.dk.on::after{opacity:1}
+.dtip{position:absolute;top:58px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;background:var(--fg);color:var(--bg);border-radius:8px;padding:3px 8px;opacity:0;transition:opacity .15s;pointer-events:none;white-space:nowrap}
+/* F6 search */
+.seek{position:relative;height:56px;width:56px;border-radius:999px;background:var(--surface);box-shadow:0 8px 24px rgb(0 0 0/.12);display:flex;align-items:center;overflow:hidden;transition:width calc(560ms*var(--dur)) var(--ease),border-radius .3s}
+.seek.open{width:270px}
+.seek .sbtn{position:absolute;left:0;top:0;width:56px;height:56px;border:0;background:none;display:grid;place-items:center;cursor:pointer;z-index:2;transition:transform calc(500ms*var(--dur)) var(--ease)}
+.seek.open .sbtn{transform:scale(.86)}
+.seek .sbtn svg{width:22px;height:22px}
+.seek input{border:0;outline:0;background:none;height:100%;width:100%;padding:0 46px 0 52px;font:600 15px var(--f);color:var(--fg);opacity:0;transform:translateX(-12px);transition:opacity .2s,transform calc(450ms*var(--dur)) var(--ease)}
+.seek.open input{opacity:1;transform:none;transition-delay:.12s}
+.seek .sx{position:absolute;right:8px;top:50%;width:32px;height:32px;margin-top:-16px;border-radius:50%;border:0;background:var(--stage);cursor:pointer;opacity:0;transform:scale(.4) rotate(-90deg);transition:opacity .2s,transform calc(420ms*var(--dur)) var(--ease);pointer-events:none}
+.seek.open .sx{opacity:1;transform:none;pointer-events:auto;transition-delay:.18s}
+.sres{position:absolute;top:calc(50% + 38px);left:50%;transform:translateX(-50%);width:270px;display:flex;flex-direction:column;gap:6px}
+.seek.open~.sres~.hint{opacity:0}
+.sres div{background:var(--surface);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:700;animation:rowin calc(420ms*var(--dur)) var(--ease) backwards}
+
 footer{color:var(--fg2);font-size:12.5px;text-align:center}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
@@ -235,7 +257,7 @@ footer{color:var(--fg2);font-size:12.5px;text-align:center}
   <header class="top">
     <div>
       <h1>Movimientos de interacción</h1>
-      <p class="lede">14 micro-interacciones tomadas de bencho.dev, agrupadas por lo que hacen, más 4 propias. Cada grupo tiene un nombre corto (<b>Mov A</b> a <b>Mov F</b>) para pedirlo fácil: “en el carrito usa Mov A”. Todas se pueden tocar, arrastrar o mantener.</p>
+      <p class="lede">16 micro-interacciones tomadas de bencho.dev, agrupadas por lo que hacen, más 4 propias. Cada grupo tiene un nombre corto (<b>Mov A</b> a <b>Mov F</b>) para pedirlo fácil: “en el carrito usa Mov A”. Todas se pueden tocar, arrastrar o mantener.</p>
     </div>
     <div>
       <div class="seg" id="lvl" role="group" aria-label="Nivel de movimiento">
@@ -317,6 +339,10 @@ footer{color:var(--fg2);font-size:12.5px;text-align:center}
         <div class="info"><div class="t"><b>Paleta que cambia</b><code>palette-morph</code></div><p>Colores que combinan; al tocar, cada franja se transforma al siguiente juego, una tras otra, con un leve aplastamiento. Usa las combinaciones de 08-PALETAS.</p><p class="use">elegir tema, color de una categoría, personalizar la app.</p></div></article>
       <article class="card"><div class="stage"><div class="node" id="f3"><button class="corner" aria-label="Acciones">⋯</button><div class="row"><span class="ic">💬</span><div><b>Enviar WhatsApp</b><small>Cuando llega un pedido</small></div></div><div class="step">→ “Hola {cliente}, tu pedido va en camino”</div><button class="nbtn" title="Editar">✎</button><button class="nbtn" title="Duplicar">⧉</button><button class="nbtn" title="Pausar">⏸</button><button class="nbtn" title="Eliminar">🗑</button></div><span class="hint">Toca ⋯</span></div>
         <div class="info"><div class="t"><b>Controles en la esquina</b><code>corner-unfold</code></div><p>Las acciones viven plegadas en la esquina; al tocar, salen en abanico una tras otra y la tarjeta se recoge un poco.</p><p class="use">automatizaciones, tarjeta de pedido, acciones rápidas de un producto.</p></div></article>
+      <article class="card"><div class="stage"><div class="dock" id="f5"></div><span class="hint">Pasa el dedo o el puntero sobre los íconos · toca uno</span></div>
+        <div class="info"><div class="t"><b>Barra con lupa</b><code>dock-magnify</code></div><p>Los íconos crecen hacia el puntero: el más cercano hasta ×1.32 y se eleva 8 px; los dos vecinos de cada lado crecen menos. Al tocar uno, rebota y queda marcado con un punto.</p><p class="use">barra de accesos rápidos en computadora, selector de categorías, dock de herramientas.</p></div></article>
+      <article class="card"><div class="stage"><div class="seek" id="f6"><button class="sbtn" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button><input placeholder="Buscar modelo, plato…" aria-label="Buscar"><button class="sx" aria-label="Cerrar">✕</button></div><div class="sres" id="f6r"></div><span class="hint">Toca la lupa · escribe · ✕ o Esc para cerrar</span></div>
+        <div class="info"><div class="t"><b>Lupa que se abre</b><code>search-expand</code></div><p>Al tocar la lupa, el mismo botón se estira con resorte hasta ser el campo de búsqueda (un solo objeto); el texto entra desde la izquierda, aparece ✕ y los resultados caen escalonados.</p><p class="use">buscar en cabeceras compactas, catálogo, lista de clientes.</p></div></article>
       <article class="card"><div class="stage"><div class="mag"><div class="mbar" id="f4b"></div><div class="mpool" id="f4p"></div></div></div>
         <div class="info"><div class="t"><b>Chips magnéticos</b><code>chip-magnet</code></div><p><span class="tag">Propio ·</span> El filtro elegido salta y se pega a la barra de elegidos; al quitarlo vuelve volando a su lugar.</p><p class="use">filtros de catálogo, tallas, ingredientes.</p></div></article>
     </div>
@@ -450,6 +476,15 @@ Odo.prototype.set=function(v,init){const s=typeof v==="string"?v:String(Math.max
  host.onclick=()=>{k=(k+1)%C.length;show()}}
 {const n=$("#f3"),bs=$$(".nbtn",n);$(".corner",n).onclick=()=>{const open=!n.classList.contains("open");n.classList.toggle("open",open);bs.forEach((b,i)=>{const ang=(-150+i*50)*Math.PI/180,r=62*Math.min(1.12,LV.amp*.92);b.style.transitionDelay=(open?i*55:(bs.length-1-i)*35)+"ms";b.style.transform=open?`translate(${Math.cos(ang)*r}px,${Math.sin(ang)*r}px) scale(1)`:"translate(0,0) scale(.3)"})};
  bs.forEach(b=>b.onclick=()=>{b.animate([{transform:b.style.transform},{transform:b.style.transform+" scale(1.2)"},{transform:b.style.transform}],{duration:300})})}
+{const d=$("#f5");const I=[["🏠","Inicio","#2F6BEB"],["📦","Stock","#C4884C"],["🧾","Ventas","#2AA393"],["🛵","Pedidos","#E88A3C"],["💬","Chat","#5BAA62"],["⚙️","Ajustes","#9B8FC4"]];
+ d.innerHTML=I.map((x,i)=>`<button class="dk${i===0?" on":""}" style="background:color-mix(in srgb,${x[2]} 20%,var(--surface))" aria-label="${x[1]}">${x[0]}<span class="dtip">${x[1]}</span></button>`).join("");const ks=$$(".dk",d);
+ const B=40;const apply=x=>{ks.forEach(k=>{const r=k.getBoundingClientRect();const c=r.left+r.width/2;const dist=x==null?999:Math.abs(x-c)/(B+6);const reach=2;const f=Math.max(0,1-dist/(reach+.5));const mag=1+(0.32*(LV.expr?1.12:1))*Math.pow(f,1.4);const sz=B*mag;k.style.width=k.style.height=sz+"px";k.style.fontSize=19*mag+"px";k.style.translate=`0 ${-8*LV.amp*f}px`;$(".dtip",k).style.opacity=f>.85?1:0})};
+ d.onpointermove=e=>apply(e.clientX);d.onpointerleave=()=>apply(null);d.onpointerdown=e=>apply(e.clientX);
+ ks.forEach(k=>k.onclick=()=>{ks.forEach(x=>x.classList.toggle("on",x===k));k.classList.remove("bounce");void k.offsetWidth;k.classList.add("bounce")})}
+{const s=$("#f6"),inp=$("input",s),res=$("#f6r");const D=["Runner Pro T-41","Mocasín Oxford","Ají de gallina","Lomo saltado","Botín escolar","Ceviche mixto","Sandalia playa"];
+ const open=()=>{s.classList.add("open");setTimeout(()=>inp.focus(),RM?0:220)};const close=()=>{s.classList.remove("open");inp.value="";res.innerHTML="";inp.blur()};
+ $(".sbtn",s).onclick=()=>s.classList.contains("open")?inp.focus():open();$(".sx",s).onclick=close;inp.onkeydown=e=>{if(e.key==="Escape")close()};
+ inp.oninput=()=>{const q=inp.value.trim().toLowerCase();res.innerHTML=q?D.filter(x=>x.toLowerCase().includes(q)).slice(0,3).map((x,i)=>`<div style="animation-delay:${i*50}ms">${x}</div>`).join(""):""}}
 {const bar=$("#f4b"),pool=$("#f4p");const F=["Talla 39","Cuero","Negro","Escolar","Oferta","En stock"];pool.innerHTML=F.map((f,i)=>`<button class="mchip" data-i="${i}">${f}</button>`).join("");
  const flip=(el,to,before)=>{const a=el.getBoundingClientRect();before();const b=el.getBoundingClientRect();el.animate([{transform:`translate(${a.left-b.left}px,${a.top-b.top}px)`},{transform:`translate(0,${-10*LV.amp}px) scale(1.06)`,offset:.7},{transform:"none"}],{duration:520*LV.amp*.9,easing:"cubic-bezier(.34,1.56,.64,1)"})};
  const slots={};$$(".mchip",pool).forEach(c=>{slots[c.dataset.i]=c.nextSibling;c.onclick=()=>{if(c.parentElement===pool)flip(c,bar,()=>bar.appendChild(c));else flip(c,pool,()=>{const i=+c.dataset.i;const after=[...pool.children].find(x=>+x.dataset.i>i);pool.insertBefore(c,after||null)})}})}
