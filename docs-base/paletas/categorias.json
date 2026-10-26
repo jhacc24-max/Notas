@@ -1,0 +1,130 @@
+[
+ {
+  "id": "violeta",
+  "nombre": "Violeta",
+  "uso": "Salud y ejercicio",
+  "icono": "pesa",
+  "claro": {
+   "stripe": "#975EEF",
+   "bg": "#EFE9FF",
+   "fg": "#6530AC"
+  },
+  "oscuro": {
+   "stripe": "#B085FF",
+   "bg": "#33244E",
+   "fg": "#C9B2FF"
+  }
+ },
+ {
+  "id": "azul",
+  "nombre": "Azul",
+  "uso": "Reuniones y diseño",
+  "icono": "laptop",
+  "claro": {
+   "stripe": "#0782F8",
+   "bg": "#E1EEFF",
+   "fg": "#0053A5"
+  },
+  "oscuro": {
+   "stripe": "#5AA3FF",
+   "bg": "#122E51",
+   "fg": "#96C4FF"
+  }
+ },
+ {
+  "id": "verde",
+  "nombre": "Verde",
+  "uso": "Trabajo principal / ventas",
+  "icono": "código o carrito",
+  "claro": {
+   "stripe": "#219F35",
+   "bg": "#DAF6DA",
+   "fg": "#006818"
+  },
+  "oscuro": {
+   "stripe": "#5BBA61",
+   "bg": "#163618",
+   "fg": "#8FD591"
+  }
+ },
+ {
+  "id": "ambar",
+  "nombre": "Ámbar",
+  "uso": "Clientes y comunicación",
+  "icono": "personas",
+  "claro": {
+   "stripe": "#D3940A",
+   "bg": "#FEEACC",
+   "fg": "#714D00"
+  },
+  "oscuro": {
+   "stripe": "#D3940A",
+   "bg": "#3E2901",
+   "fg": "#E9B869"
+  }
+ },
+ {
+  "id": "rojo",
+  "nombre": "Rojo",
+  "uso": "Urgente / personal",
+  "icono": "libro o alerta",
+  "claro": {
+   "stripe": "#E83A3E",
+   "bg": "#FFE6E4",
+   "fg": "#A30018"
+  },
+  "oscuro": {
+   "stripe": "#FE6B66",
+   "bg": "#4D1C1A",
+   "fg": "#FFA59E"
+  }
+ },
+ {
+  "id": "cian",
+  "nombre": "Cian",
+  "uso": "Logística y envíos",
+  "icono": "camión",
+  "claro": {
+   "stripe": "#0093B5",
+   "bg": "#D3F3FF",
+   "fg": "#005F76"
+  },
+  "oscuro": {
+   "stripe": "#11B3DB",
+   "bg": "#023441",
+   "fg": "#72D0EF"
+  }
+ },
+ {
+  "id": "rosa",
+  "nombre": "Rosa",
+  "uso": "Eventos y comunidad",
+  "icono": "estrella",
+  "claro": {
+   "stripe": "#D64295",
+   "bg": "#FFE4F0",
+   "fg": "#951263"
+  },
+  "oscuro": {
+   "stripe": "#EE6EB0",
+   "bg": "#471D33",
+   "fg": "#FF9ECD"
+  }
+ },
+ {
+  "id": "cafe",
+  "nombre": "Café",
+  "uso": "Inventario y producción",
+  "icono": "caja",
+  "claro": {
+   "stripe": "#A67A5C",
+   "bg": "#F7EAE2",
+   "fg": "#704C33"
+  },
+  "oscuro": {
+   "stripe": "#C0987E",
+   "bg": "#382B22",
+   "fg": "#D9BAA5"
+  }
+ }
+]

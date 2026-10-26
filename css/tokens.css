@@ -1,0 +1,70 @@
+/* Material Design 3 — tokens. Semilla de color: verde azulado clínico (#006A60). */
+:root {
+  color-scheme: light dark;
+  --md-primary: #006a60; --md-on-primary: #fff;
+  --md-primary-container: #b6efe6; --md-on-primary-container: #00201c;
+  --md-secondary: #4a6360; --md-secondary-container: #cce8e3; --md-on-secondary-container: #05201c;
+  --md-tertiary: #456179; --md-tertiary-container: #cce5ff; --md-on-tertiary-container: #001e31;
+  --md-error: #ba1a1a; --md-error-container: #ffdad6; --md-on-error-container: #410002;
+  --md-surface: #f4fbf9; --md-on-surface: #161d1c; --md-on-surface-variant: #3f4947;
+  --md-surface-c-low: #eef5f3; --md-surface-c: #e9efed; --md-surface-c-high: #e3e9e7; --md-surface-c-highest: #dde4e2;
+  --md-outline: #6f7977; --md-outline-variant: #bec9c6;
+  --md-scrim: rgb(0 0 0 / .4); --md-inverse-surface: #2b3231; --md-inverse-on-surface: #ecf2f0;
+  --p-high: #c62828; --p-medium: #ef6c00; --p-low: #2e7d32;
+  --star: #f9a825; --rec: #d32f2f;
+  --k-personal: #7e57c2; --k-hospital: #1e88e5;
+
+  --font: Roboto, 'Google Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Escala tipográfica MD3 (tamaño/interlineado/peso) */
+  --t-display: 500 2.25rem/2.75rem var(--font);
+  --t-headline: 400 1.75rem/2.25rem var(--font);
+  --t-title-l: 400 1.375rem/1.75rem var(--font);
+  --t-title-m: 500 1rem/1.5rem var(--font);
+  --t-body-l: 400 1rem/1.5rem var(--font);
+  --t-body-m: 400 .875rem/1.25rem var(--font);
+  --t-label-l: 500 .875rem/1.25rem var(--font);
+  --t-label-m: 500 .75rem/1rem var(--font);
+
+  /* Formas */
+  --r-xs: 4px; --r-s: 8px; --r-m: 12px; --r-l: 16px; --r-xl: 28px; --r-full: 999px;
+  /* Elevación */
+  --e1: 0 1px 2px rgb(0 0 0 / .3), 0 1px 3px 1px rgb(0 0 0 / .15);
+  --e2: 0 1px 2px rgb(0 0 0 / .3), 0 2px 6px 2px rgb(0 0 0 / .15);
+  --e3: 0 4px 8px 3px rgb(0 0 0 / .15), 0 1px 3px rgb(0 0 0 / .3);
+  /* Movimiento */
+  --ease: cubic-bezier(.2, 0, 0, 1); --ease-out: cubic-bezier(0, 0, 0, 1);
+  --d-short: 150ms; --d-med: 250ms; --d-long: 350ms;
+  --nav-h: 80px; --bar-h: 64px;
+  --safe-b: env(safe-area-inset-bottom, 0px); --safe-t: env(safe-area-inset-top, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --md-primary: #53dbc9; --md-on-primary: #003731; --md-primary-container: #005048; --md-on-primary-container: #74f8e5;
+    --md-secondary: #b1ccc7; --md-secondary-container: #324b47; --md-on-secondary-container: #cce8e3;
+    --md-tertiary: #adcae6; --md-tertiary-container: #2d4961; --md-on-tertiary-container: #cce5ff;
+    --md-error: #ffb4ab; --md-error-container: #93000a; --md-on-error-container: #ffdad6;
+    --md-surface: #0e1514; --md-on-surface: #dde4e1; --md-on-surface-variant: #bec9c6;
+    --md-surface-c-low: #161d1c; --md-surface-c: #1a2120; --md-surface-c-high: #252b2b; --md-surface-c-highest: #303636;
+    --md-outline: #899390; --md-outline-variant: #3f4947;
+    --md-inverse-surface: #dde4e1; --md-inverse-on-surface: #2b3231;
+    --p-high: #ff8a80; --p-medium: #ffb74d; --p-low: #81c784; --rec: #ff6659;
+    --k-personal: #b39ddb; --k-hospital: #64b5f6;
+  }
+}
+:root[data-theme='dark'] {
+  --md-primary: #53dbc9; --md-on-primary: #003731; --md-primary-container: #005048; --md-on-primary-container: #74f8e5;
+  --md-secondary: #b1ccc7; --md-secondary-container: #324b47; --md-on-secondary-container: #cce8e3;
+  --md-tertiary: #adcae6; --md-tertiary-container: #2d4961; --md-on-tertiary-container: #cce5ff;
+  --md-error: #ffb4ab; --md-error-container: #93000a; --md-on-error-container: #ffdad6;
+  --md-surface: #0e1514; --md-on-surface: #dde4e1; --md-on-surface-variant: #bec9c6;
+  --md-surface-c-low: #161d1c; --md-surface-c: #1a2120; --md-surface-c-high: #252b2b; --md-surface-c-highest: #303636;
+  --md-outline: #899390; --md-outline-variant: #3f4947;
+  --md-inverse-surface: #dde4e1; --md-inverse-on-surface: #2b3231;
+  --p-high: #ff8a80; --p-medium: #ffb74d; --p-low: #81c784; --rec: #ff6659;
+  --k-personal: #b39ddb; --k-hospital: #64b5f6;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --d-short: 1ms; --d-med: 1ms; --d-long: 1ms; }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; }
+}
