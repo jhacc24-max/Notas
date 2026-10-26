@@ -70,7 +70,120 @@
    "blanco/hero (claro)": 14.3,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 7.5
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "caramelo",
+     "hoja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#B77326",
+      "on": "#111318",
+      "tint": "#FDE9D7",
+      "fg": "#7B4700"
+     },
+     "ter": {
+      "c": "#5E9F35",
+      "on": "#111318",
+      "tint": "#E1F3D9",
+      "fg": "#306400"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C4884C",
+      "on": "#111318",
+      "tint": "#3D2915",
+      "fg": "#E6B68A"
+     },
+     "ter": {
+      "c": "#7BB45D",
+      "on": "#111318",
+      "tint": "#213417",
+      "fg": "#A4D08E"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "rojo",
+     "verde"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "cian",
+     "lavanda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "azul",
@@ -143,7 +256,120 @@
    "blanco/hero (claro)": 14.2,
    "texto/fondo (oscuro)": 17.1,
    "blanco/hero (oscuro)": 7.6
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "naranja",
+     "lima"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     },
+     "ter": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     },
+     "ter": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "rojo",
+     "hoja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#5E9F35",
+      "on": "#111318",
+      "tint": "#E1F3D9",
+      "fg": "#306400"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#7BB45D",
+      "on": "#111318",
+      "tint": "#213417",
+      "fg": "#A4D08E"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "cian",
+     "violeta"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "indigo",
@@ -216,7 +442,120 @@
    "blanco/hero (claro)": 14.7,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 8.0
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "caramelo",
+     "lima"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#B77326",
+      "on": "#111318",
+      "tint": "#FDE9D7",
+      "fg": "#7B4700"
+     },
+     "ter": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C4884C",
+      "on": "#111318",
+      "tint": "#3D2915",
+      "fg": "#E6B68A"
+     },
+     "ter": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "rojo",
+     "verde"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "cian",
+     "violeta"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "violeta",
@@ -289,7 +628,120 @@
    "blanco/hero (claro)": 14.9,
    "texto/fondo (oscuro)": 17.1,
    "blanco/hero (oscuro)": 8.2
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "amarillo",
+     "verde"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#A47F00",
+      "on": "#111318",
+      "tint": "#FFEBBE",
+      "fg": "#6B5100"
+     },
+     "ter": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C89A00",
+      "on": "#111318",
+      "tint": "#3B2B00",
+      "fg": "#F2BE23"
+     },
+     "ter": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "naranja",
+     "turquesa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     },
+     "ter": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     },
+     "ter": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "azul",
+     "rosa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0782F8",
+      "on": "#111318",
+      "tint": "#E1EEFF",
+      "fg": "#0053A5"
+     },
+     "ter": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5AA3FF",
+      "on": "#111318",
+      "tint": "#122E51",
+      "fg": "#96C4FF"
+     },
+     "ter": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "rosa",
@@ -362,7 +814,120 @@
    "blanco/hero (claro)": 14.9,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 8.3
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "verde",
+     "turquesa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     },
+     "ter": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     },
+     "ter": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "lima",
+     "cian"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     },
+     "ter": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     },
+     "ter": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "violeta",
+     "rojo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     },
+     "ter": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     },
+     "ter": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "rojo",
@@ -435,7 +1000,120 @@
    "blanco/hero (claro)": 14.8,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 8.2
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "esmeralda",
+     "cian"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009D6D",
+      "on": "#111318",
+      "tint": "#D6F6E5",
+      "fg": "#006645"
+     },
+     "ter": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#42BA8A",
+      "on": "#111318",
+      "tint": "#0E3626",
+      "fg": "#82D5AF"
+     },
+     "ter": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "verde",
+     "azulrey"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     },
+     "ter": {
+      "c": "#3C7BFF",
+      "on": "#111318",
+      "tint": "#E4EDFF",
+      "fg": "#1649B9"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     },
+     "ter": {
+      "c": "#6E9FFF",
+      "on": "#111318",
+      "tint": "#192C53",
+      "fg": "#A0C1FF"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "rosa",
+     "caramelo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     },
+     "ter": {
+      "c": "#B77326",
+      "on": "#111318",
+      "tint": "#FDE9D7",
+      "fg": "#7B4700"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     },
+     "ter": {
+      "c": "#C4884C",
+      "on": "#111318",
+      "tint": "#3D2915",
+      "fg": "#E6B68A"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "naranja",
@@ -508,7 +1186,120 @@
    "blanco/hero (claro)": 14.5,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 7.8
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "turquesa",
+     "azul"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     },
+     "ter": {
+      "c": "#0782F8",
+      "on": "#111318",
+      "tint": "#E1EEFF",
+      "fg": "#0053A5"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     },
+     "ter": {
+      "c": "#5AA3FF",
+      "on": "#111318",
+      "tint": "#122E51",
+      "fg": "#96C4FF"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "esmeralda",
+     "violeta"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009D6D",
+      "on": "#111318",
+      "tint": "#D6F6E5",
+      "fg": "#006645"
+     },
+     "ter": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#42BA8A",
+      "on": "#111318",
+      "tint": "#0E3626",
+      "fg": "#82D5AF"
+     },
+     "ter": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "rosa",
+     "amarillo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     },
+     "ter": {
+      "c": "#A47F00",
+      "on": "#111318",
+      "tint": "#FFEBBE",
+      "fg": "#6B5100"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     },
+     "ter": {
+      "c": "#C89A00",
+      "on": "#111318",
+      "tint": "#3B2B00",
+      "fg": "#F2BE23"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "ambar",
@@ -581,7 +1372,120 @@
    "blanco/hero (claro)": 14.2,
    "texto/fondo (oscuro)": 17.1,
    "blanco/hero (oscuro)": 7.6
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "cian",
+     "violeta"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "turquesa",
+     "lavanda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     },
+     "ter": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     },
+     "ter": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "naranja",
+     "lima"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     },
+     "ter": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     },
+     "ter": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "verde",
@@ -654,7 +1558,120 @@
    "blanco/hero (claro)": 13.7,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 7.0
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "violeta",
+     "rosa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     },
+     "ter": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     },
+     "ter": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "azulrey",
+     "rojo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#3C7BFF",
+      "on": "#111318",
+      "tint": "#E4EDFF",
+      "fg": "#1649B9"
+     },
+     "ter": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#6E9FFF",
+      "on": "#111318",
+      "tint": "#192C53",
+      "fg": "#A0C1FF"
+     },
+     "ter": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "lima",
+     "turquesa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     },
+     "ter": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     },
+     "ter": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "esmeralda",
@@ -727,7 +1744,120 @@
    "blanco/hero (claro)": 13.7,
    "texto/fondo (oscuro)": 17.1,
    "blanco/hero (oscuro)": 7.0
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "violeta",
+     "rojo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     },
+     "ter": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     },
+     "ter": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "indigo",
+     "naranja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#6570FF",
+      "on": "#111318",
+      "tint": "#E7ECFF",
+      "fg": "#3E40B9"
+     },
+     "ter": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#8797FF",
+      "on": "#111318",
+      "tint": "#232953",
+      "fg": "#AFBCFF"
+     },
+     "ter": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "hoja",
+     "cian"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#5E9F35",
+      "on": "#111318",
+      "tint": "#E1F3D9",
+      "fg": "#306400"
+     },
+     "ter": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#7BB45D",
+      "on": "#111318",
+      "tint": "#213417",
+      "fg": "#A4D08E"
+     },
+     "ter": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "turquesa",
@@ -800,7 +1930,120 @@
    "blanco/hero (claro)": 13.9,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 7.1
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "rosa",
+     "naranja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     },
+     "ter": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     },
+     "ter": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "lavanda",
+     "caramelo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     },
+     "ter": {
+      "c": "#B77326",
+      "on": "#111318",
+      "tint": "#FDE9D7",
+      "fg": "#7B4700"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     },
+     "ter": {
+      "c": "#C4884C",
+      "on": "#111318",
+      "tint": "#3D2915",
+      "fg": "#E6B68A"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "verde",
+     "cian"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     },
+     "ter": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     },
+     "ter": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "cian",
@@ -873,7 +2116,120 @@
    "blanco/hero (claro)": 13.9,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 7.2
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "rojo",
+     "ambar"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#AE7900",
+      "on": "#111318",
+      "tint": "#FEEACC",
+      "fg": "#714D00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#D3940A",
+      "on": "#111318",
+      "tint": "#3E2901",
+      "fg": "#E9B869"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "rosa",
+     "amarillo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     },
+     "ter": {
+      "c": "#A47F00",
+      "on": "#111318",
+      "tint": "#FFEBBE",
+      "fg": "#6B5100"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     },
+     "ter": {
+      "c": "#C89A00",
+      "on": "#111318",
+      "tint": "#3B2B00",
+      "fg": "#F2BE23"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "turquesa",
+     "marino"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     },
+     "ter": {
+      "c": "#5883D2",
+      "on": "#111318",
+      "tint": "#E3EDFF",
+      "fg": "#305394"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     },
+     "ter": {
+      "c": "#7BA1E7",
+      "on": "#111318",
+      "tint": "#212E45",
+      "fg": "#A3C2F9"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "cafe",
@@ -946,7 +2302,120 @@
    "blanco/hero (claro)": 14.3,
    "texto/fondo (oscuro)": 17.2,
    "blanco/hero (oscuro)": 7.6
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "turquesa",
+     "marino"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     },
+     "ter": {
+      "c": "#5883D2",
+      "on": "#111318",
+      "tint": "#E3EDFF",
+      "fg": "#305394"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     },
+     "ter": {
+      "c": "#7BA1E7",
+      "on": "#111318",
+      "tint": "#212E45",
+      "fg": "#A3C2F9"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "esmeralda",
+     "lavanda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009D6D",
+      "on": "#111318",
+      "tint": "#D6F6E5",
+      "fg": "#006645"
+     },
+     "ter": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#42BA8A",
+      "on": "#111318",
+      "tint": "#0E3626",
+      "fg": "#82D5AF"
+     },
+     "ter": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "rojo",
+     "ambar"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#AE7900",
+      "on": "#111318",
+      "tint": "#FEEACC",
+      "fg": "#714D00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#D3940A",
+      "on": "#111318",
+      "tint": "#3E2901",
+      "fg": "#E9B869"
+     }
+    }
+   }
+  ]
  },
  {
   "id": "pizarra",
@@ -1019,6 +2488,1449 @@
    "blanco/hero (claro)": 14.1,
    "texto/fondo (oscuro)": 17.1,
    "blanco/hero (oscuro)": 7.5
-  }
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "cafe",
+     "hoja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#A67A5C",
+      "on": "#111318",
+      "tint": "#F7EAE2",
+      "fg": "#704C33"
+     },
+     "ter": {
+      "c": "#5E9F35",
+      "on": "#111318",
+      "tint": "#E1F3D9",
+      "fg": "#306400"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C0987E",
+      "on": "#111318",
+      "tint": "#382B22",
+      "fg": "#D9BAA5"
+     },
+     "ter": {
+      "c": "#7BB45D",
+      "on": "#111318",
+      "tint": "#213417",
+      "fg": "#A4D08E"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "caramelo",
+     "verde"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#B77326",
+      "on": "#111318",
+      "tint": "#FDE9D7",
+      "fg": "#7B4700"
+     },
+     "ter": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C4884C",
+      "on": "#111318",
+      "tint": "#3D2915",
+      "fg": "#E6B68A"
+     },
+     "ter": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "cian",
+     "lavanda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "azulrey",
+  "nombre": "Azul rey",
+  "uso": "Tecnología, apps de servicio, marcas confiables y enérgicas",
+  "hue": 262.8,
+  "escala": {
+   "50": "#F3F7FF",
+   "100": "#E4EDFF",
+   "200": "#C8DBFF",
+   "300": "#A0C1FF",
+   "400": "#6E9FFF",
+   "500": "#3C7BFF",
+   "600": "#2F6BEB",
+   "700": "#1649B9",
+   "800": "#0B3592",
+   "900": "#02226C",
+   "950": "#00114A"
+  },
+  "claro": {
+   "bg": "#F1F6FE",
+   "surface": "#FFFFFF",
+   "tint": "#E4EDFF",
+   "selected": "#C8DBFF",
+   "hero": "#02226C",
+   "hero-2": "#0B3592",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#A0C1FF",
+   "accent": "#2F6BEB",
+   "on-accent": "#FFFFFF",
+   "text": "#12161E",
+   "text-2": "#5C6471",
+   "border": "#DADEE6",
+   "nav": "#FFFFFF",
+   "nav-active": "#02226C",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#E4EDFF",
+   "img-1b": "#6E9FFF",
+   "img-2a": "#C8DBFF",
+   "img-2b": "#2F6BEB",
+   "img-3a": "#A0C1FF",
+   "img-3b": "#0B3592"
+  },
+  "oscuro": {
+   "bg": "#090E19",
+   "surface": "#121927",
+   "tint": "#11254E",
+   "selected": "#0B3592",
+   "hero": "#1649B9",
+   "hero-2": "#2F6BEB",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#C8DBFF",
+   "accent": "#6E9FFF",
+   "on-accent": "#111318",
+   "text": "#EDF2FA",
+   "text-2": "#9DA5B4",
+   "border": "#262E3D",
+   "nav": "#1A2230",
+   "nav-active": "#3C7BFF",
+   "on-nav-active": "#111318",
+   "img-1a": "#1649B9",
+   "img-1b": "#6E9FFF",
+   "img-2a": "#0B3592",
+   "img-2b": "#3C7BFF",
+   "img-3a": "#02226C",
+   "img-3b": "#2F6BEB"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.7,
+   "blanco/hero (claro)": 14.5,
+   "texto/fondo (oscuro)": 17.2,
+   "blanco/hero (oscuro)": 7.8
+  },
+  "origen": {
+   "hex": "#2F6BEB",
+   "tono": 600
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "naranja",
+     "lima"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     },
+     "ter": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     },
+     "ter": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "rojo",
+     "verde"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "cian",
+     "violeta"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "hoja",
+  "nombre": "Verde hoja",
+  "uso": "Agro, jardinería, construcción sostenible",
+  "hue": 135.5,
+  "escala": {
+   "50": "#F1FAEC",
+   "100": "#E1F3D9",
+   "200": "#C7E6B8",
+   "300": "#A4D08E",
+   "400": "#7BB45D",
+   "500": "#5E9F35",
+   "600": "#407E0F",
+   "700": "#306400",
+   "800": "#224C00",
+   "900": "#153400",
+   "950": "#0A1F00"
+  },
+  "claro": {
+   "bg": "#F2F8F0",
+   "surface": "#FFFFFF",
+   "tint": "#E1F3D9",
+   "selected": "#C7E6B8",
+   "hero": "#153400",
+   "hero-2": "#224C00",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#A4D08E",
+   "accent": "#407E0F",
+   "on-accent": "#FFFFFF",
+   "text": "#121810",
+   "text-2": "#5D6759",
+   "border": "#DBE0D8",
+   "nav": "#FFFFFF",
+   "nav-active": "#153400",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#E1F3D9",
+   "img-1b": "#7BB45D",
+   "img-2a": "#C7E6B8",
+   "img-2b": "#407E0F",
+   "img-3a": "#A4D08E",
+   "img-3b": "#224C00"
+  },
+  "oscuro": {
+   "bg": "#0A1106",
+   "surface": "#131C0F",
+   "tint": "#1A2E0F",
+   "selected": "#224C00",
+   "hero": "#306400",
+   "hero-2": "#407E0F",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#C7E6B8",
+   "accent": "#7BB45D",
+   "on-accent": "#111318",
+   "text": "#EEF4EC",
+   "text-2": "#9EA899",
+   "border": "#273123",
+   "nav": "#1B2517",
+   "nav-active": "#5E9F35",
+   "on-nav-active": "#111318",
+   "img-1a": "#306400",
+   "img-1b": "#7BB45D",
+   "img-2a": "#224C00",
+   "img-2b": "#5E9F35",
+   "img-3a": "#153400",
+   "img-3b": "#407E0F"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.7,
+   "blanco/hero (claro)": 13.8,
+   "texto/fondo (oscuro)": 17.1,
+   "blanco/hero (oscuro)": 7.1
+  },
+  "origen": {
+   "hex": "#5E9F35",
+   "tono": 500
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "lavanda",
+     "rosa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     },
+     "ter": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     },
+     "ter": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "azul",
+     "rojo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0782F8",
+      "on": "#111318",
+      "tint": "#E1EEFF",
+      "fg": "#0053A5"
+     },
+     "ter": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5AA3FF",
+      "on": "#111318",
+      "tint": "#122E51",
+      "fg": "#96C4FF"
+     },
+     "ter": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "ambar",
+     "esmeralda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#AE7900",
+      "on": "#111318",
+      "tint": "#FEEACC",
+      "fg": "#714D00"
+     },
+     "ter": {
+      "c": "#009D6D",
+      "on": "#111318",
+      "tint": "#D6F6E5",
+      "fg": "#006645"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#D3940A",
+      "on": "#111318",
+      "tint": "#3E2901",
+      "fg": "#E9B869"
+     },
+     "ter": {
+      "c": "#42BA8A",
+      "on": "#111318",
+      "tint": "#0E3626",
+      "fg": "#82D5AF"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "celeste",
+  "nombre": "Celeste",
+  "uso": "Salud, bebés, clima, apps calmadas",
+  "hue": 251.1,
+  "escala": {
+   "50": "#F1F8FF",
+   "100": "#E0EFFF",
+   "200": "#C0DEFF",
+   "300": "#8AB8EA",
+   "400": "#6AA6E6",
+   "500": "#4088D1",
+   "600": "#286EB3",
+   "700": "#175793",
+   "800": "#094172",
+   "900": "#002C53",
+   "950": "#001A35"
+  },
+  "claro": {
+   "bg": "#F0F7FE",
+   "surface": "#FFFFFF",
+   "tint": "#E0EFFF",
+   "selected": "#C0DEFF",
+   "hero": "#002C53",
+   "hero-2": "#094172",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#8AB8EA",
+   "accent": "#286EB3",
+   "on-accent": "#FFFFFF",
+   "text": "#10171E",
+   "text-2": "#596471",
+   "border": "#D8DFE6",
+   "nav": "#FFFFFF",
+   "nav-active": "#002C53",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#E0EFFF",
+   "img-1b": "#6AA6E6",
+   "img-2a": "#C0DEFF",
+   "img-2b": "#286EB3",
+   "img-3a": "#8AB8EA",
+   "img-3b": "#094172"
+  },
+  "oscuro": {
+   "bg": "#070F18",
+   "surface": "#0F1A26",
+   "tint": "#14293F",
+   "selected": "#094172",
+   "hero": "#175793",
+   "hero-2": "#286EB3",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#C0DEFF",
+   "accent": "#6AA6E6",
+   "on-accent": "#111318",
+   "text": "#ECF3FA",
+   "text-2": "#9AA6B4",
+   "border": "#232F3C",
+   "nav": "#17232F",
+   "nav-active": "#4088D1",
+   "on-nav-active": "#111318",
+   "img-1a": "#175793",
+   "img-1b": "#6AA6E6",
+   "img-2a": "#094172",
+   "img-2b": "#4088D1",
+   "img-3a": "#002C53",
+   "img-3b": "#286EB3"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.7,
+   "blanco/hero (claro)": 14.1,
+   "texto/fondo (oscuro)": 17.2,
+   "blanco/hero (oscuro)": 7.4
+  },
+  "origen": {
+   "hex": "#8AB8EA",
+   "tono": 300
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "naranja",
+     "ambar"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     },
+     "ter": {
+      "c": "#AE7900",
+      "on": "#111318",
+      "tint": "#FEEACC",
+      "fg": "#714D00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     },
+     "ter": {
+      "c": "#D3940A",
+      "on": "#111318",
+      "tint": "#3E2901",
+      "fg": "#E9B869"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "rojo",
+     "hoja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#5E9F35",
+      "on": "#111318",
+      "tint": "#E1F3D9",
+      "fg": "#306400"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#7BB45D",
+      "on": "#111318",
+      "tint": "#213417",
+      "fg": "#A4D08E"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "cian",
+     "lavanda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "caramelo",
+  "nombre": "Caramelo",
+  "uso": "Panadería, café, cuero, comida casera",
+  "hue": 64.3,
+  "escala": {
+   "50": "#FFF5EC",
+   "100": "#FDE9D7",
+   "200": "#F5D4B5",
+   "300": "#E6B68A",
+   "400": "#C4884C",
+   "500": "#B77326",
+   "600": "#9A5A01",
+   "700": "#7B4700",
+   "800": "#5D3400",
+   "900": "#412300",
+   "950": "#291400"
+  },
+  "claro": {
+   "bg": "#FCF4EE",
+   "surface": "#FFFFFF",
+   "tint": "#FDE9D7",
+   "selected": "#F5D4B5",
+   "hero": "#412300",
+   "hero-2": "#5D3400",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#E6B68A",
+   "accent": "#9A5A01",
+   "on-accent": "#FFFFFF",
+   "text": "#1C140D",
+   "text-2": "#6D6155",
+   "border": "#E4DCD6",
+   "nav": "#FFFFFF",
+   "nav-active": "#412300",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#FDE9D7",
+   "img-1b": "#C4884C",
+   "img-2a": "#F5D4B5",
+   "img-2b": "#9A5A01",
+   "img-3a": "#E6B68A",
+   "img-3b": "#5D3400"
+  },
+  "oscuro": {
+   "bg": "#160C04",
+   "surface": "#23170B",
+   "tint": "#37220D",
+   "selected": "#5D3400",
+   "hero": "#7B4700",
+   "hero-2": "#9A5A01",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#F5D4B5",
+   "accent": "#C4884C",
+   "on-accent": "#111318",
+   "text": "#F8F0EA",
+   "text-2": "#B0A295",
+   "border": "#382B1F",
+   "nav": "#2B1F13",
+   "nav-active": "#B77326",
+   "on-nav-active": "#111318",
+   "img-1a": "#7B4700",
+   "img-1b": "#C4884C",
+   "img-2a": "#5D3400",
+   "img-2b": "#B77326",
+   "img-3a": "#412300",
+   "img-3b": "#9A5A01"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.7,
+   "blanco/hero (claro)": 14.3,
+   "texto/fondo (oscuro)": 17.1,
+   "blanco/hero (oscuro)": 7.7
+  },
+  "origen": {
+   "hex": "#C4884C",
+   "tono": 400
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "cian",
+     "marino"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#5883D2",
+      "on": "#111318",
+      "tint": "#E3EDFF",
+      "fg": "#305394"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#7BA1E7",
+      "on": "#111318",
+      "tint": "#212E45",
+      "fg": "#A3C2F9"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "turquesa",
+     "lavanda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     },
+     "ter": {
+      "c": "#887AB6",
+      "on": "#111318",
+      "tint": "#EDEAFC",
+      "fg": "#584C7D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     },
+     "ter": {
+      "c": "#9B8FC4",
+      "on": "#111318",
+      "tint": "#2F2B3D",
+      "fg": "#C3BAE5"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "rojo",
+     "hoja"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     },
+     "ter": {
+      "c": "#5E9F35",
+      "on": "#111318",
+      "tint": "#E1F3D9",
+      "fg": "#306400"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     },
+     "ter": {
+      "c": "#7BB45D",
+      "on": "#111318",
+      "tint": "#213417",
+      "fg": "#A4D08E"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "amarillo",
+  "nombre": "Amarillo",
+  "uso": "Delivery, ofertas, niños, señalización",
+  "hue": 87.6,
+  "escala": {
+   "50": "#FFF6E1",
+   "100": "#FFEBBE",
+   "200": "#F9D785",
+   "300": "#F2BE23",
+   "400": "#C89A00",
+   "500": "#A47F00",
+   "600": "#866700",
+   "700": "#6B5100",
+   "800": "#513D00",
+   "900": "#382900",
+   "950": "#221800"
+  },
+  "claro": {
+   "bg": "#F9F5ED",
+   "surface": "#FFFFFF",
+   "tint": "#FFEBBE",
+   "selected": "#F9D785",
+   "hero": "#382900",
+   "hero-2": "#513D00",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#F2BE23",
+   "accent": "#866700",
+   "on-accent": "#FFFFFF",
+   "text": "#19160D",
+   "text-2": "#696354",
+   "border": "#E1DED5",
+   "nav": "#FFFFFF",
+   "nav-active": "#382900",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#FFEBBE",
+   "img-1b": "#C89A00",
+   "img-2a": "#F9D785",
+   "img-2b": "#866700",
+   "img-3a": "#F2BE23",
+   "img-3b": "#513D00"
+  },
+  "oscuro": {
+   "bg": "#130E03",
+   "surface": "#1F1909",
+   "tint": "#332500",
+   "selected": "#513D00",
+   "hero": "#6B5100",
+   "hero-2": "#866700",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#F9D785",
+   "accent": "#C89A00",
+   "on-accent": "#111318",
+   "text": "#F5F1E9",
+   "text-2": "#ABA494",
+   "border": "#342D1D",
+   "nav": "#272111",
+   "nav-active": "#A47F00",
+   "on-nav-active": "#111318",
+   "img-1a": "#6B5100",
+   "img-1b": "#C89A00",
+   "img-2a": "#513D00",
+   "img-2b": "#A47F00",
+   "img-3a": "#382900",
+   "img-3b": "#866700"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.6,
+   "blanco/hero (claro)": 14.1,
+   "texto/fondo (oscuro)": 17.1,
+   "blanco/hero (oscuro)": 7.5
+  },
+  "origen": {
+   "hex": "#F2BE23",
+   "tono": 300
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "azul",
+     "violeta"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0782F8",
+      "on": "#111318",
+      "tint": "#E1EEFF",
+      "fg": "#0053A5"
+     },
+     "ter": {
+      "c": "#975EEF",
+      "on": "#111318",
+      "tint": "#EFE9FF",
+      "fg": "#6530AC"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5AA3FF",
+      "on": "#111318",
+      "tint": "#122E51",
+      "fg": "#96C4FF"
+     },
+     "ter": {
+      "c": "#B085FF",
+      "on": "#111318",
+      "tint": "#33244E",
+      "fg": "#C9B2FF"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "cian",
+     "rosa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0093B5",
+      "on": "#111318",
+      "tint": "#D3F3FF",
+      "fg": "#005F76"
+     },
+     "ter": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#11B3DB",
+      "on": "#111318",
+      "tint": "#023441",
+      "fg": "#72D0EF"
+     },
+     "ter": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "naranja",
+     "lima"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#D15D00",
+      "on": "#111318",
+      "tint": "#FFE7DC",
+      "fg": "#893B00"
+     },
+     "ter": {
+      "c": "#789100",
+      "on": "#111318",
+      "tint": "#E6F4C6",
+      "fg": "#4D5E00"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#F17D38",
+      "on": "#111318",
+      "tint": "#49210B",
+      "fg": "#FFA97D"
+     },
+     "ter": {
+      "c": "#92B000",
+      "on": "#111318",
+      "tint": "#293300",
+      "fg": "#A6C43C"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "lavanda",
+  "nombre": "Lavanda",
+  "uso": "Bienestar, belleza, espacios de trabajo",
+  "hue": 294.6,
+  "escala": {
+   "50": "#F7F5FF",
+   "100": "#EDEAFC",
+   "200": "#DCD6F4",
+   "300": "#C3BAE5",
+   "400": "#9B8FC4",
+   "500": "#887AB6",
+   "600": "#6F619A",
+   "700": "#584C7D",
+   "800": "#423860",
+   "900": "#2D2545",
+   "950": "#1B142D"
+  },
+  "claro": {
+   "bg": "#F6F4FD",
+   "surface": "#FFFFFF",
+   "tint": "#EDEAFC",
+   "selected": "#DCD6F4",
+   "hero": "#2D2545",
+   "hero-2": "#423860",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#C3BAE5",
+   "accent": "#6F619A",
+   "on-accent": "#FFFFFF",
+   "text": "#16151D",
+   "text-2": "#64616F",
+   "border": "#DEDDE5",
+   "nav": "#FFFFFF",
+   "nav-active": "#2D2545",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#EDEAFC",
+   "img-1b": "#9B8FC4",
+   "img-2a": "#DCD6F4",
+   "img-2b": "#6F619A",
+   "img-3a": "#C3BAE5",
+   "img-3b": "#423860"
+  },
+  "oscuro": {
+   "bg": "#0F0C17",
+   "surface": "#1A1724",
+   "tint": "#292437",
+   "selected": "#423860",
+   "hero": "#584C7D",
+   "hero-2": "#6F619A",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#DCD6F4",
+   "accent": "#9B8FC4",
+   "on-accent": "#111318",
+   "text": "#F2F0F9",
+   "text-2": "#A5A2B1",
+   "border": "#2E2B3A",
+   "nav": "#221F2D",
+   "nav-active": "#887AB6",
+   "on-nav-active": "#111318",
+   "img-1a": "#584C7D",
+   "img-1b": "#9B8FC4",
+   "img-2a": "#423860",
+   "img-2b": "#887AB6",
+   "img-3a": "#2D2545",
+   "img-3b": "#6F619A"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.6,
+   "blanco/hero (claro)": 14.4,
+   "texto/fondo (oscuro)": 17.1,
+   "blanco/hero (oscuro)": 7.7
+  },
+  "origen": {
+   "hex": "#9B8FC4",
+   "tono": 400
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "ambar",
+     "verde"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#AE7900",
+      "on": "#111318",
+      "tint": "#FEEACC",
+      "fg": "#714D00"
+     },
+     "ter": {
+      "c": "#219F35",
+      "on": "#111318",
+      "tint": "#DAF6DA",
+      "fg": "#006818"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#D3940A",
+      "on": "#111318",
+      "tint": "#3E2901",
+      "fg": "#E9B869"
+     },
+     "ter": {
+      "c": "#5BBA61",
+      "on": "#111318",
+      "tint": "#163618",
+      "fg": "#8FD591"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "cafe",
+     "turquesa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#A67A5C",
+      "on": "#111318",
+      "tint": "#F7EAE2",
+      "fg": "#704C33"
+     },
+     "ter": {
+      "c": "#009991",
+      "on": "#111318",
+      "tint": "#D6F4F1",
+      "fg": "#00635D"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C0987E",
+      "on": "#111318",
+      "tint": "#382B22",
+      "fg": "#D9BAA5"
+     },
+     "ter": {
+      "c": "#43B6AD",
+      "on": "#111318",
+      "tint": "#0E3532",
+      "fg": "#82D2CA"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "celeste",
+     "rosa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#4088D1",
+      "on": "#111318",
+      "tint": "#E0EFFF",
+      "fg": "#175793"
+     },
+     "ter": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#6AA6E6",
+      "on": "#111318",
+      "tint": "#1B2F45",
+      "fg": "#8AB8EA"
+     },
+     "ter": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     }
+    }
+   }
+  ]
+ },
+ {
+  "id": "lima",
+  "nombre": "Lima",
+  "uso": "Fitness, frescura, energía, robótica",
+  "hue": 121.1,
+  "escala": {
+   "50": "#F3FBE2",
+   "100": "#E6F4C6",
+   "200": "#D0E694",
+   "300": "#A6C43C",
+   "400": "#92B000",
+   "500": "#789100",
+   "600": "#617600",
+   "700": "#4D5E00",
+   "800": "#394600",
+   "900": "#263000",
+   "950": "#161D00"
+  },
+  "claro": {
+   "bg": "#F4F7EE",
+   "surface": "#FFFFFF",
+   "tint": "#E6F4C6",
+   "selected": "#D0E694",
+   "hero": "#263000",
+   "hero-2": "#394600",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#A6C43C",
+   "accent": "#617600",
+   "on-accent": "#FFFFFF",
+   "text": "#15170E",
+   "text-2": "#616656",
+   "border": "#DDDFD7",
+   "nav": "#FFFFFF",
+   "nav-active": "#263000",
+   "on-nav-active": "#FFFFFF",
+   "img-1a": "#E6F4C6",
+   "img-1b": "#92B000",
+   "img-2a": "#D0E694",
+   "img-2b": "#617600",
+   "img-3a": "#A6C43C",
+   "img-3b": "#394600"
+  },
+  "oscuro": {
+   "bg": "#0D1005",
+   "surface": "#171C0C",
+   "tint": "#232C00",
+   "selected": "#394600",
+   "hero": "#4D5E00",
+   "hero-2": "#617600",
+   "on-hero": "#FFFFFF",
+   "on-hero-soft": "#D0E694",
+   "accent": "#92B000",
+   "on-accent": "#111318",
+   "text": "#F0F3EA",
+   "text-2": "#A2A797",
+   "border": "#2B3020",
+   "nav": "#1F2414",
+   "nav-active": "#789100",
+   "on-nav-active": "#111318",
+   "img-1a": "#4D5E00",
+   "img-1b": "#92B000",
+   "img-2a": "#394600",
+   "img-2b": "#789100",
+   "img-3a": "#263000",
+   "img-3b": "#617600"
+  },
+  "contraste": {
+   "texto/fondo (claro)": 16.7,
+   "blanco/hero (claro)": 14.0,
+   "texto/fondo (oscuro)": 17.1,
+   "blanco/hero (oscuro)": 7.2
+  },
+  "origen": {
+   "hex": "#A6C43C",
+   "tono": 300
+  },
+  "combinaciones": [
+   {
+    "id": "complementaria",
+    "nombre": "Complementaria",
+    "desc": "Contraste alto y equilibrado: los dos colores del lado opuesto del círculo",
+    "con": [
+     "indigo",
+     "rosa"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#6570FF",
+      "on": "#111318",
+      "tint": "#E7ECFF",
+      "fg": "#3E40B9"
+     },
+     "ter": {
+      "c": "#D64295",
+      "on": "#111318",
+      "tint": "#FFE4F0",
+      "fg": "#951263"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#8797FF",
+      "on": "#111318",
+      "tint": "#232953",
+      "fg": "#AFBCFF"
+     },
+     "ter": {
+      "c": "#EE6EB0",
+      "on": "#111318",
+      "tint": "#471D33",
+      "fg": "#FF9ECD"
+     }
+    }
+   },
+   {
+    "id": "triada",
+    "nombre": "Tríada",
+    "desc": "Tres colores repartidos en el círculo: alegre y variado",
+    "con": [
+     "azul",
+     "rojo"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#0782F8",
+      "on": "#111318",
+      "tint": "#E1EEFF",
+      "fg": "#0053A5"
+     },
+     "ter": {
+      "c": "#E83A3E",
+      "on": "#111318",
+      "tint": "#FFE6E4",
+      "fg": "#A30018"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#5AA3FF",
+      "on": "#111318",
+      "tint": "#122E51",
+      "fg": "#96C4FF"
+     },
+     "ter": {
+      "c": "#FE6B66",
+      "on": "#111318",
+      "tint": "#4D1C1A",
+      "fg": "#FFA59E"
+     }
+    }
+   },
+   {
+    "id": "analoga",
+    "nombre": "Análoga",
+    "desc": "Los vecinos del color: armoniosa y tranquila",
+    "con": [
+     "amarillo",
+     "esmeralda"
+    ],
+    "claro": {
+     "sec": {
+      "c": "#A47F00",
+      "on": "#111318",
+      "tint": "#FFEBBE",
+      "fg": "#6B5100"
+     },
+     "ter": {
+      "c": "#009D6D",
+      "on": "#111318",
+      "tint": "#D6F6E5",
+      "fg": "#006645"
+     }
+    },
+    "oscuro": {
+     "sec": {
+      "c": "#C89A00",
+      "on": "#111318",
+      "tint": "#3B2B00",
+      "fg": "#F2BE23"
+     },
+     "ter": {
+      "c": "#42BA8A",
+      "on": "#111318",
+      "tint": "#0E3626",
+      "fg": "#82D5AF"
+     }
+    }
+   }
+  ]
  }
 ]

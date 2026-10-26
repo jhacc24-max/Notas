@@ -5,70 +5,420 @@
 @media (prefers-color-scheme:dark){[data-palette="marino"]:not([data-theme="light"]){--bg:#090E19; --surface:#121927; --tint:#1A2740; --selected:#213D73; --hero:#305394; --hero-2:#4269B4; --on-hero:#FFFFFF; --on-hero-soft:#C8DCFF; --accent:#7BA1E7; --on-accent:#111318; --text:#EDF2FA; --text-2:#9CA5B4; --border:#262E3D; --nav:#1A2230; --nav-active:#5883D2; --on-nav-active:#111318; --img-1a:#305394; --img-1b:#7BA1E7; --img-2a:#213D73; --img-2b:#5883D2; --img-3a:#132954; --img-3b:#4269B4; color-scheme:dark}}
 [data-palette="marino"][data-theme="dark"]{--bg:#090E19; --surface:#121927; --tint:#1A2740; --selected:#213D73; --hero:#305394; --hero-2:#4269B4; --on-hero:#FFFFFF; --on-hero-soft:#C8DCFF; --accent:#7BA1E7; --on-accent:#111318; --text:#EDF2FA; --text-2:#9CA5B4; --border:#262E3D; --nav:#1A2230; --nav-active:#5883D2; --on-nav-active:#111318; --img-1a:#305394; --img-1b:#7BA1E7; --img-2a:#213D73; --img-2b:#5883D2; --img-3a:#132954; --img-3b:#4269B4; color-scheme:dark}
 
+/* Azul marino · combinación Complementaria: caramelo + hoja */
+[data-palette="marino"], [data-palette="marino"][data-combo="complementaria"]{--sec:#B77326; --sec-on:#111318; --sec-tint:#FDE9D7; --sec-fg:#7B4700; --ter:#5E9F35; --ter-on:#111318; --ter-tint:#E1F3D9; --ter-fg:#306400}
+@media (prefers-color-scheme:dark){[data-palette="marino"]:not([data-theme="light"]), [data-palette="marino"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#C4884C; --sec-on:#111318; --sec-tint:#3D2915; --sec-fg:#E6B68A; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}}
+[data-palette="marino"][data-theme="dark"], [data-palette="marino"][data-combo="complementaria"][data-theme="dark"]{--sec:#C4884C; --sec-on:#111318; --sec-tint:#3D2915; --sec-fg:#E6B68A; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}
+
+/* Azul marino · combinación Tríada: rojo + verde */
+[data-palette="marino"][data-combo="triada"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#219F35; --ter-on:#111318; --ter-tint:#DAF6DA; --ter-fg:#006818}
+@media (prefers-color-scheme:dark){[data-palette="marino"][data-combo="triada"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}}
+[data-palette="marino"][data-combo="triada"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}
+
+/* Azul marino · combinación Análoga: cian + lavanda */
+[data-palette="marino"][data-combo="analoga"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#887AB6; --ter-on:#111318; --ter-tint:#EDEAFC; --ter-fg:#584C7D}
+@media (prefers-color-scheme:dark){[data-palette="marino"][data-combo="analoga"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}}
+[data-palette="marino"][data-combo="analoga"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}
+
 /* Azul */
 [data-palette="azul"]{--tone-50:#F2F7FF; --tone-100:#E1EEFF; --tone-200:#C3DDFF; --tone-300:#96C4FF; --tone-400:#5AA3FF; --tone-500:#0782F8; --tone-600:#0069CD; --tone-700:#0053A5; --tone-800:#003E7E; --tone-900:#002A59; --tone-950:#001939; --bg:#F0F6FE; --surface:#FFFFFF; --tint:#E1EEFF; --selected:#C3DDFF; --hero:#002A59; --hero-2:#003E7E; --on-hero:#FFFFFF; --on-hero-soft:#96C4FF; --accent:#0069CD; --on-accent:#FFFFFF; --text:#11161E; --text-2:#5A6471; --border:#D9DFE6; --nav:#FFFFFF; --nav-active:#002A59; --on-nav-active:#FFFFFF; --img-1a:#E1EEFF; --img-1b:#5AA3FF; --img-2a:#C3DDFF; --img-2b:#0069CD; --img-3a:#96C4FF; --img-3b:#003E7E}
 @media (prefers-color-scheme:dark){[data-palette="azul"]:not([data-theme="light"]){--bg:#070F19; --surface:#101A27; --tint:#09274C; --selected:#003E7E; --hero:#0053A5; --hero-2:#0069CD; --on-hero:#FFFFFF; --on-hero-soft:#C3DDFF; --accent:#5AA3FF; --on-accent:#111318; --text:#EDF2FA; --text-2:#9BA6B4; --border:#242F3C; --nav:#18222F; --nav-active:#0782F8; --on-nav-active:#111318; --img-1a:#0053A5; --img-1b:#5AA3FF; --img-2a:#003E7E; --img-2b:#0782F8; --img-3a:#002A59; --img-3b:#0069CD; color-scheme:dark}}
 [data-palette="azul"][data-theme="dark"]{--bg:#070F19; --surface:#101A27; --tint:#09274C; --selected:#003E7E; --hero:#0053A5; --hero-2:#0069CD; --on-hero:#FFFFFF; --on-hero-soft:#C3DDFF; --accent:#5AA3FF; --on-accent:#111318; --text:#EDF2FA; --text-2:#9BA6B4; --border:#242F3C; --nav:#18222F; --nav-active:#0782F8; --on-nav-active:#111318; --img-1a:#0053A5; --img-1b:#5AA3FF; --img-2a:#003E7E; --img-2b:#0782F8; --img-3a:#002A59; --img-3b:#0069CD; color-scheme:dark}
+
+/* Azul · combinación Complementaria: naranja + lima */
+[data-palette="azul"], [data-palette="azul"][data-combo="complementaria"]{--sec:#D15D00; --sec-on:#111318; --sec-tint:#FFE7DC; --sec-fg:#893B00; --ter:#789100; --ter-on:#111318; --ter-tint:#E6F4C6; --ter-fg:#4D5E00}
+@media (prefers-color-scheme:dark){[data-palette="azul"]:not([data-theme="light"]), [data-palette="azul"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}}
+[data-palette="azul"][data-theme="dark"], [data-palette="azul"][data-combo="complementaria"][data-theme="dark"]{--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}
+
+/* Azul · combinación Tríada: rojo + hoja */
+[data-palette="azul"][data-combo="triada"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#5E9F35; --ter-on:#111318; --ter-tint:#E1F3D9; --ter-fg:#306400}
+@media (prefers-color-scheme:dark){[data-palette="azul"][data-combo="triada"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}}
+[data-palette="azul"][data-combo="triada"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}
+
+/* Azul · combinación Análoga: cian + violeta */
+[data-palette="azul"][data-combo="analoga"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#975EEF; --ter-on:#111318; --ter-tint:#EFE9FF; --ter-fg:#6530AC}
+@media (prefers-color-scheme:dark){[data-palette="azul"][data-combo="analoga"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}}
+[data-palette="azul"][data-combo="analoga"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}
 
 /* Índigo */
 [data-palette="indigo"]{--tone-50:#F4F6FF; --tone-100:#E7ECFF; --tone-200:#D0D9FF; --tone-300:#AFBCFF; --tone-400:#8797FF; --tone-500:#6570FF; --tone-600:#5056DE; --tone-700:#3E40B9; --tone-800:#2D2D91; --tone-900:#1D1B6C; --tone-950:#100B4A; --bg:#F3F5FE; --surface:#FFFFFF; --tint:#E7ECFF; --selected:#D0D9FF; --hero:#1D1B6C; --hero-2:#2D2D91; --on-hero:#FFFFFF; --on-hero-soft:#AFBCFF; --accent:#5056DE; --on-accent:#FFFFFF; --text:#14151E; --text-2:#5F6271; --border:#DBDEE6; --nav:#FFFFFF; --nav-active:#1D1B6C; --on-nav-active:#FFFFFF; --img-1a:#E7ECFF; --img-1b:#8797FF; --img-2a:#D0D9FF; --img-2b:#5056DE; --img-3a:#AFBCFF; --img-3b:#2D2D91}
 @media (prefers-color-scheme:dark){[data-palette="indigo"]:not([data-theme="light"]){--bg:#0B0D19; --surface:#151827; --tint:#1D224E; --selected:#2D2D91; --hero:#3E40B9; --hero-2:#5056DE; --on-hero:#FFFFFF; --on-hero-soft:#D0D9FF; --accent:#8797FF; --on-accent:#111318; --text:#EFF1FA; --text-2:#A0A4B4; --border:#292D3C; --nav:#1D2130; --nav-active:#6570FF; --on-nav-active:#111318; --img-1a:#3E40B9; --img-1b:#8797FF; --img-2a:#2D2D91; --img-2b:#6570FF; --img-3a:#1D1B6C; --img-3b:#5056DE; color-scheme:dark}}
 [data-palette="indigo"][data-theme="dark"]{--bg:#0B0D19; --surface:#151827; --tint:#1D224E; --selected:#2D2D91; --hero:#3E40B9; --hero-2:#5056DE; --on-hero:#FFFFFF; --on-hero-soft:#D0D9FF; --accent:#8797FF; --on-accent:#111318; --text:#EFF1FA; --text-2:#A0A4B4; --border:#292D3C; --nav:#1D2130; --nav-active:#6570FF; --on-nav-active:#111318; --img-1a:#3E40B9; --img-1b:#8797FF; --img-2a:#2D2D91; --img-2b:#6570FF; --img-3a:#1D1B6C; --img-3b:#5056DE; color-scheme:dark}
 
+/* Índigo · combinación Complementaria: caramelo + lima */
+[data-palette="indigo"], [data-palette="indigo"][data-combo="complementaria"]{--sec:#B77326; --sec-on:#111318; --sec-tint:#FDE9D7; --sec-fg:#7B4700; --ter:#789100; --ter-on:#111318; --ter-tint:#E6F4C6; --ter-fg:#4D5E00}
+@media (prefers-color-scheme:dark){[data-palette="indigo"]:not([data-theme="light"]), [data-palette="indigo"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#C4884C; --sec-on:#111318; --sec-tint:#3D2915; --sec-fg:#E6B68A; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}}
+[data-palette="indigo"][data-theme="dark"], [data-palette="indigo"][data-combo="complementaria"][data-theme="dark"]{--sec:#C4884C; --sec-on:#111318; --sec-tint:#3D2915; --sec-fg:#E6B68A; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}
+
+/* Índigo · combinación Tríada: rojo + verde */
+[data-palette="indigo"][data-combo="triada"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#219F35; --ter-on:#111318; --ter-tint:#DAF6DA; --ter-fg:#006818}
+@media (prefers-color-scheme:dark){[data-palette="indigo"][data-combo="triada"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}}
+[data-palette="indigo"][data-combo="triada"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}
+
+/* Índigo · combinación Análoga: cian + violeta */
+[data-palette="indigo"][data-combo="analoga"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#975EEF; --ter-on:#111318; --ter-tint:#EFE9FF; --ter-fg:#6530AC}
+@media (prefers-color-scheme:dark){[data-palette="indigo"][data-combo="analoga"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}}
+[data-palette="indigo"][data-combo="analoga"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}
+
 /* Violeta */
 [data-palette="violeta"]{--tone-50:#F8F5FF; --tone-100:#EFE9FF; --tone-200:#DFD3FF; --tone-300:#C9B2FF; --tone-400:#B085FF; --tone-500:#975EEF; --tone-600:#7D44CF; --tone-700:#6530AC; --tone-800:#4D2087; --tone-900:#360F63; --tone-950:#220344; --bg:#F6F4FD; --surface:#FFFFFF; --tint:#EFE9FF; --selected:#DFD3FF; --hero:#360F63; --hero-2:#4D2087; --on-hero:#FFFFFF; --on-hero-soft:#C9B2FF; --accent:#7D44CF; --on-accent:#FFFFFF; --text:#17141D; --text-2:#65616F; --border:#DFDCE5; --nav:#FFFFFF; --nav-active:#360F63; --on-nav-active:#FFFFFF; --img-1a:#EFE9FF; --img-1b:#B085FF; --img-2a:#DFD3FF; --img-2b:#7D44CF; --img-3a:#C9B2FF; --img-3b:#4D2087}
 @media (prefers-color-scheme:dark){[data-palette="violeta"]:not([data-theme="light"]){--bg:#100C17; --surface:#1B1725; --tint:#2D1D49; --selected:#4D2087; --hero:#6530AC; --hero-2:#7D44CF; --on-hero:#FFFFFF; --on-hero-soft:#DFD3FF; --accent:#B085FF; --on-accent:#111318; --text:#F2F0F9; --text-2:#A6A2B2; --border:#2F2B3B; --nav:#231F2E; --nav-active:#975EEF; --on-nav-active:#111318; --img-1a:#6530AC; --img-1b:#B085FF; --img-2a:#4D2087; --img-2b:#975EEF; --img-3a:#360F63; --img-3b:#7D44CF; color-scheme:dark}}
 [data-palette="violeta"][data-theme="dark"]{--bg:#100C17; --surface:#1B1725; --tint:#2D1D49; --selected:#4D2087; --hero:#6530AC; --hero-2:#7D44CF; --on-hero:#FFFFFF; --on-hero-soft:#DFD3FF; --accent:#B085FF; --on-accent:#111318; --text:#F2F0F9; --text-2:#A6A2B2; --border:#2F2B3B; --nav:#231F2E; --nav-active:#975EEF; --on-nav-active:#111318; --img-1a:#6530AC; --img-1b:#B085FF; --img-2a:#4D2087; --img-2b:#975EEF; --img-3a:#360F63; --img-3b:#7D44CF; color-scheme:dark}
+
+/* Violeta · combinación Complementaria: amarillo + verde */
+[data-palette="violeta"], [data-palette="violeta"][data-combo="complementaria"]{--sec:#A47F00; --sec-on:#111318; --sec-tint:#FFEBBE; --sec-fg:#6B5100; --ter:#219F35; --ter-on:#111318; --ter-tint:#DAF6DA; --ter-fg:#006818}
+@media (prefers-color-scheme:dark){[data-palette="violeta"]:not([data-theme="light"]), [data-palette="violeta"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#C89A00; --sec-on:#111318; --sec-tint:#3B2B00; --sec-fg:#F2BE23; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}}
+[data-palette="violeta"][data-theme="dark"], [data-palette="violeta"][data-combo="complementaria"][data-theme="dark"]{--sec:#C89A00; --sec-on:#111318; --sec-tint:#3B2B00; --sec-fg:#F2BE23; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}
+
+/* Violeta · combinación Tríada: naranja + turquesa */
+[data-palette="violeta"][data-combo="triada"]{--sec:#D15D00; --sec-on:#111318; --sec-tint:#FFE7DC; --sec-fg:#893B00; --ter:#009991; --ter-on:#111318; --ter-tint:#D6F4F1; --ter-fg:#00635D}
+@media (prefers-color-scheme:dark){[data-palette="violeta"][data-combo="triada"]:not([data-theme="light"]){--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}}
+[data-palette="violeta"][data-combo="triada"][data-theme="dark"]{--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}
+
+/* Violeta · combinación Análoga: azul + rosa */
+[data-palette="violeta"][data-combo="analoga"]{--sec:#0782F8; --sec-on:#111318; --sec-tint:#E1EEFF; --sec-fg:#0053A5; --ter:#D64295; --ter-on:#111318; --ter-tint:#FFE4F0; --ter-fg:#951263}
+@media (prefers-color-scheme:dark){[data-palette="violeta"][data-combo="analoga"]:not([data-theme="light"]){--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}}
+[data-palette="violeta"][data-combo="analoga"][data-theme="dark"]{--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}
 
 /* Rosa */
 [data-palette="rosa"]{--tone-50:#FFF3F8; --tone-100:#FFE4F0; --tone-200:#FFC9E1; --tone-300:#FF9ECD; --tone-400:#EE6EB0; --tone-500:#D64295; --tone-600:#B6267B; --tone-700:#951263; --tone-800:#74034B; --tone-900:#520034; --tone-950:#34001F; --bg:#FDF3F7; --surface:#FFFFFF; --tint:#FFE4F0; --selected:#FFC9E1; --hero:#520034; --hero-2:#74034B; --on-hero:#FFFFFF; --on-hero-soft:#FF9ECD; --accent:#B6267B; --on-accent:#FFFFFF; --text:#1C1317; --text-2:#6E5E65; --border:#E5DBDF; --nav:#FFFFFF; --nav-active:#520034; --on-nav-active:#FFFFFF; --img-1a:#FFE4F0; --img-1b:#EE6EB0; --img-2a:#FFC9E1; --img-2b:#B6267B; --img-3a:#FF9ECD; --img-3b:#74034B}
 @media (prefers-color-scheme:dark){[data-palette="rosa"]:not([data-theme="light"]){--bg:#160A10; --surface:#24141B; --tint:#42152D; --selected:#74034B; --hero:#951263; --hero-2:#B6267B; --on-hero:#FFFFFF; --on-hero-soft:#FFC9E1; --accent:#EE6EB0; --on-accent:#111318; --text:#F9EFF3; --text-2:#B19FA7; --border:#392830; --nav:#2C1C24; --nav-active:#D64295; --on-nav-active:#111318; --img-1a:#951263; --img-1b:#EE6EB0; --img-2a:#74034B; --img-2b:#D64295; --img-3a:#520034; --img-3b:#B6267B; color-scheme:dark}}
 [data-palette="rosa"][data-theme="dark"]{--bg:#160A10; --surface:#24141B; --tint:#42152D; --selected:#74034B; --hero:#951263; --hero-2:#B6267B; --on-hero:#FFFFFF; --on-hero-soft:#FFC9E1; --accent:#EE6EB0; --on-accent:#111318; --text:#F9EFF3; --text-2:#B19FA7; --border:#392830; --nav:#2C1C24; --nav-active:#D64295; --on-nav-active:#111318; --img-1a:#951263; --img-1b:#EE6EB0; --img-2a:#74034B; --img-2b:#D64295; --img-3a:#520034; --img-3b:#B6267B; color-scheme:dark}
 
+/* Rosa · combinación Complementaria: verde + turquesa */
+[data-palette="rosa"], [data-palette="rosa"][data-combo="complementaria"]{--sec:#219F35; --sec-on:#111318; --sec-tint:#DAF6DA; --sec-fg:#006818; --ter:#009991; --ter-on:#111318; --ter-tint:#D6F4F1; --ter-fg:#00635D}
+@media (prefers-color-scheme:dark){[data-palette="rosa"]:not([data-theme="light"]), [data-palette="rosa"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#5BBA61; --sec-on:#111318; --sec-tint:#163618; --sec-fg:#8FD591; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}}
+[data-palette="rosa"][data-theme="dark"], [data-palette="rosa"][data-combo="complementaria"][data-theme="dark"]{--sec:#5BBA61; --sec-on:#111318; --sec-tint:#163618; --sec-fg:#8FD591; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}
+
+/* Rosa · combinación Tríada: lima + cian */
+[data-palette="rosa"][data-combo="triada"]{--sec:#789100; --sec-on:#111318; --sec-tint:#E6F4C6; --sec-fg:#4D5E00; --ter:#0093B5; --ter-on:#111318; --ter-tint:#D3F3FF; --ter-fg:#005F76}
+@media (prefers-color-scheme:dark){[data-palette="rosa"][data-combo="triada"]:not([data-theme="light"]){--sec:#92B000; --sec-on:#111318; --sec-tint:#293300; --sec-fg:#A6C43C; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}}
+[data-palette="rosa"][data-combo="triada"][data-theme="dark"]{--sec:#92B000; --sec-on:#111318; --sec-tint:#293300; --sec-fg:#A6C43C; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}
+
+/* Rosa · combinación Análoga: violeta + rojo */
+[data-palette="rosa"][data-combo="analoga"]{--sec:#975EEF; --sec-on:#111318; --sec-tint:#EFE9FF; --sec-fg:#6530AC; --ter:#E83A3E; --ter-on:#111318; --ter-tint:#FFE6E4; --ter-fg:#A30018}
+@media (prefers-color-scheme:dark){[data-palette="rosa"][data-combo="analoga"]:not([data-theme="light"]){--sec:#B085FF; --sec-on:#111318; --sec-tint:#33244E; --sec-fg:#C9B2FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}}
+[data-palette="rosa"][data-combo="analoga"][data-theme="dark"]{--sec:#B085FF; --sec-on:#111318; --sec-tint:#33244E; --sec-fg:#C9B2FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}
+
 /* Rojo */
 [data-palette="rojo"]{--tone-50:#FFF4F3; --tone-100:#FFE6E4; --tone-200:#FFCDC8; --tone-300:#FFA59E; --tone-400:#FE6B66; --tone-500:#E83A3E; --tone-600:#C71826; --tone-700:#A30018; --tone-800:#7C000F; --tone-900:#580008; --tone-950:#380003; --bg:#FEF3F2; --surface:#FFFFFF; --tint:#FFE6E4; --selected:#FFCDC8; --hero:#580008; --hero-2:#7C000F; --on-hero:#FFFFFF; --on-hero-soft:#FFA59E; --accent:#C71826; --on-accent:#FFFFFF; --text:#1E1312; --text-2:#705E5C; --border:#E6DBDA; --nav:#FFFFFF; --nav-active:#580008; --on-nav-active:#FFFFFF; --img-1a:#FFE6E4; --img-1b:#FE6B66; --img-2a:#FFCDC8; --img-2b:#C71826; --img-3a:#FFA59E; --img-3b:#7C000F}
 @media (prefers-color-scheme:dark){[data-palette="rojo"]:not([data-theme="light"]){--bg:#180A09; --surface:#251413; --tint:#471312; --selected:#7C000F; --hero:#A30018; --hero-2:#C71826; --on-hero:#FFFFFF; --on-hero-soft:#FFCDC8; --accent:#FE6B66; --on-accent:#111318; --text:#FAEFEE; --text-2:#B39F9D; --border:#3B2826; --nav:#2E1C1B; --nav-active:#E83A3E; --on-nav-active:#111318; --img-1a:#A30018; --img-1b:#FE6B66; --img-2a:#7C000F; --img-2b:#E83A3E; --img-3a:#580008; --img-3b:#C71826; color-scheme:dark}}
 [data-palette="rojo"][data-theme="dark"]{--bg:#180A09; --surface:#251413; --tint:#471312; --selected:#7C000F; --hero:#A30018; --hero-2:#C71826; --on-hero:#FFFFFF; --on-hero-soft:#FFCDC8; --accent:#FE6B66; --on-accent:#111318; --text:#FAEFEE; --text-2:#B39F9D; --border:#3B2826; --nav:#2E1C1B; --nav-active:#E83A3E; --on-nav-active:#111318; --img-1a:#A30018; --img-1b:#FE6B66; --img-2a:#7C000F; --img-2b:#E83A3E; --img-3a:#580008; --img-3b:#C71826; color-scheme:dark}
+
+/* Rojo · combinación Complementaria: esmeralda + cian */
+[data-palette="rojo"], [data-palette="rojo"][data-combo="complementaria"]{--sec:#009D6D; --sec-on:#111318; --sec-tint:#D6F6E5; --sec-fg:#006645; --ter:#0093B5; --ter-on:#111318; --ter-tint:#D3F3FF; --ter-fg:#005F76}
+@media (prefers-color-scheme:dark){[data-palette="rojo"]:not([data-theme="light"]), [data-palette="rojo"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#42BA8A; --sec-on:#111318; --sec-tint:#0E3626; --sec-fg:#82D5AF; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}}
+[data-palette="rojo"][data-theme="dark"], [data-palette="rojo"][data-combo="complementaria"][data-theme="dark"]{--sec:#42BA8A; --sec-on:#111318; --sec-tint:#0E3626; --sec-fg:#82D5AF; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}
+
+/* Rojo · combinación Tríada: verde + azulrey */
+[data-palette="rojo"][data-combo="triada"]{--sec:#219F35; --sec-on:#111318; --sec-tint:#DAF6DA; --sec-fg:#006818; --ter:#3C7BFF; --ter-on:#111318; --ter-tint:#E4EDFF; --ter-fg:#1649B9}
+@media (prefers-color-scheme:dark){[data-palette="rojo"][data-combo="triada"]:not([data-theme="light"]){--sec:#5BBA61; --sec-on:#111318; --sec-tint:#163618; --sec-fg:#8FD591; --ter:#6E9FFF; --ter-on:#111318; --ter-tint:#192C53; --ter-fg:#A0C1FF}}
+[data-palette="rojo"][data-combo="triada"][data-theme="dark"]{--sec:#5BBA61; --sec-on:#111318; --sec-tint:#163618; --sec-fg:#8FD591; --ter:#6E9FFF; --ter-on:#111318; --ter-tint:#192C53; --ter-fg:#A0C1FF}
+
+/* Rojo · combinación Análoga: rosa + caramelo */
+[data-palette="rojo"][data-combo="analoga"]{--sec:#D64295; --sec-on:#111318; --sec-tint:#FFE4F0; --sec-fg:#951263; --ter:#B77326; --ter-on:#111318; --ter-tint:#FDE9D7; --ter-fg:#7B4700}
+@media (prefers-color-scheme:dark){[data-palette="rojo"][data-combo="analoga"]:not([data-theme="light"]){--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#C4884C; --ter-on:#111318; --ter-tint:#3D2915; --ter-fg:#E6B68A}}
+[data-palette="rojo"][data-combo="analoga"][data-theme="dark"]{--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#C4884C; --ter-on:#111318; --ter-tint:#3D2915; --ter-fg:#E6B68A}
 
 /* Naranja */
 [data-palette="naranja"]{--tone-50:#FFF4EF; --tone-100:#FFE7DC; --tone-200:#FFCFB7; --tone-300:#FFA97D; --tone-400:#F17D38; --tone-500:#D15D00; --tone-600:#AC4B00; --tone-700:#893B00; --tone-800:#682B00; --tone-900:#491C00; --tone-950:#2E0F00; --bg:#FDF4EF; --surface:#FFFFFF; --tint:#FFE7DC; --selected:#FFCFB7; --hero:#491C00; --hero-2:#682B00; --on-hero:#FFFFFF; --on-hero-soft:#FFA97D; --accent:#AC4B00; --on-accent:#FFFFFF; --text:#1D140F; --text-2:#6F5F58; --border:#E5DCD7; --nav:#FFFFFF; --nav-active:#491C00; --on-nav-active:#FFFFFF; --img-1a:#FFE7DC; --img-1b:#F17D38; --img-2a:#FFCFB7; --img-2b:#AC4B00; --img-3a:#FFA97D; --img-3b:#682B00}
 @media (prefers-color-scheme:dark){[data-palette="naranja"]:not([data-theme="light"]){--bg:#170B06; --surface:#24150E; --tint:#431A02; --selected:#682B00; --hero:#893B00; --hero-2:#AC4B00; --on-hero:#FFFFFF; --on-hero-soft:#FFCFB7; --accent:#F17D38; --on-accent:#111318; --text:#F9F0EB; --text-2:#B2A098; --border:#3A2A21; --nav:#2D1D15; --nav-active:#D15D00; --on-nav-active:#111318; --img-1a:#893B00; --img-1b:#F17D38; --img-2a:#682B00; --img-2b:#D15D00; --img-3a:#491C00; --img-3b:#AC4B00; color-scheme:dark}}
 [data-palette="naranja"][data-theme="dark"]{--bg:#170B06; --surface:#24150E; --tint:#431A02; --selected:#682B00; --hero:#893B00; --hero-2:#AC4B00; --on-hero:#FFFFFF; --on-hero-soft:#FFCFB7; --accent:#F17D38; --on-accent:#111318; --text:#F9F0EB; --text-2:#B2A098; --border:#3A2A21; --nav:#2D1D15; --nav-active:#D15D00; --on-nav-active:#111318; --img-1a:#893B00; --img-1b:#F17D38; --img-2a:#682B00; --img-2b:#D15D00; --img-3a:#491C00; --img-3b:#AC4B00; color-scheme:dark}
 
+/* Naranja · combinación Complementaria: turquesa + azul */
+[data-palette="naranja"], [data-palette="naranja"][data-combo="complementaria"]{--sec:#009991; --sec-on:#111318; --sec-tint:#D6F4F1; --sec-fg:#00635D; --ter:#0782F8; --ter-on:#111318; --ter-tint:#E1EEFF; --ter-fg:#0053A5}
+@media (prefers-color-scheme:dark){[data-palette="naranja"]:not([data-theme="light"]), [data-palette="naranja"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#5AA3FF; --ter-on:#111318; --ter-tint:#122E51; --ter-fg:#96C4FF}}
+[data-palette="naranja"][data-theme="dark"], [data-palette="naranja"][data-combo="complementaria"][data-theme="dark"]{--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#5AA3FF; --ter-on:#111318; --ter-tint:#122E51; --ter-fg:#96C4FF}
+
+/* Naranja · combinación Tríada: esmeralda + violeta */
+[data-palette="naranja"][data-combo="triada"]{--sec:#009D6D; --sec-on:#111318; --sec-tint:#D6F6E5; --sec-fg:#006645; --ter:#975EEF; --ter-on:#111318; --ter-tint:#EFE9FF; --ter-fg:#6530AC}
+@media (prefers-color-scheme:dark){[data-palette="naranja"][data-combo="triada"]:not([data-theme="light"]){--sec:#42BA8A; --sec-on:#111318; --sec-tint:#0E3626; --sec-fg:#82D5AF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}}
+[data-palette="naranja"][data-combo="triada"][data-theme="dark"]{--sec:#42BA8A; --sec-on:#111318; --sec-tint:#0E3626; --sec-fg:#82D5AF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}
+
+/* Naranja · combinación Análoga: rosa + amarillo */
+[data-palette="naranja"][data-combo="analoga"]{--sec:#D64295; --sec-on:#111318; --sec-tint:#FFE4F0; --sec-fg:#951263; --ter:#A47F00; --ter-on:#111318; --ter-tint:#FFEBBE; --ter-fg:#6B5100}
+@media (prefers-color-scheme:dark){[data-palette="naranja"][data-combo="analoga"]:not([data-theme="light"]){--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#C89A00; --ter-on:#111318; --ter-tint:#3B2B00; --ter-fg:#F2BE23}}
+[data-palette="naranja"][data-combo="analoga"][data-theme="dark"]{--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#C89A00; --ter-on:#111318; --ter-tint:#3B2B00; --ter-fg:#F2BE23}
+
 /* Ámbar */
 [data-palette="ambar"]{--tone-50:#FFF5E7; --tone-100:#FEEACC; --tone-200:#F7D5A2; --tone-300:#E9B869; --tone-400:#D3940A; --tone-500:#AE7900; --tone-600:#8E6200; --tone-700:#714D00; --tone-800:#563A00; --tone-900:#3C2700; --tone-950:#251600; --bg:#FAF5ED; --surface:#FFFFFF; --tint:#FEEACC; --selected:#F7D5A2; --hero:#3C2700; --hero-2:#563A00; --on-hero:#FFFFFF; --on-hero-soft:#E9B869; --accent:#8E6200; --on-accent:#FFFFFF; --text:#1B150D; --text-2:#6B6254; --border:#E2DDD5; --nav:#FFFFFF; --nav-active:#3C2700; --on-nav-active:#FFFFFF; --img-1a:#FEEACC; --img-1b:#D3940A; --img-2a:#F7D5A2; --img-2b:#8E6200; --img-3a:#E9B869; --img-3b:#563A00}
 @media (prefers-color-scheme:dark){[data-palette="ambar"]:not([data-theme="light"]){--bg:#140D04; --surface:#211809; --tint:#372300; --selected:#563A00; --hero:#714D00; --hero-2:#8E6200; --on-hero:#FFFFFF; --on-hero-soft:#F7D5A2; --accent:#D3940A; --on-accent:#111318; --text:#F6F1E9; --text-2:#ADA394; --border:#362C1D; --nav:#292011; --nav-active:#AE7900; --on-nav-active:#111318; --img-1a:#714D00; --img-1b:#D3940A; --img-2a:#563A00; --img-2b:#AE7900; --img-3a:#3C2700; --img-3b:#8E6200; color-scheme:dark}}
 [data-palette="ambar"][data-theme="dark"]{--bg:#140D04; --surface:#211809; --tint:#372300; --selected:#563A00; --hero:#714D00; --hero-2:#8E6200; --on-hero:#FFFFFF; --on-hero-soft:#F7D5A2; --accent:#D3940A; --on-accent:#111318; --text:#F6F1E9; --text-2:#ADA394; --border:#362C1D; --nav:#292011; --nav-active:#AE7900; --on-nav-active:#111318; --img-1a:#714D00; --img-1b:#D3940A; --img-2a:#563A00; --img-2b:#AE7900; --img-3a:#3C2700; --img-3b:#8E6200; color-scheme:dark}
+
+/* Ámbar · combinación Complementaria: cian + violeta */
+[data-palette="ambar"], [data-palette="ambar"][data-combo="complementaria"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#975EEF; --ter-on:#111318; --ter-tint:#EFE9FF; --ter-fg:#6530AC}
+@media (prefers-color-scheme:dark){[data-palette="ambar"]:not([data-theme="light"]), [data-palette="ambar"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}}
+[data-palette="ambar"][data-theme="dark"], [data-palette="ambar"][data-combo="complementaria"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}
+
+/* Ámbar · combinación Tríada: turquesa + lavanda */
+[data-palette="ambar"][data-combo="triada"]{--sec:#009991; --sec-on:#111318; --sec-tint:#D6F4F1; --sec-fg:#00635D; --ter:#887AB6; --ter-on:#111318; --ter-tint:#EDEAFC; --ter-fg:#584C7D}
+@media (prefers-color-scheme:dark){[data-palette="ambar"][data-combo="triada"]:not([data-theme="light"]){--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}}
+[data-palette="ambar"][data-combo="triada"][data-theme="dark"]{--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}
+
+/* Ámbar · combinación Análoga: naranja + lima */
+[data-palette="ambar"][data-combo="analoga"]{--sec:#D15D00; --sec-on:#111318; --sec-tint:#FFE7DC; --sec-fg:#893B00; --ter:#789100; --ter-on:#111318; --ter-tint:#E6F4C6; --ter-fg:#4D5E00}
+@media (prefers-color-scheme:dark){[data-palette="ambar"][data-combo="analoga"]:not([data-theme="light"]){--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}}
+[data-palette="ambar"][data-combo="analoga"][data-theme="dark"]{--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}
 
 /* Verde */
 [data-palette="verde"]{--tone-50:#EDFCED; --tone-100:#DAF6DA; --tone-200:#BAEABA; --tone-300:#8FD591; --tone-400:#5BBA61; --tone-500:#219F35; --tone-600:#008321; --tone-700:#006818; --tone-800:#004F10; --tone-900:#003608; --tone-950:#002103; --bg:#F1F8F1; --surface:#FFFFFF; --tint:#DAF6DA; --selected:#BAEABA; --hero:#003608; --hero-2:#004F10; --on-hero:#FFFFFF; --on-hero-soft:#8FD591; --accent:#008321; --on-accent:#FFFFFF; --text:#111811; --text-2:#5B675B; --border:#D9E0D9; --nav:#FFFFFF; --nav-active:#003608; --on-nav-active:#FFFFFF; --img-1a:#DAF6DA; --img-1b:#5BBA61; --img-2a:#BAEABA; --img-2b:#008321; --img-3a:#8FD591; --img-3b:#004F10}
 @media (prefers-color-scheme:dark){[data-palette="verde"]:not([data-theme="light"]){--bg:#081108; --surface:#111D11; --tint:#0D3010; --selected:#004F10; --hero:#006818; --hero-2:#008321; --on-hero:#FFFFFF; --on-hero-soft:#BAEABA; --accent:#5BBA61; --on-accent:#111318; --text:#EDF4ED; --text-2:#9CA99C; --border:#253225; --nav:#192519; --nav-active:#219F35; --on-nav-active:#111318; --img-1a:#006818; --img-1b:#5BBA61; --img-2a:#004F10; --img-2b:#219F35; --img-3a:#003608; --img-3b:#008321; color-scheme:dark}}
 [data-palette="verde"][data-theme="dark"]{--bg:#081108; --surface:#111D11; --tint:#0D3010; --selected:#004F10; --hero:#006818; --hero-2:#008321; --on-hero:#FFFFFF; --on-hero-soft:#BAEABA; --accent:#5BBA61; --on-accent:#111318; --text:#EDF4ED; --text-2:#9CA99C; --border:#253225; --nav:#192519; --nav-active:#219F35; --on-nav-active:#111318; --img-1a:#006818; --img-1b:#5BBA61; --img-2a:#004F10; --img-2b:#219F35; --img-3a:#003608; --img-3b:#008321; color-scheme:dark}
 
+/* Verde · combinación Complementaria: violeta + rosa */
+[data-palette="verde"], [data-palette="verde"][data-combo="complementaria"]{--sec:#975EEF; --sec-on:#111318; --sec-tint:#EFE9FF; --sec-fg:#6530AC; --ter:#D64295; --ter-on:#111318; --ter-tint:#FFE4F0; --ter-fg:#951263}
+@media (prefers-color-scheme:dark){[data-palette="verde"]:not([data-theme="light"]), [data-palette="verde"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#B085FF; --sec-on:#111318; --sec-tint:#33244E; --sec-fg:#C9B2FF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}}
+[data-palette="verde"][data-theme="dark"], [data-palette="verde"][data-combo="complementaria"][data-theme="dark"]{--sec:#B085FF; --sec-on:#111318; --sec-tint:#33244E; --sec-fg:#C9B2FF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}
+
+/* Verde · combinación Tríada: azulrey + rojo */
+[data-palette="verde"][data-combo="triada"]{--sec:#3C7BFF; --sec-on:#111318; --sec-tint:#E4EDFF; --sec-fg:#1649B9; --ter:#E83A3E; --ter-on:#111318; --ter-tint:#FFE6E4; --ter-fg:#A30018}
+@media (prefers-color-scheme:dark){[data-palette="verde"][data-combo="triada"]:not([data-theme="light"]){--sec:#6E9FFF; --sec-on:#111318; --sec-tint:#192C53; --sec-fg:#A0C1FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}}
+[data-palette="verde"][data-combo="triada"][data-theme="dark"]{--sec:#6E9FFF; --sec-on:#111318; --sec-tint:#192C53; --sec-fg:#A0C1FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}
+
+/* Verde · combinación Análoga: lima + turquesa */
+[data-palette="verde"][data-combo="analoga"]{--sec:#789100; --sec-on:#111318; --sec-tint:#E6F4C6; --sec-fg:#4D5E00; --ter:#009991; --ter-on:#111318; --ter-tint:#D6F4F1; --ter-fg:#00635D}
+@media (prefers-color-scheme:dark){[data-palette="verde"][data-combo="analoga"]:not([data-theme="light"]){--sec:#92B000; --sec-on:#111318; --sec-tint:#293300; --sec-fg:#A6C43C; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}}
+[data-palette="verde"][data-combo="analoga"][data-theme="dark"]{--sec:#92B000; --sec-on:#111318; --sec-tint:#293300; --sec-fg:#A6C43C; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}
+
 /* Esmeralda */
 [data-palette="esmeralda"]{--tone-50:#EBFCF3; --tone-100:#D6F6E5; --tone-200:#B3E9CE; --tone-300:#82D5AF; --tone-400:#42BA8A; --tone-500:#009D6D; --tone-600:#008058; --tone-700:#006645; --tone-800:#004C33; --tone-900:#003522; --tone-950:#002013; --bg:#EFF8F3; --surface:#FFFFFF; --tint:#D6F6E5; --selected:#B3E9CE; --hero:#003522; --hero-2:#004C33; --on-hero:#FFFFFF; --on-hero-soft:#82D5AF; --accent:#008058; --on-accent:#FFFFFF; --text:#0E1914; --text-2:#57685F; --border:#D7E1DC; --nav:#FFFFFF; --nav-active:#003522; --on-nav-active:#FFFFFF; --img-1a:#D6F6E5; --img-1b:#42BA8A; --img-2a:#B3E9CE; --img-2b:#008058; --img-3a:#82D5AF; --img-3b:#004C33}
 @media (prefers-color-scheme:dark){[data-palette="esmeralda"]:not([data-theme="light"]){--bg:#05120B; --surface:#0C1E16; --tint:#03301F; --selected:#004C33; --hero:#006645; --hero-2:#008058; --on-hero:#FFFFFF; --on-hero-soft:#B3E9CE; --accent:#42BA8A; --on-accent:#111318; --text:#EBF4EF; --text-2:#98AAA0; --border:#20322A; --nav:#14261E; --nav-active:#009D6D; --on-nav-active:#111318; --img-1a:#006645; --img-1b:#42BA8A; --img-2a:#004C33; --img-2b:#009D6D; --img-3a:#003522; --img-3b:#008058; color-scheme:dark}}
 [data-palette="esmeralda"][data-theme="dark"]{--bg:#05120B; --surface:#0C1E16; --tint:#03301F; --selected:#004C33; --hero:#006645; --hero-2:#008058; --on-hero:#FFFFFF; --on-hero-soft:#B3E9CE; --accent:#42BA8A; --on-accent:#111318; --text:#EBF4EF; --text-2:#98AAA0; --border:#20322A; --nav:#14261E; --nav-active:#009D6D; --on-nav-active:#111318; --img-1a:#006645; --img-1b:#42BA8A; --img-2a:#004C33; --img-2b:#009D6D; --img-3a:#003522; --img-3b:#008058; color-scheme:dark}
+
+/* Esmeralda · combinación Complementaria: violeta + rojo */
+[data-palette="esmeralda"], [data-palette="esmeralda"][data-combo="complementaria"]{--sec:#975EEF; --sec-on:#111318; --sec-tint:#EFE9FF; --sec-fg:#6530AC; --ter:#E83A3E; --ter-on:#111318; --ter-tint:#FFE6E4; --ter-fg:#A30018}
+@media (prefers-color-scheme:dark){[data-palette="esmeralda"]:not([data-theme="light"]), [data-palette="esmeralda"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#B085FF; --sec-on:#111318; --sec-tint:#33244E; --sec-fg:#C9B2FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}}
+[data-palette="esmeralda"][data-theme="dark"], [data-palette="esmeralda"][data-combo="complementaria"][data-theme="dark"]{--sec:#B085FF; --sec-on:#111318; --sec-tint:#33244E; --sec-fg:#C9B2FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}
+
+/* Esmeralda · combinación Tríada: indigo + naranja */
+[data-palette="esmeralda"][data-combo="triada"]{--sec:#6570FF; --sec-on:#111318; --sec-tint:#E7ECFF; --sec-fg:#3E40B9; --ter:#D15D00; --ter-on:#111318; --ter-tint:#FFE7DC; --ter-fg:#893B00}
+@media (prefers-color-scheme:dark){[data-palette="esmeralda"][data-combo="triada"]:not([data-theme="light"]){--sec:#8797FF; --sec-on:#111318; --sec-tint:#232953; --sec-fg:#AFBCFF; --ter:#F17D38; --ter-on:#111318; --ter-tint:#49210B; --ter-fg:#FFA97D}}
+[data-palette="esmeralda"][data-combo="triada"][data-theme="dark"]{--sec:#8797FF; --sec-on:#111318; --sec-tint:#232953; --sec-fg:#AFBCFF; --ter:#F17D38; --ter-on:#111318; --ter-tint:#49210B; --ter-fg:#FFA97D}
+
+/* Esmeralda · combinación Análoga: hoja + cian */
+[data-palette="esmeralda"][data-combo="analoga"]{--sec:#5E9F35; --sec-on:#111318; --sec-tint:#E1F3D9; --sec-fg:#306400; --ter:#0093B5; --ter-on:#111318; --ter-tint:#D3F3FF; --ter-fg:#005F76}
+@media (prefers-color-scheme:dark){[data-palette="esmeralda"][data-combo="analoga"]:not([data-theme="light"]){--sec:#7BB45D; --sec-on:#111318; --sec-tint:#213417; --sec-fg:#A4D08E; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}}
+[data-palette="esmeralda"][data-combo="analoga"][data-theme="dark"]{--sec:#7BB45D; --sec-on:#111318; --sec-tint:#213417; --sec-fg:#A4D08E; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}
 
 /* Turquesa */
 [data-palette="turquesa"]{--tone-50:#EBFBF9; --tone-100:#D6F4F1; --tone-200:#B3E7E1; --tone-300:#82D2CA; --tone-400:#43B6AD; --tone-500:#009991; --tone-600:#007D76; --tone-700:#00635D; --tone-800:#004A46; --tone-900:#003330; --tone-950:#001F1D; --bg:#EDF9F7; --surface:#FFFFFF; --tint:#D6F4F1; --selected:#B3E7E1; --hero:#003330; --hero-2:#004A46; --on-hero:#FFFFFF; --on-hero-soft:#82D2CA; --accent:#007D76; --on-accent:#FFFFFF; --text:#0C1917; --text-2:#546866; --border:#D6E1DF; --nav:#FFFFFF; --nav-active:#003330; --on-nav-active:#FFFFFF; --img-1a:#D6F4F1; --img-1b:#43B6AD; --img-2a:#B3E7E1; --img-2b:#007D76; --img-3a:#82D2CA; --img-3b:#004A46}
 @media (prefers-color-scheme:dark){[data-palette="turquesa"]:not([data-theme="light"]){--bg:#021210; --surface:#071E1C; --tint:#032F2C; --selected:#004A46; --hero:#00635D; --hero-2:#007D76; --on-hero:#FFFFFF; --on-hero-soft:#B3E7E1; --accent:#43B6AD; --on-accent:#111318; --text:#E9F5F3; --text-2:#94AAA7; --border:#1C3330; --nav:#102624; --nav-active:#009991; --on-nav-active:#111318; --img-1a:#00635D; --img-1b:#43B6AD; --img-2a:#004A46; --img-2b:#009991; --img-3a:#003330; --img-3b:#007D76; color-scheme:dark}}
 [data-palette="turquesa"][data-theme="dark"]{--bg:#021210; --surface:#071E1C; --tint:#032F2C; --selected:#004A46; --hero:#00635D; --hero-2:#007D76; --on-hero:#FFFFFF; --on-hero-soft:#B3E7E1; --accent:#43B6AD; --on-accent:#111318; --text:#E9F5F3; --text-2:#94AAA7; --border:#1C3330; --nav:#102624; --nav-active:#009991; --on-nav-active:#111318; --img-1a:#00635D; --img-1b:#43B6AD; --img-2a:#004A46; --img-2b:#009991; --img-3a:#003330; --img-3b:#007D76; color-scheme:dark}
 
+/* Turquesa · combinación Complementaria: rosa + naranja */
+[data-palette="turquesa"], [data-palette="turquesa"][data-combo="complementaria"]{--sec:#D64295; --sec-on:#111318; --sec-tint:#FFE4F0; --sec-fg:#951263; --ter:#D15D00; --ter-on:#111318; --ter-tint:#FFE7DC; --ter-fg:#893B00}
+@media (prefers-color-scheme:dark){[data-palette="turquesa"]:not([data-theme="light"]), [data-palette="turquesa"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#F17D38; --ter-on:#111318; --ter-tint:#49210B; --ter-fg:#FFA97D}}
+[data-palette="turquesa"][data-theme="dark"], [data-palette="turquesa"][data-combo="complementaria"][data-theme="dark"]{--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#F17D38; --ter-on:#111318; --ter-tint:#49210B; --ter-fg:#FFA97D}
+
+/* Turquesa · combinación Tríada: lavanda + caramelo */
+[data-palette="turquesa"][data-combo="triada"]{--sec:#887AB6; --sec-on:#111318; --sec-tint:#EDEAFC; --sec-fg:#584C7D; --ter:#B77326; --ter-on:#111318; --ter-tint:#FDE9D7; --ter-fg:#7B4700}
+@media (prefers-color-scheme:dark){[data-palette="turquesa"][data-combo="triada"]:not([data-theme="light"]){--sec:#9B8FC4; --sec-on:#111318; --sec-tint:#2F2B3D; --sec-fg:#C3BAE5; --ter:#C4884C; --ter-on:#111318; --ter-tint:#3D2915; --ter-fg:#E6B68A}}
+[data-palette="turquesa"][data-combo="triada"][data-theme="dark"]{--sec:#9B8FC4; --sec-on:#111318; --sec-tint:#2F2B3D; --sec-fg:#C3BAE5; --ter:#C4884C; --ter-on:#111318; --ter-tint:#3D2915; --ter-fg:#E6B68A}
+
+/* Turquesa · combinación Análoga: verde + cian */
+[data-palette="turquesa"][data-combo="analoga"]{--sec:#219F35; --sec-on:#111318; --sec-tint:#DAF6DA; --sec-fg:#006818; --ter:#0093B5; --ter-on:#111318; --ter-tint:#D3F3FF; --ter-fg:#005F76}
+@media (prefers-color-scheme:dark){[data-palette="turquesa"][data-combo="analoga"]:not([data-theme="light"]){--sec:#5BBA61; --sec-on:#111318; --sec-tint:#163618; --sec-fg:#8FD591; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}}
+[data-palette="turquesa"][data-combo="analoga"][data-theme="dark"]{--sec:#5BBA61; --sec-on:#111318; --sec-tint:#163618; --sec-fg:#8FD591; --ter:#11B3DB; --ter-on:#111318; --ter-tint:#023441; --ter-fg:#72D0EF}
+
 /* Cian */
 [data-palette="cian"]{--tone-50:#EBFAFF; --tone-100:#D3F3FF; --tone-200:#AAE6FB; --tone-300:#72D0EF; --tone-400:#11B3DB; --tone-500:#0093B5; --tone-600:#007894; --tone-700:#005F76; --tone-800:#00475A; --tone-900:#00313E; --tone-950:#001D27; --bg:#EEF8FC; --surface:#FFFFFF; --tint:#D3F3FF; --selected:#AAE6FB; --hero:#00313E; --hero-2:#00475A; --on-hero:#FFFFFF; --on-hero-soft:#72D0EF; --accent:#007894; --on-accent:#FFFFFF; --text:#0D181C; --text-2:#55676D; --border:#D6E0E4; --nav:#FFFFFF; --nav-active:#00313E; --on-nav-active:#FFFFFF; --img-1a:#D3F3FF; --img-1b:#11B3DB; --img-2a:#AAE6FB; --img-2b:#007894; --img-3a:#72D0EF; --img-3b:#00475A}
 @media (prefers-color-scheme:dark){[data-palette="cian"]:not([data-theme="light"]){--bg:#031116; --surface:#081C23; --tint:#002D39; --selected:#00475A; --hero:#005F76; --hero-2:#007894; --on-hero:#FFFFFF; --on-hero-soft:#AAE6FB; --accent:#11B3DB; --on-accent:#111318; --text:#EAF4F8; --text-2:#95A8AF; --border:#1D3138; --nav:#11252C; --nav-active:#0093B5; --on-nav-active:#111318; --img-1a:#005F76; --img-1b:#11B3DB; --img-2a:#00475A; --img-2b:#0093B5; --img-3a:#00313E; --img-3b:#007894; color-scheme:dark}}
 [data-palette="cian"][data-theme="dark"]{--bg:#031116; --surface:#081C23; --tint:#002D39; --selected:#00475A; --hero:#005F76; --hero-2:#007894; --on-hero:#FFFFFF; --on-hero-soft:#AAE6FB; --accent:#11B3DB; --on-accent:#111318; --text:#EAF4F8; --text-2:#95A8AF; --border:#1D3138; --nav:#11252C; --nav-active:#0093B5; --on-nav-active:#111318; --img-1a:#005F76; --img-1b:#11B3DB; --img-2a:#00475A; --img-2b:#0093B5; --img-3a:#00313E; --img-3b:#007894; color-scheme:dark}
+
+/* Cian · combinación Complementaria: rojo + ambar */
+[data-palette="cian"], [data-palette="cian"][data-combo="complementaria"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#AE7900; --ter-on:#111318; --ter-tint:#FEEACC; --ter-fg:#714D00}
+@media (prefers-color-scheme:dark){[data-palette="cian"]:not([data-theme="light"]), [data-palette="cian"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#D3940A; --ter-on:#111318; --ter-tint:#3E2901; --ter-fg:#E9B869}}
+[data-palette="cian"][data-theme="dark"], [data-palette="cian"][data-combo="complementaria"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#D3940A; --ter-on:#111318; --ter-tint:#3E2901; --ter-fg:#E9B869}
+
+/* Cian · combinación Tríada: rosa + amarillo */
+[data-palette="cian"][data-combo="triada"]{--sec:#D64295; --sec-on:#111318; --sec-tint:#FFE4F0; --sec-fg:#951263; --ter:#A47F00; --ter-on:#111318; --ter-tint:#FFEBBE; --ter-fg:#6B5100}
+@media (prefers-color-scheme:dark){[data-palette="cian"][data-combo="triada"]:not([data-theme="light"]){--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#C89A00; --ter-on:#111318; --ter-tint:#3B2B00; --ter-fg:#F2BE23}}
+[data-palette="cian"][data-combo="triada"][data-theme="dark"]{--sec:#EE6EB0; --sec-on:#111318; --sec-tint:#471D33; --sec-fg:#FF9ECD; --ter:#C89A00; --ter-on:#111318; --ter-tint:#3B2B00; --ter-fg:#F2BE23}
+
+/* Cian · combinación Análoga: turquesa + marino */
+[data-palette="cian"][data-combo="analoga"]{--sec:#009991; --sec-on:#111318; --sec-tint:#D6F4F1; --sec-fg:#00635D; --ter:#5883D2; --ter-on:#111318; --ter-tint:#E3EDFF; --ter-fg:#305394}
+@media (prefers-color-scheme:dark){[data-palette="cian"][data-combo="analoga"]:not([data-theme="light"]){--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#7BA1E7; --ter-on:#111318; --ter-tint:#212E45; --ter-fg:#A3C2F9}}
+[data-palette="cian"][data-combo="analoga"][data-theme="dark"]{--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#7BA1E7; --ter-on:#111318; --ter-tint:#212E45; --ter-fg:#A3C2F9}
 
 /* Café */
 [data-palette="cafe"]{--tone-50:#FCF5F1; --tone-100:#F7EAE2; --tone-200:#ECD6C8; --tone-300:#D9BAA5; --tone-400:#C0987E; --tone-500:#A67A5C; --tone-600:#8B6145; --tone-700:#704C33; --tone-800:#563823; --tone-900:#3C2515; --tone-950:#261508; --bg:#FBF4F1; --surface:#FFFFFF; --tint:#F7EAE2; --selected:#ECD6C8; --hero:#3C2515; --hero-2:#563823; --on-hero:#FFFFFF; --on-hero-soft:#D9BAA5; --accent:#8B6145; --on-accent:#FFFFFF; --text:#1B1511; --text-2:#6B615A; --border:#E3DDD9; --nav:#FFFFFF; --nav-active:#3C2515; --on-nav-active:#FFFFFF; --img-1a:#F7EAE2; --img-1b:#C0987E; --img-2a:#ECD6C8; --img-2b:#8B6145; --img-3a:#D9BAA5; --img-3b:#563823}
 @media (prefers-color-scheme:dark){[data-palette="cafe"]:not([data-theme="light"]){--bg:#140C08; --surface:#211710; --tint:#32241B; --selected:#563823; --hero:#704C33; --hero-2:#8B6145; --on-hero:#FFFFFF; --on-hero-soft:#ECD6C8; --accent:#C0987E; --on-accent:#111318; --text:#F7F0ED; --text-2:#ADA29B; --border:#362B24; --nav:#291F18; --nav-active:#A67A5C; --on-nav-active:#111318; --img-1a:#704C33; --img-1b:#C0987E; --img-2a:#563823; --img-2b:#A67A5C; --img-3a:#3C2515; --img-3b:#8B6145; color-scheme:dark}}
 [data-palette="cafe"][data-theme="dark"]{--bg:#140C08; --surface:#211710; --tint:#32241B; --selected:#563823; --hero:#704C33; --hero-2:#8B6145; --on-hero:#FFFFFF; --on-hero-soft:#ECD6C8; --accent:#C0987E; --on-accent:#111318; --text:#F7F0ED; --text-2:#ADA29B; --border:#362B24; --nav:#291F18; --nav-active:#A67A5C; --on-nav-active:#111318; --img-1a:#704C33; --img-1b:#C0987E; --img-2a:#563823; --img-2b:#A67A5C; --img-3a:#3C2515; --img-3b:#8B6145; color-scheme:dark}
 
+/* Café · combinación Complementaria: turquesa + marino */
+[data-palette="cafe"], [data-palette="cafe"][data-combo="complementaria"]{--sec:#009991; --sec-on:#111318; --sec-tint:#D6F4F1; --sec-fg:#00635D; --ter:#5883D2; --ter-on:#111318; --ter-tint:#E3EDFF; --ter-fg:#305394}
+@media (prefers-color-scheme:dark){[data-palette="cafe"]:not([data-theme="light"]), [data-palette="cafe"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#7BA1E7; --ter-on:#111318; --ter-tint:#212E45; --ter-fg:#A3C2F9}}
+[data-palette="cafe"][data-theme="dark"], [data-palette="cafe"][data-combo="complementaria"][data-theme="dark"]{--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#7BA1E7; --ter-on:#111318; --ter-tint:#212E45; --ter-fg:#A3C2F9}
+
+/* Café · combinación Tríada: esmeralda + lavanda */
+[data-palette="cafe"][data-combo="triada"]{--sec:#009D6D; --sec-on:#111318; --sec-tint:#D6F6E5; --sec-fg:#006645; --ter:#887AB6; --ter-on:#111318; --ter-tint:#EDEAFC; --ter-fg:#584C7D}
+@media (prefers-color-scheme:dark){[data-palette="cafe"][data-combo="triada"]:not([data-theme="light"]){--sec:#42BA8A; --sec-on:#111318; --sec-tint:#0E3626; --sec-fg:#82D5AF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}}
+[data-palette="cafe"][data-combo="triada"][data-theme="dark"]{--sec:#42BA8A; --sec-on:#111318; --sec-tint:#0E3626; --sec-fg:#82D5AF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}
+
+/* Café · combinación Análoga: rojo + ambar */
+[data-palette="cafe"][data-combo="analoga"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#AE7900; --ter-on:#111318; --ter-tint:#FEEACC; --ter-fg:#714D00}
+@media (prefers-color-scheme:dark){[data-palette="cafe"][data-combo="analoga"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#D3940A; --ter-on:#111318; --ter-tint:#3E2901; --ter-fg:#E9B869}}
+[data-palette="cafe"][data-combo="analoga"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#D3940A; --ter-on:#111318; --ter-tint:#3E2901; --ter-fg:#E9B869}
+
 /* Pizarra */
 [data-palette="pizarra"]{--tone-50:#F5F7FA; --tone-100:#E9EDF3; --tone-200:#D4DBE5; --tone-300:#B7C2D0; --tone-400:#95A3B5; --tone-500:#77869A; --tone-600:#5F6D80; --tone-700:#4A5666; --tone-800:#36414E; --tone-900:#242C37; --tone-950:#141A22; --bg:#F4F6F9; --surface:#FFFFFF; --tint:#E9EDF3; --selected:#D4DBE5; --hero:#242C37; --hero-2:#36414E; --on-hero:#FFFFFF; --on-hero-soft:#B7C2D0; --accent:#5F6D80; --on-accent:#FFFFFF; --text:#141619; --text-2:#606468; --border:#DCDEE1; --nav:#FFFFFF; --nav-active:#242C37; --on-nav-active:#FFFFFF; --img-1a:#E9EDF3; --img-1b:#95A3B5; --img-2a:#D4DBE5; --img-2b:#5F6D80; --img-3a:#B7C2D0; --img-3b:#36414E}
 @media (prefers-color-scheme:dark){[data-palette="pizarra"]:not([data-theme="light"]){--bg:#0C0F12; --surface:#161A1E; --tint:#23282E; --selected:#36414E; --hero:#4A5666; --hero-2:#5F6D80; --on-hero:#FFFFFF; --on-hero-soft:#D4DBE5; --accent:#95A3B5; --on-accent:#111318; --text:#F0F2F5; --text-2:#A1A5AA; --border:#2A2E33; --nav:#1E2226; --nav-active:#77869A; --on-nav-active:#111318; --img-1a:#4A5666; --img-1b:#95A3B5; --img-2a:#36414E; --img-2b:#77869A; --img-3a:#242C37; --img-3b:#5F6D80; color-scheme:dark}}
 [data-palette="pizarra"][data-theme="dark"]{--bg:#0C0F12; --surface:#161A1E; --tint:#23282E; --selected:#36414E; --hero:#4A5666; --hero-2:#5F6D80; --on-hero:#FFFFFF; --on-hero-soft:#D4DBE5; --accent:#95A3B5; --on-accent:#111318; --text:#F0F2F5; --text-2:#A1A5AA; --border:#2A2E33; --nav:#1E2226; --nav-active:#77869A; --on-nav-active:#111318; --img-1a:#4A5666; --img-1b:#95A3B5; --img-2a:#36414E; --img-2b:#77869A; --img-3a:#242C37; --img-3b:#5F6D80; color-scheme:dark}
+
+/* Pizarra · combinación Complementaria: cafe + hoja */
+[data-palette="pizarra"], [data-palette="pizarra"][data-combo="complementaria"]{--sec:#A67A5C; --sec-on:#111318; --sec-tint:#F7EAE2; --sec-fg:#704C33; --ter:#5E9F35; --ter-on:#111318; --ter-tint:#E1F3D9; --ter-fg:#306400}
+@media (prefers-color-scheme:dark){[data-palette="pizarra"]:not([data-theme="light"]), [data-palette="pizarra"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#C0987E; --sec-on:#111318; --sec-tint:#382B22; --sec-fg:#D9BAA5; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}}
+[data-palette="pizarra"][data-theme="dark"], [data-palette="pizarra"][data-combo="complementaria"][data-theme="dark"]{--sec:#C0987E; --sec-on:#111318; --sec-tint:#382B22; --sec-fg:#D9BAA5; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}
+
+/* Pizarra · combinación Tríada: caramelo + verde */
+[data-palette="pizarra"][data-combo="triada"]{--sec:#B77326; --sec-on:#111318; --sec-tint:#FDE9D7; --sec-fg:#7B4700; --ter:#219F35; --ter-on:#111318; --ter-tint:#DAF6DA; --ter-fg:#006818}
+@media (prefers-color-scheme:dark){[data-palette="pizarra"][data-combo="triada"]:not([data-theme="light"]){--sec:#C4884C; --sec-on:#111318; --sec-tint:#3D2915; --sec-fg:#E6B68A; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}}
+[data-palette="pizarra"][data-combo="triada"][data-theme="dark"]{--sec:#C4884C; --sec-on:#111318; --sec-tint:#3D2915; --sec-fg:#E6B68A; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}
+
+/* Pizarra · combinación Análoga: cian + lavanda */
+[data-palette="pizarra"][data-combo="analoga"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#887AB6; --ter-on:#111318; --ter-tint:#EDEAFC; --ter-fg:#584C7D}
+@media (prefers-color-scheme:dark){[data-palette="pizarra"][data-combo="analoga"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}}
+[data-palette="pizarra"][data-combo="analoga"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}
+
+/* Azul rey */
+[data-palette="azulrey"]{--tone-50:#F3F7FF; --tone-100:#E4EDFF; --tone-200:#C8DBFF; --tone-300:#A0C1FF; --tone-400:#6E9FFF; --tone-500:#3C7BFF; --tone-600:#2F6BEB; --tone-700:#1649B9; --tone-800:#0B3592; --tone-900:#02226C; --tone-950:#00114A; --bg:#F1F6FE; --surface:#FFFFFF; --tint:#E4EDFF; --selected:#C8DBFF; --hero:#02226C; --hero-2:#0B3592; --on-hero:#FFFFFF; --on-hero-soft:#A0C1FF; --accent:#2F6BEB; --on-accent:#FFFFFF; --text:#12161E; --text-2:#5C6471; --border:#DADEE6; --nav:#FFFFFF; --nav-active:#02226C; --on-nav-active:#FFFFFF; --img-1a:#E4EDFF; --img-1b:#6E9FFF; --img-2a:#C8DBFF; --img-2b:#2F6BEB; --img-3a:#A0C1FF; --img-3b:#0B3592}
+@media (prefers-color-scheme:dark){[data-palette="azulrey"]:not([data-theme="light"]){--bg:#090E19; --surface:#121927; --tint:#11254E; --selected:#0B3592; --hero:#1649B9; --hero-2:#2F6BEB; --on-hero:#FFFFFF; --on-hero-soft:#C8DBFF; --accent:#6E9FFF; --on-accent:#111318; --text:#EDF2FA; --text-2:#9DA5B4; --border:#262E3D; --nav:#1A2230; --nav-active:#3C7BFF; --on-nav-active:#111318; --img-1a:#1649B9; --img-1b:#6E9FFF; --img-2a:#0B3592; --img-2b:#3C7BFF; --img-3a:#02226C; --img-3b:#2F6BEB; color-scheme:dark}}
+[data-palette="azulrey"][data-theme="dark"]{--bg:#090E19; --surface:#121927; --tint:#11254E; --selected:#0B3592; --hero:#1649B9; --hero-2:#2F6BEB; --on-hero:#FFFFFF; --on-hero-soft:#C8DBFF; --accent:#6E9FFF; --on-accent:#111318; --text:#EDF2FA; --text-2:#9DA5B4; --border:#262E3D; --nav:#1A2230; --nav-active:#3C7BFF; --on-nav-active:#111318; --img-1a:#1649B9; --img-1b:#6E9FFF; --img-2a:#0B3592; --img-2b:#3C7BFF; --img-3a:#02226C; --img-3b:#2F6BEB; color-scheme:dark}
+
+/* Azul rey · combinación Complementaria: naranja + lima */
+[data-palette="azulrey"], [data-palette="azulrey"][data-combo="complementaria"]{--sec:#D15D00; --sec-on:#111318; --sec-tint:#FFE7DC; --sec-fg:#893B00; --ter:#789100; --ter-on:#111318; --ter-tint:#E6F4C6; --ter-fg:#4D5E00}
+@media (prefers-color-scheme:dark){[data-palette="azulrey"]:not([data-theme="light"]), [data-palette="azulrey"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}}
+[data-palette="azulrey"][data-theme="dark"], [data-palette="azulrey"][data-combo="complementaria"][data-theme="dark"]{--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}
+
+/* Azul rey · combinación Tríada: rojo + verde */
+[data-palette="azulrey"][data-combo="triada"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#219F35; --ter-on:#111318; --ter-tint:#DAF6DA; --ter-fg:#006818}
+@media (prefers-color-scheme:dark){[data-palette="azulrey"][data-combo="triada"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}}
+[data-palette="azulrey"][data-combo="triada"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}
+
+/* Azul rey · combinación Análoga: cian + violeta */
+[data-palette="azulrey"][data-combo="analoga"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#975EEF; --ter-on:#111318; --ter-tint:#EFE9FF; --ter-fg:#6530AC}
+@media (prefers-color-scheme:dark){[data-palette="azulrey"][data-combo="analoga"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}}
+[data-palette="azulrey"][data-combo="analoga"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}
+
+/* Verde hoja */
+[data-palette="hoja"]{--tone-50:#F1FAEC; --tone-100:#E1F3D9; --tone-200:#C7E6B8; --tone-300:#A4D08E; --tone-400:#7BB45D; --tone-500:#5E9F35; --tone-600:#407E0F; --tone-700:#306400; --tone-800:#224C00; --tone-900:#153400; --tone-950:#0A1F00; --bg:#F2F8F0; --surface:#FFFFFF; --tint:#E1F3D9; --selected:#C7E6B8; --hero:#153400; --hero-2:#224C00; --on-hero:#FFFFFF; --on-hero-soft:#A4D08E; --accent:#407E0F; --on-accent:#FFFFFF; --text:#121810; --text-2:#5D6759; --border:#DBE0D8; --nav:#FFFFFF; --nav-active:#153400; --on-nav-active:#FFFFFF; --img-1a:#E1F3D9; --img-1b:#7BB45D; --img-2a:#C7E6B8; --img-2b:#407E0F; --img-3a:#A4D08E; --img-3b:#224C00}
+@media (prefers-color-scheme:dark){[data-palette="hoja"]:not([data-theme="light"]){--bg:#0A1106; --surface:#131C0F; --tint:#1A2E0F; --selected:#224C00; --hero:#306400; --hero-2:#407E0F; --on-hero:#FFFFFF; --on-hero-soft:#C7E6B8; --accent:#7BB45D; --on-accent:#111318; --text:#EEF4EC; --text-2:#9EA899; --border:#273123; --nav:#1B2517; --nav-active:#5E9F35; --on-nav-active:#111318; --img-1a:#306400; --img-1b:#7BB45D; --img-2a:#224C00; --img-2b:#5E9F35; --img-3a:#153400; --img-3b:#407E0F; color-scheme:dark}}
+[data-palette="hoja"][data-theme="dark"]{--bg:#0A1106; --surface:#131C0F; --tint:#1A2E0F; --selected:#224C00; --hero:#306400; --hero-2:#407E0F; --on-hero:#FFFFFF; --on-hero-soft:#C7E6B8; --accent:#7BB45D; --on-accent:#111318; --text:#EEF4EC; --text-2:#9EA899; --border:#273123; --nav:#1B2517; --nav-active:#5E9F35; --on-nav-active:#111318; --img-1a:#306400; --img-1b:#7BB45D; --img-2a:#224C00; --img-2b:#5E9F35; --img-3a:#153400; --img-3b:#407E0F; color-scheme:dark}
+
+/* Verde hoja · combinación Complementaria: lavanda + rosa */
+[data-palette="hoja"], [data-palette="hoja"][data-combo="complementaria"]{--sec:#887AB6; --sec-on:#111318; --sec-tint:#EDEAFC; --sec-fg:#584C7D; --ter:#D64295; --ter-on:#111318; --ter-tint:#FFE4F0; --ter-fg:#951263}
+@media (prefers-color-scheme:dark){[data-palette="hoja"]:not([data-theme="light"]), [data-palette="hoja"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#9B8FC4; --sec-on:#111318; --sec-tint:#2F2B3D; --sec-fg:#C3BAE5; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}}
+[data-palette="hoja"][data-theme="dark"], [data-palette="hoja"][data-combo="complementaria"][data-theme="dark"]{--sec:#9B8FC4; --sec-on:#111318; --sec-tint:#2F2B3D; --sec-fg:#C3BAE5; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}
+
+/* Verde hoja · combinación Tríada: azul + rojo */
+[data-palette="hoja"][data-combo="triada"]{--sec:#0782F8; --sec-on:#111318; --sec-tint:#E1EEFF; --sec-fg:#0053A5; --ter:#E83A3E; --ter-on:#111318; --ter-tint:#FFE6E4; --ter-fg:#A30018}
+@media (prefers-color-scheme:dark){[data-palette="hoja"][data-combo="triada"]:not([data-theme="light"]){--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}}
+[data-palette="hoja"][data-combo="triada"][data-theme="dark"]{--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}
+
+/* Verde hoja · combinación Análoga: ambar + esmeralda */
+[data-palette="hoja"][data-combo="analoga"]{--sec:#AE7900; --sec-on:#111318; --sec-tint:#FEEACC; --sec-fg:#714D00; --ter:#009D6D; --ter-on:#111318; --ter-tint:#D6F6E5; --ter-fg:#006645}
+@media (prefers-color-scheme:dark){[data-palette="hoja"][data-combo="analoga"]:not([data-theme="light"]){--sec:#D3940A; --sec-on:#111318; --sec-tint:#3E2901; --sec-fg:#E9B869; --ter:#42BA8A; --ter-on:#111318; --ter-tint:#0E3626; --ter-fg:#82D5AF}}
+[data-palette="hoja"][data-combo="analoga"][data-theme="dark"]{--sec:#D3940A; --sec-on:#111318; --sec-tint:#3E2901; --sec-fg:#E9B869; --ter:#42BA8A; --ter-on:#111318; --ter-tint:#0E3626; --ter-fg:#82D5AF}
+
+/* Celeste */
+[data-palette="celeste"]{--tone-50:#F1F8FF; --tone-100:#E0EFFF; --tone-200:#C0DEFF; --tone-300:#8AB8EA; --tone-400:#6AA6E6; --tone-500:#4088D1; --tone-600:#286EB3; --tone-700:#175793; --tone-800:#094172; --tone-900:#002C53; --tone-950:#001A35; --bg:#F0F7FE; --surface:#FFFFFF; --tint:#E0EFFF; --selected:#C0DEFF; --hero:#002C53; --hero-2:#094172; --on-hero:#FFFFFF; --on-hero-soft:#8AB8EA; --accent:#286EB3; --on-accent:#FFFFFF; --text:#10171E; --text-2:#596471; --border:#D8DFE6; --nav:#FFFFFF; --nav-active:#002C53; --on-nav-active:#FFFFFF; --img-1a:#E0EFFF; --img-1b:#6AA6E6; --img-2a:#C0DEFF; --img-2b:#286EB3; --img-3a:#8AB8EA; --img-3b:#094172}
+@media (prefers-color-scheme:dark){[data-palette="celeste"]:not([data-theme="light"]){--bg:#070F18; --surface:#0F1A26; --tint:#14293F; --selected:#094172; --hero:#175793; --hero-2:#286EB3; --on-hero:#FFFFFF; --on-hero-soft:#C0DEFF; --accent:#6AA6E6; --on-accent:#111318; --text:#ECF3FA; --text-2:#9AA6B4; --border:#232F3C; --nav:#17232F; --nav-active:#4088D1; --on-nav-active:#111318; --img-1a:#175793; --img-1b:#6AA6E6; --img-2a:#094172; --img-2b:#4088D1; --img-3a:#002C53; --img-3b:#286EB3; color-scheme:dark}}
+[data-palette="celeste"][data-theme="dark"]{--bg:#070F18; --surface:#0F1A26; --tint:#14293F; --selected:#094172; --hero:#175793; --hero-2:#286EB3; --on-hero:#FFFFFF; --on-hero-soft:#C0DEFF; --accent:#6AA6E6; --on-accent:#111318; --text:#ECF3FA; --text-2:#9AA6B4; --border:#232F3C; --nav:#17232F; --nav-active:#4088D1; --on-nav-active:#111318; --img-1a:#175793; --img-1b:#6AA6E6; --img-2a:#094172; --img-2b:#4088D1; --img-3a:#002C53; --img-3b:#286EB3; color-scheme:dark}
+
+/* Celeste · combinación Complementaria: naranja + ambar */
+[data-palette="celeste"], [data-palette="celeste"][data-combo="complementaria"]{--sec:#D15D00; --sec-on:#111318; --sec-tint:#FFE7DC; --sec-fg:#893B00; --ter:#AE7900; --ter-on:#111318; --ter-tint:#FEEACC; --ter-fg:#714D00}
+@media (prefers-color-scheme:dark){[data-palette="celeste"]:not([data-theme="light"]), [data-palette="celeste"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#D3940A; --ter-on:#111318; --ter-tint:#3E2901; --ter-fg:#E9B869}}
+[data-palette="celeste"][data-theme="dark"], [data-palette="celeste"][data-combo="complementaria"][data-theme="dark"]{--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#D3940A; --ter-on:#111318; --ter-tint:#3E2901; --ter-fg:#E9B869}
+
+/* Celeste · combinación Tríada: rojo + hoja */
+[data-palette="celeste"][data-combo="triada"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#5E9F35; --ter-on:#111318; --ter-tint:#E1F3D9; --ter-fg:#306400}
+@media (prefers-color-scheme:dark){[data-palette="celeste"][data-combo="triada"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}}
+[data-palette="celeste"][data-combo="triada"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}
+
+/* Celeste · combinación Análoga: cian + lavanda */
+[data-palette="celeste"][data-combo="analoga"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#887AB6; --ter-on:#111318; --ter-tint:#EDEAFC; --ter-fg:#584C7D}
+@media (prefers-color-scheme:dark){[data-palette="celeste"][data-combo="analoga"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}}
+[data-palette="celeste"][data-combo="analoga"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}
+
+/* Caramelo */
+[data-palette="caramelo"]{--tone-50:#FFF5EC; --tone-100:#FDE9D7; --tone-200:#F5D4B5; --tone-300:#E6B68A; --tone-400:#C4884C; --tone-500:#B77326; --tone-600:#9A5A01; --tone-700:#7B4700; --tone-800:#5D3400; --tone-900:#412300; --tone-950:#291400; --bg:#FCF4EE; --surface:#FFFFFF; --tint:#FDE9D7; --selected:#F5D4B5; --hero:#412300; --hero-2:#5D3400; --on-hero:#FFFFFF; --on-hero-soft:#E6B68A; --accent:#9A5A01; --on-accent:#FFFFFF; --text:#1C140D; --text-2:#6D6155; --border:#E4DCD6; --nav:#FFFFFF; --nav-active:#412300; --on-nav-active:#FFFFFF; --img-1a:#FDE9D7; --img-1b:#C4884C; --img-2a:#F5D4B5; --img-2b:#9A5A01; --img-3a:#E6B68A; --img-3b:#5D3400}
+@media (prefers-color-scheme:dark){[data-palette="caramelo"]:not([data-theme="light"]){--bg:#160C04; --surface:#23170B; --tint:#37220D; --selected:#5D3400; --hero:#7B4700; --hero-2:#9A5A01; --on-hero:#FFFFFF; --on-hero-soft:#F5D4B5; --accent:#C4884C; --on-accent:#111318; --text:#F8F0EA; --text-2:#B0A295; --border:#382B1F; --nav:#2B1F13; --nav-active:#B77326; --on-nav-active:#111318; --img-1a:#7B4700; --img-1b:#C4884C; --img-2a:#5D3400; --img-2b:#B77326; --img-3a:#412300; --img-3b:#9A5A01; color-scheme:dark}}
+[data-palette="caramelo"][data-theme="dark"]{--bg:#160C04; --surface:#23170B; --tint:#37220D; --selected:#5D3400; --hero:#7B4700; --hero-2:#9A5A01; --on-hero:#FFFFFF; --on-hero-soft:#F5D4B5; --accent:#C4884C; --on-accent:#111318; --text:#F8F0EA; --text-2:#B0A295; --border:#382B1F; --nav:#2B1F13; --nav-active:#B77326; --on-nav-active:#111318; --img-1a:#7B4700; --img-1b:#C4884C; --img-2a:#5D3400; --img-2b:#B77326; --img-3a:#412300; --img-3b:#9A5A01; color-scheme:dark}
+
+/* Caramelo · combinación Complementaria: cian + marino */
+[data-palette="caramelo"], [data-palette="caramelo"][data-combo="complementaria"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#5883D2; --ter-on:#111318; --ter-tint:#E3EDFF; --ter-fg:#305394}
+@media (prefers-color-scheme:dark){[data-palette="caramelo"]:not([data-theme="light"]), [data-palette="caramelo"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#7BA1E7; --ter-on:#111318; --ter-tint:#212E45; --ter-fg:#A3C2F9}}
+[data-palette="caramelo"][data-theme="dark"], [data-palette="caramelo"][data-combo="complementaria"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#7BA1E7; --ter-on:#111318; --ter-tint:#212E45; --ter-fg:#A3C2F9}
+
+/* Caramelo · combinación Tríada: turquesa + lavanda */
+[data-palette="caramelo"][data-combo="triada"]{--sec:#009991; --sec-on:#111318; --sec-tint:#D6F4F1; --sec-fg:#00635D; --ter:#887AB6; --ter-on:#111318; --ter-tint:#EDEAFC; --ter-fg:#584C7D}
+@media (prefers-color-scheme:dark){[data-palette="caramelo"][data-combo="triada"]:not([data-theme="light"]){--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}}
+[data-palette="caramelo"][data-combo="triada"][data-theme="dark"]{--sec:#43B6AD; --sec-on:#111318; --sec-tint:#0E3532; --sec-fg:#82D2CA; --ter:#9B8FC4; --ter-on:#111318; --ter-tint:#2F2B3D; --ter-fg:#C3BAE5}
+
+/* Caramelo · combinación Análoga: rojo + hoja */
+[data-palette="caramelo"][data-combo="analoga"]{--sec:#E83A3E; --sec-on:#111318; --sec-tint:#FFE6E4; --sec-fg:#A30018; --ter:#5E9F35; --ter-on:#111318; --ter-tint:#E1F3D9; --ter-fg:#306400}
+@media (prefers-color-scheme:dark){[data-palette="caramelo"][data-combo="analoga"]:not([data-theme="light"]){--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}}
+[data-palette="caramelo"][data-combo="analoga"][data-theme="dark"]{--sec:#FE6B66; --sec-on:#111318; --sec-tint:#4D1C1A; --sec-fg:#FFA59E; --ter:#7BB45D; --ter-on:#111318; --ter-tint:#213417; --ter-fg:#A4D08E}
+
+/* Amarillo */
+[data-palette="amarillo"]{--tone-50:#FFF6E1; --tone-100:#FFEBBE; --tone-200:#F9D785; --tone-300:#F2BE23; --tone-400:#C89A00; --tone-500:#A47F00; --tone-600:#866700; --tone-700:#6B5100; --tone-800:#513D00; --tone-900:#382900; --tone-950:#221800; --bg:#F9F5ED; --surface:#FFFFFF; --tint:#FFEBBE; --selected:#F9D785; --hero:#382900; --hero-2:#513D00; --on-hero:#FFFFFF; --on-hero-soft:#F2BE23; --accent:#866700; --on-accent:#FFFFFF; --text:#19160D; --text-2:#696354; --border:#E1DED5; --nav:#FFFFFF; --nav-active:#382900; --on-nav-active:#FFFFFF; --img-1a:#FFEBBE; --img-1b:#C89A00; --img-2a:#F9D785; --img-2b:#866700; --img-3a:#F2BE23; --img-3b:#513D00}
+@media (prefers-color-scheme:dark){[data-palette="amarillo"]:not([data-theme="light"]){--bg:#130E03; --surface:#1F1909; --tint:#332500; --selected:#513D00; --hero:#6B5100; --hero-2:#866700; --on-hero:#FFFFFF; --on-hero-soft:#F9D785; --accent:#C89A00; --on-accent:#111318; --text:#F5F1E9; --text-2:#ABA494; --border:#342D1D; --nav:#272111; --nav-active:#A47F00; --on-nav-active:#111318; --img-1a:#6B5100; --img-1b:#C89A00; --img-2a:#513D00; --img-2b:#A47F00; --img-3a:#382900; --img-3b:#866700; color-scheme:dark}}
+[data-palette="amarillo"][data-theme="dark"]{--bg:#130E03; --surface:#1F1909; --tint:#332500; --selected:#513D00; --hero:#6B5100; --hero-2:#866700; --on-hero:#FFFFFF; --on-hero-soft:#F9D785; --accent:#C89A00; --on-accent:#111318; --text:#F5F1E9; --text-2:#ABA494; --border:#342D1D; --nav:#272111; --nav-active:#A47F00; --on-nav-active:#111318; --img-1a:#6B5100; --img-1b:#C89A00; --img-2a:#513D00; --img-2b:#A47F00; --img-3a:#382900; --img-3b:#866700; color-scheme:dark}
+
+/* Amarillo · combinación Complementaria: azul + violeta */
+[data-palette="amarillo"], [data-palette="amarillo"][data-combo="complementaria"]{--sec:#0782F8; --sec-on:#111318; --sec-tint:#E1EEFF; --sec-fg:#0053A5; --ter:#975EEF; --ter-on:#111318; --ter-tint:#EFE9FF; --ter-fg:#6530AC}
+@media (prefers-color-scheme:dark){[data-palette="amarillo"]:not([data-theme="light"]), [data-palette="amarillo"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}}
+[data-palette="amarillo"][data-theme="dark"], [data-palette="amarillo"][data-combo="complementaria"][data-theme="dark"]{--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#B085FF; --ter-on:#111318; --ter-tint:#33244E; --ter-fg:#C9B2FF}
+
+/* Amarillo · combinación Tríada: cian + rosa */
+[data-palette="amarillo"][data-combo="triada"]{--sec:#0093B5; --sec-on:#111318; --sec-tint:#D3F3FF; --sec-fg:#005F76; --ter:#D64295; --ter-on:#111318; --ter-tint:#FFE4F0; --ter-fg:#951263}
+@media (prefers-color-scheme:dark){[data-palette="amarillo"][data-combo="triada"]:not([data-theme="light"]){--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}}
+[data-palette="amarillo"][data-combo="triada"][data-theme="dark"]{--sec:#11B3DB; --sec-on:#111318; --sec-tint:#023441; --sec-fg:#72D0EF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}
+
+/* Amarillo · combinación Análoga: naranja + lima */
+[data-palette="amarillo"][data-combo="analoga"]{--sec:#D15D00; --sec-on:#111318; --sec-tint:#FFE7DC; --sec-fg:#893B00; --ter:#789100; --ter-on:#111318; --ter-tint:#E6F4C6; --ter-fg:#4D5E00}
+@media (prefers-color-scheme:dark){[data-palette="amarillo"][data-combo="analoga"]:not([data-theme="light"]){--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}}
+[data-palette="amarillo"][data-combo="analoga"][data-theme="dark"]{--sec:#F17D38; --sec-on:#111318; --sec-tint:#49210B; --sec-fg:#FFA97D; --ter:#92B000; --ter-on:#111318; --ter-tint:#293300; --ter-fg:#A6C43C}
+
+/* Lavanda */
+[data-palette="lavanda"]{--tone-50:#F7F5FF; --tone-100:#EDEAFC; --tone-200:#DCD6F4; --tone-300:#C3BAE5; --tone-400:#9B8FC4; --tone-500:#887AB6; --tone-600:#6F619A; --tone-700:#584C7D; --tone-800:#423860; --tone-900:#2D2545; --tone-950:#1B142D; --bg:#F6F4FD; --surface:#FFFFFF; --tint:#EDEAFC; --selected:#DCD6F4; --hero:#2D2545; --hero-2:#423860; --on-hero:#FFFFFF; --on-hero-soft:#C3BAE5; --accent:#6F619A; --on-accent:#FFFFFF; --text:#16151D; --text-2:#64616F; --border:#DEDDE5; --nav:#FFFFFF; --nav-active:#2D2545; --on-nav-active:#FFFFFF; --img-1a:#EDEAFC; --img-1b:#9B8FC4; --img-2a:#DCD6F4; --img-2b:#6F619A; --img-3a:#C3BAE5; --img-3b:#423860}
+@media (prefers-color-scheme:dark){[data-palette="lavanda"]:not([data-theme="light"]){--bg:#0F0C17; --surface:#1A1724; --tint:#292437; --selected:#423860; --hero:#584C7D; --hero-2:#6F619A; --on-hero:#FFFFFF; --on-hero-soft:#DCD6F4; --accent:#9B8FC4; --on-accent:#111318; --text:#F2F0F9; --text-2:#A5A2B1; --border:#2E2B3A; --nav:#221F2D; --nav-active:#887AB6; --on-nav-active:#111318; --img-1a:#584C7D; --img-1b:#9B8FC4; --img-2a:#423860; --img-2b:#887AB6; --img-3a:#2D2545; --img-3b:#6F619A; color-scheme:dark}}
+[data-palette="lavanda"][data-theme="dark"]{--bg:#0F0C17; --surface:#1A1724; --tint:#292437; --selected:#423860; --hero:#584C7D; --hero-2:#6F619A; --on-hero:#FFFFFF; --on-hero-soft:#DCD6F4; --accent:#9B8FC4; --on-accent:#111318; --text:#F2F0F9; --text-2:#A5A2B1; --border:#2E2B3A; --nav:#221F2D; --nav-active:#887AB6; --on-nav-active:#111318; --img-1a:#584C7D; --img-1b:#9B8FC4; --img-2a:#423860; --img-2b:#887AB6; --img-3a:#2D2545; --img-3b:#6F619A; color-scheme:dark}
+
+/* Lavanda · combinación Complementaria: ambar + verde */
+[data-palette="lavanda"], [data-palette="lavanda"][data-combo="complementaria"]{--sec:#AE7900; --sec-on:#111318; --sec-tint:#FEEACC; --sec-fg:#714D00; --ter:#219F35; --ter-on:#111318; --ter-tint:#DAF6DA; --ter-fg:#006818}
+@media (prefers-color-scheme:dark){[data-palette="lavanda"]:not([data-theme="light"]), [data-palette="lavanda"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#D3940A; --sec-on:#111318; --sec-tint:#3E2901; --sec-fg:#E9B869; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}}
+[data-palette="lavanda"][data-theme="dark"], [data-palette="lavanda"][data-combo="complementaria"][data-theme="dark"]{--sec:#D3940A; --sec-on:#111318; --sec-tint:#3E2901; --sec-fg:#E9B869; --ter:#5BBA61; --ter-on:#111318; --ter-tint:#163618; --ter-fg:#8FD591}
+
+/* Lavanda · combinación Tríada: cafe + turquesa */
+[data-palette="lavanda"][data-combo="triada"]{--sec:#A67A5C; --sec-on:#111318; --sec-tint:#F7EAE2; --sec-fg:#704C33; --ter:#009991; --ter-on:#111318; --ter-tint:#D6F4F1; --ter-fg:#00635D}
+@media (prefers-color-scheme:dark){[data-palette="lavanda"][data-combo="triada"]:not([data-theme="light"]){--sec:#C0987E; --sec-on:#111318; --sec-tint:#382B22; --sec-fg:#D9BAA5; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}}
+[data-palette="lavanda"][data-combo="triada"][data-theme="dark"]{--sec:#C0987E; --sec-on:#111318; --sec-tint:#382B22; --sec-fg:#D9BAA5; --ter:#43B6AD; --ter-on:#111318; --ter-tint:#0E3532; --ter-fg:#82D2CA}
+
+/* Lavanda · combinación Análoga: celeste + rosa */
+[data-palette="lavanda"][data-combo="analoga"]{--sec:#4088D1; --sec-on:#111318; --sec-tint:#E0EFFF; --sec-fg:#175793; --ter:#D64295; --ter-on:#111318; --ter-tint:#FFE4F0; --ter-fg:#951263}
+@media (prefers-color-scheme:dark){[data-palette="lavanda"][data-combo="analoga"]:not([data-theme="light"]){--sec:#6AA6E6; --sec-on:#111318; --sec-tint:#1B2F45; --sec-fg:#8AB8EA; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}}
+[data-palette="lavanda"][data-combo="analoga"][data-theme="dark"]{--sec:#6AA6E6; --sec-on:#111318; --sec-tint:#1B2F45; --sec-fg:#8AB8EA; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}
+
+/* Lima */
+[data-palette="lima"]{--tone-50:#F3FBE2; --tone-100:#E6F4C6; --tone-200:#D0E694; --tone-300:#A6C43C; --tone-400:#92B000; --tone-500:#789100; --tone-600:#617600; --tone-700:#4D5E00; --tone-800:#394600; --tone-900:#263000; --tone-950:#161D00; --bg:#F4F7EE; --surface:#FFFFFF; --tint:#E6F4C6; --selected:#D0E694; --hero:#263000; --hero-2:#394600; --on-hero:#FFFFFF; --on-hero-soft:#A6C43C; --accent:#617600; --on-accent:#FFFFFF; --text:#15170E; --text-2:#616656; --border:#DDDFD7; --nav:#FFFFFF; --nav-active:#263000; --on-nav-active:#FFFFFF; --img-1a:#E6F4C6; --img-1b:#92B000; --img-2a:#D0E694; --img-2b:#617600; --img-3a:#A6C43C; --img-3b:#394600}
+@media (prefers-color-scheme:dark){[data-palette="lima"]:not([data-theme="light"]){--bg:#0D1005; --surface:#171C0C; --tint:#232C00; --selected:#394600; --hero:#4D5E00; --hero-2:#617600; --on-hero:#FFFFFF; --on-hero-soft:#D0E694; --accent:#92B000; --on-accent:#111318; --text:#F0F3EA; --text-2:#A2A797; --border:#2B3020; --nav:#1F2414; --nav-active:#789100; --on-nav-active:#111318; --img-1a:#4D5E00; --img-1b:#92B000; --img-2a:#394600; --img-2b:#789100; --img-3a:#263000; --img-3b:#617600; color-scheme:dark}}
+[data-palette="lima"][data-theme="dark"]{--bg:#0D1005; --surface:#171C0C; --tint:#232C00; --selected:#394600; --hero:#4D5E00; --hero-2:#617600; --on-hero:#FFFFFF; --on-hero-soft:#D0E694; --accent:#92B000; --on-accent:#111318; --text:#F0F3EA; --text-2:#A2A797; --border:#2B3020; --nav:#1F2414; --nav-active:#789100; --on-nav-active:#111318; --img-1a:#4D5E00; --img-1b:#92B000; --img-2a:#394600; --img-2b:#789100; --img-3a:#263000; --img-3b:#617600; color-scheme:dark}
+
+/* Lima · combinación Complementaria: indigo + rosa */
+[data-palette="lima"], [data-palette="lima"][data-combo="complementaria"]{--sec:#6570FF; --sec-on:#111318; --sec-tint:#E7ECFF; --sec-fg:#3E40B9; --ter:#D64295; --ter-on:#111318; --ter-tint:#FFE4F0; --ter-fg:#951263}
+@media (prefers-color-scheme:dark){[data-palette="lima"]:not([data-theme="light"]), [data-palette="lima"][data-combo="complementaria"]:not([data-theme="light"]){--sec:#8797FF; --sec-on:#111318; --sec-tint:#232953; --sec-fg:#AFBCFF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}}
+[data-palette="lima"][data-theme="dark"], [data-palette="lima"][data-combo="complementaria"][data-theme="dark"]{--sec:#8797FF; --sec-on:#111318; --sec-tint:#232953; --sec-fg:#AFBCFF; --ter:#EE6EB0; --ter-on:#111318; --ter-tint:#471D33; --ter-fg:#FF9ECD}
+
+/* Lima · combinación Tríada: azul + rojo */
+[data-palette="lima"][data-combo="triada"]{--sec:#0782F8; --sec-on:#111318; --sec-tint:#E1EEFF; --sec-fg:#0053A5; --ter:#E83A3E; --ter-on:#111318; --ter-tint:#FFE6E4; --ter-fg:#A30018}
+@media (prefers-color-scheme:dark){[data-palette="lima"][data-combo="triada"]:not([data-theme="light"]){--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}}
+[data-palette="lima"][data-combo="triada"][data-theme="dark"]{--sec:#5AA3FF; --sec-on:#111318; --sec-tint:#122E51; --sec-fg:#96C4FF; --ter:#FE6B66; --ter-on:#111318; --ter-tint:#4D1C1A; --ter-fg:#FFA59E}
+
+/* Lima · combinación Análoga: amarillo + esmeralda */
+[data-palette="lima"][data-combo="analoga"]{--sec:#A47F00; --sec-on:#111318; --sec-tint:#FFEBBE; --sec-fg:#6B5100; --ter:#009D6D; --ter-on:#111318; --ter-tint:#D6F6E5; --ter-fg:#006645}
+@media (prefers-color-scheme:dark){[data-palette="lima"][data-combo="analoga"]:not([data-theme="light"]){--sec:#C89A00; --sec-on:#111318; --sec-tint:#3B2B00; --sec-fg:#F2BE23; --ter:#42BA8A; --ter-on:#111318; --ter-tint:#0E3626; --ter-fg:#82D5AF}}
+[data-palette="lima"][data-combo="analoga"][data-theme="dark"]{--sec:#C89A00; --sec-on:#111318; --sec-tint:#3B2B00; --sec-fg:#F2BE23; --ter:#42BA8A; --ter-on:#111318; --ter-tint:#0E3626; --ter-fg:#82D5AF}
 
 /* Colores por categoría (tareas, agenda, etiquetas) — independientes de la paleta */
 :root{--cat-violeta-stripe:#975EEF; --cat-violeta-bg:#EFE9FF; --cat-violeta-fg:#6530AC; --cat-azul-stripe:#0782F8; --cat-azul-bg:#E1EEFF; --cat-azul-fg:#0053A5; --cat-verde-stripe:#219F35; --cat-verde-bg:#DAF6DA; --cat-verde-fg:#006818; --cat-ambar-stripe:#D3940A; --cat-ambar-bg:#FEEACC; --cat-ambar-fg:#714D00; --cat-rojo-stripe:#E83A3E; --cat-rojo-bg:#FFE6E4; --cat-rojo-fg:#A30018; --cat-cian-stripe:#0093B5; --cat-cian-bg:#D3F3FF; --cat-cian-fg:#005F76; --cat-rosa-stripe:#D64295; --cat-rosa-bg:#FFE4F0; --cat-rosa-fg:#951263; --cat-cafe-stripe:#A67A5C; --cat-cafe-bg:#F7EAE2; --cat-cafe-fg:#704C33}

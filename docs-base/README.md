@@ -11,7 +11,7 @@ Kit de 9 documentos reutilizables para todas tus apps (StockZap, NutriApp, apps 
 | 05 | `05-BACKEND-SCHEMA.md` | ¿Cómo se guardan los datos? | Medio (tablas base + propias) |
 | 06 | `06-IMPLEMENTATION-PLAN.md` | ¿En qué orden se construye? | Medio (Fases D y 0 siempre iguales) |
 | 07 | `07-MOTION-DESIGN.md` | ¿Cómo se mueve? | Poco (nivel + animación firma) |
-| 08 | `08-PALETAS-DE-COLOR.md` | ¿Qué colores, en claro y oscuro? | Solo eliges una paleta |
+| 08 | `08-PALETAS-DE-COLOR.md` | ¿Qué colores, en claro y oscuro, y con qué se combinan? | Eliges una de las 21 paletas y una de sus 3 combinaciones |
 | 09 | `09-ICONOS.md` | ¿Qué tipo de íconos y cuáles? | Eliges librería, estilo y set |
 
 **Archivos de apoyo**
@@ -21,7 +21,7 @@ Kit de 9 documentos reutilizables para todas tus apps (StockZap, NutriApp, apps 
 - `iconos/miniatura-3d/`: 100 íconos Miniatura 3D (.webp de 512 px) y su generador para crear más.
 - `pedidos/app-pedidos.html`: app de pedidos con delivery (Patrón H): inicio, escaneo de carta, plato, carrito, pago, pedido realizado y seguimiento; cada efecto se puede ver por separado.
 - `ingreso/pantallas-ingreso.html`: las 7 pantallas de ingreso (F1–F7) con sus efectos.
-- `paletas/paletas.html`: eliges color y ves las pantallas en claro y oscuro. `paletas/paletas.css` y `paletas/paletas.json` contienen el código.
+- `paletas/paletas.html`: eliges color y combinación y ves las pantallas en claro y oscuro. `paletas/paletas.css` y `paletas/paletas.json` contienen el código.
 - `referencias/`: imágenes de referencia de diseño.
 - `AGENTS.md`: instrucciones para la IA.
 
