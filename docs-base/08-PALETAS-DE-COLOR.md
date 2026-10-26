@@ -1,8 +1,9 @@
 ---
 documento: Paletas de color — plantilla por color, modo claro y oscuro
-version_base: 1.1
+version_base: 1.2
 app: "{{NOMBRE_APP}}"
 paleta_elegida: "{{marino | azul | indigo | violeta | rosa | rojo | naranja | ambar | verde | esmeralda | turquesa | cian | cafe | pizarra | azulrey | hoja | celeste | caramelo | amarillo | lavanda | lima}}"
+tono_elegido: "{{c3 | c2 | c1 | base | o1 | o2 | o3}}"
 combinacion_elegida: "{{complementaria | triada | analoga}}"
 ultima_actualizacion: "{{AAAA-MM-DD}}"
 ---
@@ -20,9 +21,10 @@ ultima_actualizacion: "{{AAAA-MM-DD}}"
 1. Abre la página de paletas, prueba colores con las pantallas reales y elige uno.
 2. Escribe su `id` arriba en `paleta_elegida`.
 3. En la app: copia `paletas.css` (o solo el bloque de tu color) y pon `<html data-palette="{{id}}">`.
-4. Elige también **una de sus 3 combinaciones** (§4b) y ponla junto a la paleta: `<html data-palette="{{id}}" data-combo="{{complementaria | triada | analoga}}">`. Sin `data-combo` se usa la complementaria.
-5. El modo oscuro se activa solo según el celular; para forzarlo, `data-theme="dark"` o `"light"`.
-6. En el código **solo se usan roles** (`var(--hero)`, `var(--tint)`…), nunca hex sueltos. Así cambiar de color es cambiar una palabra.
+4. Elige el **tono** del color (§4c): 3 claros, la base o 3 oscuros, con `data-tono="{{c3 | c2 | c1 | o1 | o2 | o3}}"`. Sin `data-tono` se usa la base.
+5. Elige también **una de sus 3 combinaciones** (§4b) y ponla junto a la paleta: `<html data-palette="{{id}}" data-combo="{{complementaria | triada | analoga}}">`. Sin `data-combo` se usa la complementaria.
+6. El modo oscuro se activa solo según el celular; para forzarlo, `data-theme="dark"` o `"light"`.
+7. En el código **solo se usan roles** (`var(--hero)`, `var(--tint)`…), nunca hex sueltos. Así cambiar de color es cambiar una palabra.
 
 ## 2. Cómo está construida cada paleta
 
@@ -82,6 +84,25 @@ Las 6 acompañantes de un color son todas distintas, así que hay 3 caminos real
 
 **Regla 60 · 30 · 10:** el color principal (paleta) manda en superficies, cabeceras y el botón primario (≈60 %); `--sec` acompaña en elementos secundarios (≈30 %); `--ter` solo en detalles (≈10 %). Nunca dos botones primarios de colores distintos en la misma pantalla. El blanco y el negro de cada paleta (`--surface`, `--text`) siempre están disponibles como neutros.
 
+## 4c. Tonos: 3 claros y 3 oscuros por color
+
+Cada uno de los 21 colores tiene **7 tonos** (147 plantillas en total), y cada tono trae su plantilla completa para **modo claro y modo oscuro**:
+
+| Tono | `data-tono` | Cómo cambia |
+|---|---|---|
+| Claro 3 | `c3` | la versión más clara: cabecera y botones en tono medio-claro, con texto oscuro encima cuando hace falta |
+| Claro 2 | `c2` | más claro que la base |
+| Claro 1 | `c1` | un poco más claro que la base |
+| **Base** | *(sin atributo)* | la plantilla original del color |
+| Oscuro 1 | `o1` | un poco más profundo |
+| Oscuro 2 | `o2` | más profundo |
+| Oscuro 3 | `o3` | la versión más oscura: cabecera casi negra teñida del color |
+
+- Los tonos mueven sobre todo los colores medios y oscuros (cabecera, botón, píldora activa); los fondos y el texto casi no cambian, así que la lectura se mantiene.
+- Si un rol queda en un punto donde ni el texto blanco ni el oscuro llegan a 4.5:1, se ajusta solo hasta cumplir. **Todas las 147 plantillas cumplen AA** en claro y oscuro (texto, cabecera y botón).
+- Las combinaciones (§4b) valen para todos los tonos del color.
+- Uso: `<html data-palette="azul" data-tono="c2" data-combo="triada">`.
+
 ### Azul marino · `marino`
 
 _Sugerido para: Salud, finanzas, servicios profesionales (ref. 01)._
@@ -112,6 +133,16 @@ _Sugerido para: Salud, finanzas, servicios profesionales (ref. 01)._
 | Complementaria (`complementaria`) | Caramelo + Verde hoja | `#B77326` / `#5E9F35` | `#C4884C` / `#7BB45D` |
 | Tríada (`triada`) | Rojo + Verde | `#E83A3E` / `#219F35` | `#FE6B66` / `#5BBA61` |
 | Análoga (`analoga`) | Cian + Lavanda | `#0093B5` / `#887AB6` | `#11B3DB` / `#9B8FC4` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#8BB4FF` | `#516C9C` / `#8BB4FF` | `#749BE2` / `#C2D8FF` |
+| Claro 2 (`c2`) | `#709AE9` | `#3B5583` / `#709AE9` | `#5D82C8` / `#A5C5FF` |
+| Claro 1 (`c1`) | `#5882CE` | `#273E6B` / `#5882CE` | `#466AAE` / `#8CB3FA` |
+| Base (`base`) | `#4269B4` | `#132954` / `#4269B4` | `#305394` / `#7BA1E7` |
+| Oscuro 1 (`o1`) | `#345BA4` | `#071C46` / `#345BA4` | `#234484` / `#6F94DA` |
+| Oscuro 2 (`o2`) | `#274C94` | `#010F38` / `#274C94` | `#163675` / `#6388CC` |
+| Oscuro 3 (`o3`) | `#193E84` | `#000525` / `#193E84` | `#092866` / `#587DC1` |
 
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.3:1 / 7.5:1
 
@@ -146,6 +177,16 @@ _Sugerido para: Tecnología, logística, confianza._
 | Tríada (`triada`) | Rojo + Verde hoja | `#E83A3E` / `#5E9F35` | `#FE6B66` / `#7BB45D` |
 | Análoga (`analoga`) | Cian + Violeta | `#0093B5` / `#975EEF` | `#11B3DB` / `#B085FF` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#7FB7FF` | `#326CB4` / `#7FB7FF` | `#4C9CFF` / `#BDD9FF` |
+| Claro 2 (`c2`) | `#4C9CFF` | `#19559A` / `#4C9CFF` | `#2882E9` / `#9DC8FF` |
+| Claro 1 (`c1`) | `#1181F3` | `#003E7E` / `#1181F3` | `#0069CD` / `#7DB6FF` |
+| Base (`base`) | `#0069CD` | `#002A59` / `#0069CD` | `#0053A5` / `#5AA3FF` |
+| Oscuro 1 (`o1`) | `#005BB4` | `#001E44` / `#005BB4` | `#00468C` / `#4195FB` |
+| Oscuro 2 (`o2`) | `#004E9B` | `#00132F` / `#004E9B` | `#003975` / `#3388ED` |
+| Oscuro 3 (`o3`) | `#004183` | `#00081C` / `#004183` | `#002D5E` / `#257DE1` |
+
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 14.2:1 / 7.6:1
 
 ### Índigo · `indigo`
@@ -178,6 +219,16 @@ _Sugerido para: Productividad, educación._
 | Complementaria (`complementaria`) | Caramelo + Lima | `#B77326` / `#789100` | `#C4884C` / `#92B000` |
 | Tríada (`triada`) | Rojo + Verde | `#E83A3E` / `#219F35` | `#FE6B66` / `#5BBA61` |
 | Análoga (`analoga`) | Cian + Violeta | `#0093B5` / `#975EEF` | `#11B3DB` / `#B085FF` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#9EAEFF` | `#5662B8` / `#9EAEFF` | `#7F90FF` / `#CBD5FF` |
+| Claro 2 (`c2`) | `#7F90FF` | `#424B9E` / `#7F90FF` | `#6673EF` / `#B3C1FF` |
+| Claro 1 (`c1`) | `#6470FA` | `#2E3385` / `#6470FA` | `#515AD4` / `#9DACFF` |
+| Base (`base`) | `#5056DE` | `#1D1B6C` / `#5056DE` | `#3E40B9` / `#8797FF` |
+| Oscuro 1 (`o1`) | `#4445CD` | `#140A5D` / `#4445CD` | `#3230A8` / `#7887FF` |
+| Oscuro 2 (`o2`) | `#3834BC` | `#0C0048` / `#3834BC` | `#281E97` / `#6C7AF3` |
+| Oscuro 3 (`o3`) | `#2E21AB` | `#05002D` / `#2E21AB` | `#200487` / `#5D69E1` |
 
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.7:1 / 8.0:1
 
@@ -212,6 +263,16 @@ _Sugerido para: Creatividad, bienestar._
 | Tríada (`triada`) | Naranja + Turquesa | `#D15D00` / `#009991` | `#F17D38` / `#43B6AD` |
 | Análoga (`analoga`) | Azul + Rosa | `#0782F8` / `#D64295` | `#5AA3FF` / `#EE6EB0` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#BFA0FF` | `#7657AE` / `#BFA0FF` | `#AB7DFD` / `#DCCEFF` |
+| Claro 2 (`c2`) | `#AB7CFF` | `#604095` / `#AB7CFF` | `#9363E1` / `#CDB7FF` |
+| Claro 1 (`c1`) | `#9760ED` | `#4A297C` / `#9760ED` | `#7B4AC6` / `#BE9FFF` |
+| Base (`base`) | `#7D44CF` | `#360F63` / `#7D44CF` | `#6530AC` / `#B085FF` |
+| Oscuro 1 (`o1`) | `#6F33BE` | `#2A0053` / `#6F33BE` | `#571E9B` / `#A477F4` |
+| Oscuro 2 (`o2`) | `#621FAD` | `#1C003A` / `#621FAD` | `#4A058B` / `#986AE5` |
+| Oscuro 3 (`o3`) | `#54029D` | `#0E0024` / `#54029D` | `#3B0072` / `#8B5DD8` |
+
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 14.9:1 / 8.2:1
 
 ### Rosa · `rosa`
@@ -244,6 +305,16 @@ _Sugerido para: Belleza, moda, comunidad._
 | Complementaria (`complementaria`) | Verde + Turquesa | `#219F35` / `#009991` | `#5BBA61` / `#43B6AD` |
 | Tríada (`triada`) | Lima + Cian | `#789100` / `#0093B5` | `#92B000` / `#11B3DB` |
 | Análoga (`analoga`) | Violeta + Rojo | `#975EEF` / `#E83A3E` | `#B085FF` / `#FE6B66` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#FF85C3` | `#A04876` / `#FF85C3` | `#E866AB` / `#FFC3DE` |
+| Claro 2 (`c2`) | `#EF5EAC` | `#87315F` / `#EF5EAC` | `#CE4F94` / `#FFA4D0` |
+| Claro 1 (`c1`) | `#D44695` | `#6D1849` / `#D44695` | `#B1327A` / `#FF82C2` |
+| Base (`base`) | `#B6267B` | `#520034` / `#B6267B` | `#951263` / `#EE6EB0` |
+| Oscuro 1 (`o1`) | `#A50C6D` | `#3E0026` / `#A50C6D` | `#820054` / `#DF61A4` |
+| Oscuro 2 (`o2`) | `#90005D` | `#2B0019` / `#90005D` | `#6C0045` / `#D15497` |
+| Oscuro 3 (`o3`) | `#79004E` | `#19000C` / `#79004E` | `#570036` / `#C3478B` |
 
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.9:1 / 8.3:1
 
@@ -278,6 +349,16 @@ _Sugerido para: Comida, urgencias, deporte._
 | Tríada (`triada`) | Verde + Azul rey | `#219F35` / `#3C7BFF` | `#5BBA61` / `#6E9FFF` |
 | Análoga (`analoga`) | Rosa + Caramelo | `#D64295` / `#B77326` | `#EE6EB0` / `#C4884C` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#FF9088` | `#AC4642` / `#FF9088` | `#F9635E` / `#FFC7C2` |
+| Claro 2 (`c2`) | `#FF5C58` | `#912E2C` / `#FF5C58` | `#DE4A48` / `#FFACA4` |
+| Claro 1 (`c1`) | `#E63E40` | `#771217` / `#E63E40` | `#C02B2F` / `#FF8E86` |
+| Base (`base`) | `#C71826` | `#580008` / `#C71826` | `#A30018` / `#FE6B66` |
+| Oscuro 1 (`o1`) | `#B2001B` | `#430004` / `#B2001B` | `#8B0012` / `#EF5E59` |
+| Oscuro 2 (`o2`) | `#990015` | `#2E0002` / `#990015` | `#73000D` / `#E1504D` |
+| Oscuro 3 (`o3`) | `#810010` | `#1B0001` / `#810010` | `#5D0009` / `#D24341` |
+
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.8:1 / 8.2:1
 
 ### Naranja · `naranja`
@@ -310,6 +391,16 @@ _Sugerido para: Delivery, energía, ofertas._
 | Complementaria (`complementaria`) | Turquesa + Azul | `#009991` / `#0782F8` | `#43B6AD` / `#5AA3FF` |
 | Tríada (`triada`) | Esmeralda + Violeta | `#009D6D` / `#975EEF` | `#42BA8A` / `#B085FF` |
 | Análoga (`analoga`) | Rosa + Amarillo | `#D64295` / `#A47F00` | `#EE6EB0` / `#C89A00` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#FF955B` | `#A35223` / `#FF955B` | `#EB752D` / `#FFCAAF` |
+| Claro 2 (`c2`) | `#F26F0E` | `#893B02` / `#F26F0E` | `#CF5C00` / `#FFAF86` |
+| Claro 1 (`c1`) | `#CF5C00` | `#682B00` / `#CF5C00` | `#AC4B00` / `#FF9257` |
+| Base (`base`) | `#AC4B00` | `#491C00` / `#AC4B00` | `#893B00` / `#F17D38` |
+| Oscuro 1 (`o1`) | `#964100` | `#371300` / `#964100` | `#753100` / `#E37029` |
+| Oscuro 2 (`o2`) | `#813700` | `#260A00` / `#813700` | `#612700` / `#D46315` |
+| Oscuro 3 (`o3`) | `#6C2D00` | `#160400` / `#6C2D00` | `#4D1E00` / `#C25600` |
 
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.5:1 / 7.8:1
 
@@ -344,6 +435,16 @@ _Sugerido para: Construcción, ahorro, alertas._
 | Tríada (`triada`) | Turquesa + Lavanda | `#009991` / `#887AB6` | `#43B6AD` / `#9B8FC4` |
 | Análoga (`analoga`) | Naranja + Lima | `#D15D00` / `#789100` | `#F17D38` / `#92B000` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#EBA500` | `#8E6205` / `#EBA500` | `#CB8E00` / `#FFCE81` |
+| Claro 2 (`c2`) | `#CB8E00` | `#714D00` / `#CB8E00` | `#AC7800` / `#F8B845` |
+| Claro 1 (`c1`) | `#AC7800` | `#563A00` / `#AC7800` | `#8E6200` / `#E5A62E` |
+| Base (`base`) | `#8E6200` | `#3C2700` / `#8E6200` | `#714D00` / `#D3940A` |
+| Oscuro 1 (`o1`) | `#7C5500` | `#2C1C00` / `#7C5500` | `#604100` / `#C38800` |
+| Oscuro 2 (`o2`) | `#6A4800` | `#1E1100` / `#6A4800` | `#4F3500` / `#B37D00` |
+| Oscuro 3 (`o3`) | `#593C00` | `#100700` / `#593C00` | `#3F2900` / `#A77509` |
+
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 14.2:1 / 7.6:1
 
 ### Verde · `verde`
@@ -376,6 +477,16 @@ _Sugerido para: Nutrición, agro, sostenibilidad._
 | Complementaria (`complementaria`) | Violeta + Rosa | `#975EEF` / `#D64295` | `#B085FF` / `#EE6EB0` |
 | Tríada (`triada`) | Azul rey + Rojo | `#3C7BFF` / `#E83A3E` | `#6E9FFF` / `#FE6B66` |
 | Análoga (`analoga`) | Lima + Turquesa | `#789100` / `#009991` | `#92B000` / `#43B6AD` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#61D069` | `#3B7D3F` / `#61D069` | `#52B459` / `#92F295` |
+| Claro 2 (`c2`) | `#46B650` | `#226529` / `#46B650` | `#369B41` / `#7FDF84` |
+| Claro 1 (`c1`) | `#269D37` | `#024E11` / `#269D37` | `#148227` / `#6DCC72` |
+| Base (`base`) | `#008321` | `#003608` / `#008321` | `#006818` / `#5BBA61` |
+| Oscuro 1 (`o1`) | `#00721B` | `#002804` / `#00721B` | `#005813` / `#4DAD55` |
+| Oscuro 2 (`o2`) | `#006216` | `#001A02` / `#006216` | `#00480E` / `#40A048` |
+| Oscuro 3 (`o3`) | `#005211` | `#000E01` / `#005211` | `#003909` / `#31933C` |
 
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 13.7:1 / 7.0:1
 
@@ -410,6 +521,16 @@ _Sugerido para: Salud, pagos, crecimiento._
 | Tríada (`triada`) | Índigo + Naranja | `#6570FF` / `#D15D00` | `#8797FF` / `#F17D38` |
 | Análoga (`analoga`) | Verde hoja + Cian | `#5E9F35` / `#0093B5` | `#7BB45D` / `#11B3DB` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#42D199` | `#2A7D5C` / `#42D199` | `#35B483` / `#7EF2BE` |
+| Claro 2 (`c2`) | `#15B781` | `#046546` / `#15B781` | `#009B6C` / `#6BDFAD` |
+| Claro 1 (`c1`) | `#009B6C` | `#004C33` / `#009B6C` | `#008058` / `#57CC9B` |
+| Base (`base`) | `#008058` | `#003522` / `#008058` | `#006645` / `#42BA8A` |
+| Oscuro 1 (`o1`) | `#006F4C` | `#002718` / `#006F4C` | `#00563A` / `#31AD7E` |
+| Oscuro 2 (`o2`) | `#005F41` | `#00190E` / `#005F41` | `#00462F` / `#1CA072` |
+| Oscuro 3 (`o3`) | `#005035` | `#000D06` / `#005035` | `#003824` / `#009366` |
+
 Contraste: texto 16.6:1 / 17.1:1 · blanco sobre hero 13.7:1 / 7.0:1
 
 ### Turquesa · `turquesa`
@@ -442,6 +563,16 @@ _Sugerido para: Viajes, agua, limpieza._
 | Complementaria (`complementaria`) | Rosa + Naranja | `#D64295` / `#D15D00` | `#EE6EB0` / `#F17D38` |
 | Tríada (`triada`) | Lavanda + Caramelo | `#887AB6` / `#B77326` | `#9B8FC4` / `#C4884C` |
 | Análoga (`analoga`) | Verde + Cian | `#219F35` / `#0093B5` | `#5BBA61` / `#11B3DB` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#43CCC2` | `#2A7A74` / `#43CCC2` | `#36B0A7` / `#7EEDE3` |
+| Claro 2 (`c2`) | `#18B2A9` | `#05635D` / `#18B2A9` | `#03978F` / `#6BDAD1` |
+| Claro 1 (`c1`) | `#00978F` | `#004A46` / `#00978F` | `#007D76` / `#58C8BF` |
+| Base (`base`) | `#007D76` | `#003330` / `#007D76` | `#00635D` / `#43B6AD` |
+| Oscuro 1 (`o1`) | `#006C66` | `#002523` / `#006C66` | `#00534F` / `#32A9A1` |
+| Oscuro 2 (`o2`) | `#005D57` | `#001817` / `#005D57` | `#004440` / `#1E9C94` |
+| Oscuro 3 (`o3`) | `#004D49` | `#000C0B` / `#004D49` | `#003633` / `#008F88` |
 
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 13.9:1 / 7.1:1
 
@@ -476,6 +607,16 @@ _Sugerido para: Mensajería, comunicación._
 | Tríada (`triada`) | Rosa + Amarillo | `#D64295` / `#A47F00` | `#EE6EB0` / `#C89A00` |
 | Análoga (`analoga`) | Turquesa + Azul marino | `#009991` / `#5883D2` | `#43B6AD` / `#7BA1E7` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#00C7F5` | `#097893` / `#00C7F5` | `#00ACD4` / `#97E4FF` |
+| Claro 2 (`c2`) | `#00ACD4` | `#005F76` / `#00ACD4` | `#0091B3` / `#53D7FF` |
+| Claro 1 (`c1`) | `#0091B3` | `#00475A` / `#0091B3` | `#007894` / `#36C5ED` |
+| Base (`base`) | `#007894` | `#00313E` / `#007894` | `#005F76` / `#11B3DB` |
+| Oscuro 1 (`o1`) | `#006881` | `#00242E` / `#006881` | `#005064` / `#00A5CB` |
+| Oscuro 2 (`o2`) | `#00596F` | `#00171F` / `#00596F` | `#004253` / `#0097BA` |
+| Oscuro 3 (`o3`) | `#004A5D` | `#000B11` / `#004A5D` | `#003442` / `#008AAA` |
+
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 13.9:1 / 7.2:1
 
 ### Café · `cafe`
@@ -509,6 +650,16 @@ _Sugerido para: Calzado, cuero, artesanía._
 | Tríada (`triada`) | Esmeralda + Lavanda | `#009D6D` / `#887AB6` | `#42BA8A` / `#9B8FC4` |
 | Análoga (`analoga`) | Rojo + Ámbar | `#E83A3E` / `#AE7900` | `#FE6B66` / `#D3940A` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#D7A98B` | `#816553` / `#D7A98B` | `#BA9277` / `#F7CDB2` |
+| Claro 2 (`c2`) | `#BD9173` | `#694F3D` / `#BD9173` | `#A17A60` / `#E4BBA0` |
+| Claro 1 (`c1`) | `#A3795C` | `#523928` / `#A3795C` | `#886249` / `#D2A98F` |
+| Base (`base`) | `#8B6145` | `#3C2515` / `#8B6145` | `#704C33` / `#C0987E` |
+| Oscuro 1 (`o1`) | `#7B5337` | `#2F1908` / `#7B5337` | `#613E26` / `#B38C72` |
+| Oscuro 2 (`o2`) | `#6C452A` | `#230D01` / `#6C452A` | `#533119` / `#A67F66` |
+| Oscuro 3 (`o3`) | `#5E381C` | `#140500` / `#5E381C` | `#45240B` / `#9B755C` |
+
 Contraste: texto 16.6:1 / 17.2:1 · blanco sobre hero 14.3:1 / 7.6:1
 
 ### Pizarra · `pizarra`
@@ -541,6 +692,16 @@ _Sugerido para: Neutro sobrio, herramientas internas._
 | Complementaria (`complementaria`) | Café + Verde hoja | `#A67A5C` / `#5E9F35` | `#C0987E` / `#7BB45D` |
 | Tríada (`triada`) | Caramelo + Verde | `#B77326` / `#219F35` | `#C4884C` / `#5BBA61` |
 | Análoga (`analoga`) | Cian + Lavanda | `#0093B5` / `#887AB6` | `#11B3DB` / `#9B8FC4` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#A6B6CA` | `#636D79` / `#A6B6CA` | `#8F9DAF` / `#CAD8EB` |
+| Claro 2 (`c2`) | `#8E9DB1` | `#4D5662` / `#8E9DB1` | `#778496` / `#B8C6D9` |
+| Claro 1 (`c1`) | `#768598` | `#38404C` / `#768598` | `#606D7E` / `#A6B4C6` |
+| Base (`base`) | `#5F6D80` | `#242C37` / `#5F6D80` | `#4A5666` / `#95A3B5` |
+| Oscuro 1 (`o1`) | `#515F71` | `#18202A` / `#515F71` | `#3D4958` / `#8996A8` |
+| Oscuro 2 (`o2`) | `#435162` | `#0D141E` / `#435162` | `#303B4B` / `#7D8A9B` |
+| Oscuro 3 (`o3`) | `#364354` | `#040912` / `#364354` | `#232F3D` / `#738090` |
 
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 14.1:1 / 7.5:1
 
@@ -577,6 +738,16 @@ Color de origen (referencia): `#2F6BEB` en el tono 600.
 | Tríada (`triada`) | Rojo + Verde | `#E83A3E` / `#219F35` | `#FE6B66` / `#5BBA61` |
 | Análoga (`analoga`) | Cian + Violeta | `#0093B5` / `#975EEF` | `#11B3DB` / `#B085FF` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#8CB4FF` | `#4068B9` / `#8CB4FF` | `#6498FF` / `#C2D8FF` |
+| Claro 2 (`c2`) | `#6498FF` | `#2B519F` / `#6498FF` | `#447CF0` / `#A6C5FF` |
+| Claro 1 (`c1`) | `#3C7AFB` | `#163985` / `#3C7AFB` | `#2D63D5` / `#8AB2FF` |
+| Base (`base`) | `#2F6BEB` | `#02226C` / `#2F6BEB` | `#1649B9` / `#6E9FFF` |
+| Oscuro 1 (`o1`) | `#1650CE` | `#001657` / `#1650CE` | `#0639A9` / `#5990FF` |
+| Oscuro 2 (`o2`) | `#053FBD` | `#000C3E` / `#053FBD` | `#002B93` / `#4B82F4` |
+| Oscuro 3 (`o3`) | `#0032A4` | `#000428` / `#0032A4` | `#002177` / `#3B71E2` |
+
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.5:1 / 7.8:1
 
 ### Verde hoja · `hoja`
@@ -611,6 +782,16 @@ Color de origen (referencia): `#5E9F35` en el tono 500.
 | Complementaria (`complementaria`) | Lavanda + Rosa | `#887AB6` / `#D64295` | `#9B8FC4` / `#EE6EB0` |
 | Tríada (`triada`) | Azul + Rojo | `#0782F8` / `#E83A3E` | `#5AA3FF` / `#FE6B66` |
 | Análoga (`analoga`) | Ámbar + Esmeralda | `#AE7900` / `#009D6D` | `#D3940A` / `#42BA8A` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#88C964` | `#51783C` / `#88C964` | `#74AE55` / `#B0EB91` |
+| Claro 2 (`c2`) | `#70AF4B` | `#3B6125` / `#70AF4B` | `#5D953C` / `#9ED87F` |
+| Claro 1 (`c1`) | `#589630` | `#264B0C` / `#589630` | `#457C21` / `#8DC66E` |
+| Base (`base`) | `#407E0F` | `#153400` / `#407E0F` | `#306400` / `#7BB45D` |
+| Oscuro 1 (`o1`) | `#356E00` | `#0E2600` / `#356E00` | `#275500` / `#6FA750` |
+| Oscuro 2 (`o2`) | `#2C5E00` | `#071900` / `#2C5E00` | `#1F4600` / `#639A43` |
+| Oscuro 3 (`o3`) | `#244F00` | `#030D00` / `#244F00` | `#173700` / `#578D37` |
 
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 13.8:1 / 7.1:1
 
@@ -647,6 +828,16 @@ Color de origen (referencia): `#8AB8EA` en el tono 300.
 | Tríada (`triada`) | Rojo + Verde hoja | `#E83A3E` / `#5E9F35` | `#FE6B66` / `#7BB45D` |
 | Análoga (`analoga`) | Cian + Lavanda | `#0093B5` / `#887AB6` | `#11B3DB` / `#9B8FC4` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#77B9FF` | `#456F9B` / `#77B9FF` | `#62A0E1` / `#B9DAFF` |
+| Claro 2 (`c2`) | `#5AA0E8` | `#2F5883` / `#5AA0E8` | `#4A87C6` / `#98C9FF` |
+| Claro 1 (`c1`) | `#4287CD` | `#18416B` / `#4287CD` | `#316FAC` / `#7BB8F9` |
+| Base (`base`) | `#286EB3` | `#002C53` / `#286EB3` | `#175793` / `#6AA6E6` |
+| Oscuro 1 (`o1`) | `#155FA3` | `#00203F` / `#155FA3` | `#014983` / `#5D99D8` |
+| Oscuro 2 (`o2`) | `#005191` | `#00142C` / `#005191` | `#003B6D` / `#518CCB` |
+| Oscuro 3 (`o3`) | `#00437B` | `#00091A` / `#00437B` | `#002E58` / `#4782BF` |
+
 Contraste: texto 16.7:1 / 17.2:1 · blanco sobre hero 14.1:1 / 7.4:1
 
 ### Caramelo · `caramelo`
@@ -681,6 +872,16 @@ Color de origen (referencia): `#C4884C` en el tono 400.
 | Complementaria (`complementaria`) | Cian + Azul marino | `#0093B5` / `#5883D2` | `#11B3DB` / `#7BA1E7` |
 | Tríada (`triada`) | Turquesa + Lavanda | `#009991` / `#887AB6` | `#43B6AD` / `#9B8FC4` |
 | Análoga (`analoga`) | Rojo + Verde hoja | `#E83A3E` / `#5E9F35` | `#FE6B66` / `#7BB45D` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#E9A35E` | `#8C6238` / `#E9A35E` | `#CA8C4F` / `#FFCC9C` |
+| Claro 2 (`c2`) | `#CE8A44` | `#734B21` / `#CE8A44` | `#B07436` / `#F5B67A` |
+| Claro 1 (`c1`) | `#B47229` | `#5C3507` / `#B47229` | `#965C1A` / `#E2A469` |
+| Base (`base`) | `#9A5A01` | `#412300` / `#9A5A01` | `#7B4700` / `#C4884C` |
+| Oscuro 1 (`o1`) | `#874E00` | `#311900` / `#874E00` | `#683B00` / `#C2864B` |
+| Oscuro 2 (`o2`) | `#744200` | `#210F00` / `#744200` | `#563000` / `#B57A3E` |
+| Oscuro 3 (`o3`) | `#613700` | `#120600` / `#613700` | `#452500` / `#A36A2E` |
 
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 14.3:1 / 7.7:1
 
@@ -717,6 +918,16 @@ Color de origen (referencia): `#F2BE23` en el tono 300.
 | Tríada (`triada`) | Cian + Rosa | `#0093B5` / `#D64295` | `#11B3DB` / `#EE6EB0` |
 | Análoga (`analoga`) | Naranja + Lima | `#D15D00` / `#789100` | `#F17D38` / `#92B000` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#DEAC00` | `#866700` / `#DEAC00` | `#C09500` / `#FFD059` |
+| Claro 2 (`c2`) | `#C09500` | `#6B5100` / `#C09500` | `#A37D00` / `#F2BC00` |
+| Claro 1 (`c1`) | `#A37D00` | `#513D00` / `#A37D00` | `#866700` / `#DDAB00` |
+| Base (`base`) | `#866700` | `#382900` / `#866700` | `#6B5100` / `#C89A00` |
+| Oscuro 1 (`o1`) | `#755900` | `#291D00` / `#755900` | `#5A4400` / `#B88E00` |
+| Oscuro 2 (`o2`) | `#644C00` | `#1B1200` / `#644C00` | `#4A3800` / `#A98200` |
+| Oscuro 3 (`o3`) | `#543F00` | `#0E0800` / `#543F00` | `#3B2B00` / `#9C7905` |
+
 Contraste: texto 16.6:1 / 17.1:1 · blanco sobre hero 14.1:1 / 7.5:1
 
 ### Lavanda · `lavanda`
@@ -751,6 +962,16 @@ Color de origen (referencia): `#9B8FC4` en el tono 400.
 | Complementaria (`complementaria`) | Ámbar + Verde | `#AE7900` / `#219F35` | `#D3940A` / `#5BBA61` |
 | Tríada (`triada`) | Café + Turquesa | `#A67A5C` / `#009991` | `#C0987E` / `#43B6AD` |
 | Análoga (`analoga`) | Celeste + Rosa | `#4088D1` / `#D64295` | `#6AA6E6` / `#EE6EB0` |
+
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#B7A9E7` | `#6E658A` / `#B7A9E7` | `#9E92C8` / `#D9CFFF` |
+| Claro 2 (`c2`) | `#9F91CD` | `#574F73` / `#9F91CD` | `#867AAF` / `#C7BBF3` |
+| Claro 1 (`c1`) | `#8679B3` | `#42395B` / `#8679B3` | `#6F6296` / `#B6AAE0` |
+| Base (`base`) | `#6F619A` | `#2D2545` / `#6F619A` | `#584C7D` / `#9B8FC4` |
+| Oscuro 1 (`o1`) | `#61538A` | `#211938` / `#61538A` | `#4B3E6E` / `#988CC1` |
+| Oscuro 2 (`o2`) | `#53457B` | `#160D2B` / `#53457B` | `#3E3160` / `#8B7FB3` |
+| Oscuro 3 (`o3`) | `#46376C` | `#0C031E` / `#46376C` | `#312451` / `#8277AA` |
 
 Contraste: texto 16.6:1 / 17.1:1 · blanco sobre hero 14.4:1 / 7.7:1
 
@@ -787,6 +1008,16 @@ Color de origen (referencia): `#A6C43C` en el tono 300.
 | Tríada (`triada`) | Azul + Rojo | `#0782F8` / `#E83A3E` | `#5AA3FF` / `#FE6B66` |
 | Análoga (`analoga`) | Amarillo + Esmeralda | `#A47F00` / `#009D6D` | `#C89A00` / `#42BA8A` |
 
+| Tono | Color clave (botón) | Claro: `--hero` / `--accent` | Oscuro: `--hero` / `--accent` |
+|---|---|---|---|
+| Claro 3 (`c3`) | `#A3C500` | `#617600` / `#A3C500` | `#8DAA00` / `#C3EA1A` |
+| Claro 2 (`c2`) | `#8DAA00` | `#4D5E00` / `#8DAA00` | `#778F00` / `#B3D700` |
+| Claro 1 (`c1`) | `#778F00` | `#394600` / `#778F00` | `#617600` / `#A2C300` |
+| Base (`base`) | `#617600` | `#263000` / `#617600` | `#4D5E00` / `#92B000` |
+| Oscuro 1 (`o1`) | `#546700` | `#1B2300` / `#546700` | `#404F00` / `#87A300` |
+| Oscuro 2 (`o2`) | `#485800` | `#111700` / `#485800` | `#344100` / `#7B9500` |
+| Oscuro 3 (`o3`) | `#3B4900` | `#070B00` / `#3B4900` | `#293300` / `#708800` |
+
 Contraste: texto 16.7:1 / 17.1:1 · blanco sobre hero 14.0:1 / 7.2:1
 
 ## 5. Colores por categoría (tareas, agenda, etiquetas)
@@ -820,6 +1051,7 @@ Cada categoría tiene 3 valores:
 | Ajuste | Valor |
 |---|---|
 | Paleta elegida | {{}} |
+| Tono elegido | {{c3 / c2 / c1 / base / o1 / o2 / o3}} |
 | Combinación elegida | {{complementaria / triada / analoga}} |
 | ¿Modo oscuro habilitado? | sí (base) / no |
 | Color secundario (opcional, solo para gráficos o etiquetas) | {{otra paleta, tono 500}} |
